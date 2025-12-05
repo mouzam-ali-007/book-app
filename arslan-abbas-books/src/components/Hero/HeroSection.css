@@ -8,11 +8,17 @@
     color: white;
     min-height: 100vh;
     gap: 40px;
+    width: 100%;
 }
 
 /* LEFT SIDE */
 .hero-left {
     max-width: 520px;
+}
+
+.hero-right {
+    position: absolute;
+    right: 0;
 }
 
 .new-release {
