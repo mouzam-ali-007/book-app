@@ -1,0 +1,120 @@
+/* Container */
+.hero-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 120px 80px;
+    background: #0f0f0f;
+    color: white;
+    min-height: 100vh;
+    gap: 40px;
+}
+
+/* LEFT SIDE */
+.hero-left {
+    max-width: 520px;
+}
+
+.new-release {
+    color: #9b9b9b;
+    letter-spacing: 2px;
+    font-size: 12px;
+    margin-bottom: 10px;
+}
+
+.book-title {
+    font-size: 64px;
+    font-weight: 700;
+    margin: 0 0 20px 0;
+}
+
+.tag {
+    background: #d60000;
+    padding: 8px 16px;
+    border-radius: 16px;
+    font-size: 12px;
+    font-weight: 600;
+    display: inline-block;
+    margin-bottom: 20px;
+}
+
+.description {
+    line-height: 1.6;
+    opacity: 0.9;
+    margin-bottom: 30px;
+}
+
+.preorder-btn {
+    background: white;
+    color: black;
+    padding: 14px 26px;
+    border-radius: 30px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    box-shadow: 0 4px 20px rgba(255, 255, 255, 0.1);
+    transition: 0.3s ease;
+}
+
+.preorder-btn:hover {
+    transform: translateY(-3px);
+}
+
+/* RIGHT SIDE */
+.book-card {
+    width: 340px;
+    height: 480px;
+    background: #1a1a1a;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #6d6d6d;
+    font-size: 14px;
+    border: 1px solid #242424;
+}
+
+.placeholder {
+    text-align: center;
+    opacity: 0.7;
+}
+
+/* ------------------------------- */
+/* 📱 MOBILE RESPONSIVE */
+/* ------------------------------- */
+
+@media (max-width: 900px) {
+    .hero-container {
+        flex-direction: column;
+        text-align: center;
+        padding: 70px 30px;
+    }
+
+    .hero-left {
+        max-width: 100%;
+    }
+
+    .book-title {
+        font-size: 44px;
+    }
+
+    .book-card {
+        width: 260px;
+        height: 380px;
+    }
+}
+
+@media (max-width: 500px) {
+    .hero-container {
+        padding: 60px 20px;
+    }
+
+    .book-title {
+        font-size: 36px;
+    }
+
+    .preorder-btn {
+        width: 100%;
+    }
+}

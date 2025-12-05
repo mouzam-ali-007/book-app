@@ -1,0 +1,116 @@
+/* NAVBAR MAIN */
+.navbar {
+    width: 100%;
+    padding: 20px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #000;
+    color: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    border-bottom: 1px solid #1d1d1d;
+}
+
+/* LOGO */
+.nav-logo {
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+}
+
+/* DESKTOP MENU */
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 40px;
+}
+
+.nav-links li a {
+    text-decoration: none;
+    color: #e7e7e7;
+    font-size: 15px;
+    transition: 0.3s ease;
+}
+
+.nav-links li a:hover {
+    opacity: 0.6;
+}
+
+/* MOBILE TOGGLE ICON */
+.nav-toggle {
+    width: 28px;
+    height: 22px;
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.bar {
+    height: 3px;
+    background: white;
+    border-radius: 3px;
+    transition: 0.3s;
+}
+
+.bar1-open {
+    transform: translateY(9px) rotate(45deg);
+}
+
+.bar2-open {
+    opacity: 0;
+}
+
+.bar3-open {
+    transform: translateY(-9px) rotate(-45deg);
+}
+
+/* MOBILE MENU */
+.mobile-menu {
+    position: absolute;
+    top: 70px;
+    right: 0;
+    background: #111;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0;
+    gap: 20px;
+    text-align: center;
+    transform: translateY(-300px);
+    transition: 0.4s ease;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.mobile-menu.open {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: all;
+}
+
+.mobile-menu a {
+    color: white;
+    font-size: 18px;
+    text-decoration: none;
+}
+
+/* ------------------------------- */
+/* 📱 MOBILE RESPONSIVE */
+/* ------------------------------- */
+@media (max-width: 900px) {
+    .nav-links {
+        display: none;
+    }
+
+    .nav-toggle {
+        display: flex;
+    }
+
+    .navbar {
+        padding: 20px 30px;
+    }
+}
