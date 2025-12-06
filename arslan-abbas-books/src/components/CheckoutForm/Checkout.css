@@ -1,0 +1,209 @@
+.checkout-wrapper {
+    width: 100%;
+    margin: 0 auto;
+    background: #0f0f0f;
+    padding: 25px;
+    border-radius: 0px;
+    color: white;
+    font-family: "Inter", sans-serif;
+}
+
+.main-title {
+    text-align: center;
+    font-size: 28px;
+    margin-bottom: 5px;
+}
+
+.subtitle {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #bbb;
+    font-size: 14px;
+}
+
+.books-row {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-bottom: 25px;
+}
+
+.book-card {
+
+
+
+    display: flex;
+    flex-direction: column;
+    /* forces vertical layout */
+    align-items: center;
+    /* centers content */
+
+
+    background: #1a1a1a;
+    padding: 20px;
+    border-radius: 8px;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+}
+
+
+.book-details {
+    width: 80%;
+    height: 50%;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #fff;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+
+    text-align: center;
+    padding: 10px;
+}
+
+.book-attributes {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    width: 80%;
+}
+
+.book-cover {
+    width: 100%;
+    border-radius: 5px;
+}
+
+
+
+.book-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: white;
+}
+
+.book-price,
+.book-edition {
+    font-size: 12px;
+    color: #ccc;
+}
+
+.qty-box input {
+    width: 45px;
+    padding: 5px;
+    text-align: center;
+    border-radius: 4px;
+    border: none;
+    margin-top: 5px;
+    font-size: 14px;
+}
+
+.summary-box {
+    background: #161616;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 25px;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    color: #eee;
+}
+
+.summary-row.total strong {
+    color: #fff;
+    font-size: 16px;
+}
+
+.contact-title {
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    font-size: 13px;
+    color: #bbb;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    background: #1e1e1e;
+    border: 1px solid #333;
+    border-radius: 6px;
+    color: white;
+}
+
+.edition-box {
+    background: #2e0000;
+    border: 2px solid #ff6b6b;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #fff;
+    animation: pulse-border 1.5s infinite;
+}
+
+.edition-heading {
+    font-weight: bold;
+    color: #ff6666;
+    margin-bottom: 8px;
+}
+
+.edition-limit {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.edition-alert {
+    color: #ffcc33;
+    font-size: 13px;
+}
+
+.edition-alert span {
+    color: yellow;
+    font-weight: bold;
+}
+
+.payment-btn {
+    width: 100%;
+    padding: 12px;
+    background: white;
+    color: black;
+    font-weight: bold;
+    border-radius: 30px;
+    border: none;
+    margin-top: 10px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+/* 📱 MOBILE VIEW — stack books vertically */
+@media (max-width: 700px) {
+    .books-row {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .book-card {
+        width: 90%;
+        max-width: 320px;
+    }
+}

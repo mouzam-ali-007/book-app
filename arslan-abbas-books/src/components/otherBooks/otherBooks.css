@@ -1,10 +1,12 @@
 /* OtherBooks section styles */
 .other-books-section {
     width: 100%;
+    max-width: 100vw;
     background: #000;
     color: #fff;
     padding: 4rem 1.5rem;
-    overflow: hidden; /* prevent shadows from causing horizontal scroll */
+    overflow-x: hidden;
+    box-sizing: border-box;
 }
 
 .other-books-heading {
@@ -22,6 +24,9 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 2.5rem;
+    box-sizing: border-box;
+    padding: 0;
+    min-width: 0;
 }
 
 .other-book-card {
@@ -31,6 +36,9 @@
     overflow: hidden;
     box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
     transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
 }
 
 .other-book-card:hover {
@@ -50,6 +58,7 @@
 .other-book-image__img {
     height: 10rem;
     max-width: 100%;
+    width: auto;
     opacity: 0.82;
     object-fit: contain;
 }
@@ -58,11 +67,16 @@
     padding: 1.5rem;
     display: grid;
     gap: 0.75rem;
+    min-width: 0;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
 }
 
 .other-book-title {
     font-size: 1.1rem;
     font-weight: 700;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
 }
 
 .other-book-rating {
@@ -85,15 +99,28 @@
     color: #c2c2c2;
     font-size: 0.94rem;
     line-height: 1.6;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
 }
 
 @media (max-width: 640px) {
     .other-books-section {
-        padding: 3rem 1.25rem;
+        padding: 3rem 1rem;
+        overflow-x: hidden;
+    }
+
+    .other-books-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        width: 100%;
+        min-width: 0;
     }
 
     .other-book-card {
         border-radius: 12px;
+        min-width: 0;
+        width: 100%;
+        max-width: 100%;
     }
 
     .other-book-image {

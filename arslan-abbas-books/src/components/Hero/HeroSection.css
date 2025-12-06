@@ -35,14 +35,20 @@
 }
 
 .tag {
-    background: #d60000;
-    padding: 8px 16px;
-    border-radius: 16px;
-    font-size: 12px;
-    font-weight: 600;
     display: inline-block;
-    margin-bottom: 20px;
+    margin-top: 10px;
+    padding: 5px 15px;
+    background: #8b0000;
+    color: #fff;
+    border-radius: 50px;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 5px 20px rgba(139, 0, 0, 0.5);
+    animation: pulse 1.5s infinite;
 }
+
 
 .description {
     line-height: 1.6;
@@ -79,6 +85,19 @@
     color: #6d6d6d;
     font-size: 14px;
     border: 1px solid #242424;
+    right: 5%;
+}
+
+.hero-title {
+    font-size: 72px;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 30px;
+    letter-spacing: -2px;
+    background: linear-gradient(135deg, #fff 0%, #888 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .placeholder {
@@ -101,6 +120,13 @@
         max-width: 100%;
     }
 
+    .hero-right {
+        position: static;
+        /* ← IMPORTANT */
+        margin-top: 40px;
+        /* spacing between text and card */
+    }
+
     .book-title {
         font-size: 44px;
     }
@@ -110,6 +136,7 @@
         height: 380px;
     }
 }
+
 
 @media (max-width: 500px) {
     .hero-container {

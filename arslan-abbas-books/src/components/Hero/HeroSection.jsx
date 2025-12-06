@@ -8,7 +8,7 @@ const HeroSection = () => {
             <div className="hero-left">
                 <p className="new-release">NEW RELEASE</p>
 
-                <h1 className="book-title">Musafirat</h1>
+                <h1 className="hero-title">Musafirat</h1>
 
                 <span className="tag">
                     FIRST READER EDITION – LIMITED 3000 COPIES!

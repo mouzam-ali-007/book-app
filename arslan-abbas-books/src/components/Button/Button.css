@@ -1,0 +1,27 @@
+.constant-preorder-btn {
+
+
+    position: fixed;
+    /* Stay on screen */
+    top: 90%;
+    /* Center vertically */
+    left: 50%;
+    /* Center horizontally */
+    transform: translate(-50%, -50%);
+    /* Adjust for button size */
+    background-color: white;
+    color: #000000;
+    border: 2px solid white;
+    border-radius: 12px;
+    padding: 12px 25px;
+    font-size: 16px;
+    cursor: pointer;
+    z-index: 1000;
+    /* On top of other content */
+    transition: all 0.3s ease;
+}
+
+.constant-preorder-btn:hover {
+    background-color: white;
+    color: black;
+}
