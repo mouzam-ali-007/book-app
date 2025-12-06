@@ -48,7 +48,7 @@
 }
 
 .other-book-image {
-    height: 340px;
+    height: 350px;
     background: #1a1a1a;
     display: flex;
     align-items: center;
@@ -56,7 +56,7 @@
 }
 
 .other-book-image__img {
-    height: 10rem;
+    height: 95%;
     max-width: 100%;
     width: auto;
     opacity: 0.82;
@@ -127,4 +127,3 @@
         height: 280px;
     }
 }
-

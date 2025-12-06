@@ -5,7 +5,7 @@ const otherBooks = [
     {
         id: 1,
         title: "Dil-e-Khwabzad",
-        cover: "/assets/dil-e-khwabzad.png", // replace with actual image path
+        cover: "./src/assets/Dil-e-Khwabzad.PNG", // replace with actual image path
         tagline: "(Black cover with feet)",
         rating: 4.34,
         reviews: 100,
@@ -15,7 +15,7 @@ const otherBooks = [
     {
         id: 2,
         title: "Dard-e-Nayab",
-        cover: "/assets/dard-e-nayab.png", // replace with actual image path
+        cover: "./src/assets/Dard-e-Nayaab.PNG", // replace with actual image path
         tagline: "(Maroon cover with silhouette)",
         rating: 4.5,
         reviews: 24,

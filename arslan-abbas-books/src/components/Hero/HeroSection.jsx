@@ -26,10 +26,9 @@ const HeroSection = () => {
 
             {/* RIGHT CONTENT */}
             <div className="hero-right">
-                <div className="book-card">
-                    <p className="placeholder">📘 Musafirat Book Cover
-                        <br /> (Navy cover with two people walking)
-                    </p>
+                <div className="book-card-img">
+                    <img src="./src/assets/Musafirat_Hardcover.PNG" width="120%" />
+
                 </div>
             </div>
         </div>

@@ -18,7 +18,7 @@
 
 .hero-right {
     position: absolute;
-    right: 0;
+    right: 5%;
 }
 
 .new-release {
@@ -74,7 +74,7 @@
 }
 
 /* RIGHT SIDE */
-.book-card {
+.book-card-img {
     width: 340px;
     height: 480px;
     background: #1a1a1a;
@@ -131,7 +131,7 @@
         font-size: 44px;
     }
 
-    .book-card {
+    .book-card-img-img {
         width: 260px;
         height: 380px;
     }
