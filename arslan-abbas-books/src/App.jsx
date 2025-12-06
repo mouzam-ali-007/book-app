@@ -21,7 +21,7 @@ function App() {
       <CheckoutForm />
       <AboutAuthor />
       <Footer />
-      <Button />
+      {/* <Button /> */}
     </>
 
   )
