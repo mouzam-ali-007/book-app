@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./Checkout.css";
+import Navbar from "../navbar/Nav";
 
 const booksList = [
     {
@@ -53,94 +54,101 @@ export default function CheckoutForm() {
     };
 
     return (
-        <div className="checkout-wrapper">
-            <h1 className="main-title">1. Pre-Order & Shipping Details</h1>
-            <p className="subtitle">
-                Select the books and quantities you wish to pre-order (Prices are in PKR).
-            </p>
-
-            <div className="books-row">
-                {booksList.map((book) => (
-                    <div key={book.id} className="book-card">
-                        <div className="book-details"
-                            style={{
-                                background: book.background,
-                                border: book.border || "none",
-                            }}
-                        >
-
-
-
-                            <h3 className="book-title">{book.title}</h3>
-                        </div>
-                        <div className="book-attributes">
-                            <h3 className="book-title">{book.title}</h3>
-                            <p className="book-price">PKR {book.price}</p>
-                            <p className="book-edition">{book.edition}</p>
-                        </div>
-
-
-
-                        <div className="qty-box">
-                            <input
-                                type="number"
-                                min="0"
-                                value={quantities[book.id]}
-                                onChange={(e) => updateQty(book.id, Number(e.target.value))}
-                            />
-                        </div>
-                    </div>
-                ))}
+        <>
+            <Navbar />
+            <div className="checkout-margin">
             </div>
 
-            <div className="summary-box">
-                <div className="summary-row">
-                    <span>Subtotal:</span>
-                    <strong>PKR {subtotal}</strong>
-                </div>
-                <div className="summary-row">
-                    <span>Shipping (Flat Rate):</span>
-                    <strong>PKR {shipping}</strong>
-                </div>
-                <div className="summary-row total">
-                    <span>Grand Total:</span>
-                    <strong>PKR {grandTotal}</strong>
-                </div>
-            </div>
-
-            <h2 className="contact-title">Contact & Address</h2>
-
-            <div className="form-group">
-                <label>Full Name</label>
-                <input placeholder="Arsalan Demo User" />
-            </div>
-
-            <div className="form-group">
-                <label>Phone Number</label>
-                <input placeholder="+92 321 1234567" />
-            </div>
-
-            <div className="form-group">
-                <label>Full Shipping Address</label>
-                <input placeholder="123 Gulberg III, Main Boulevard" />
-            </div>
-
-            <div className="form-group">
-                <label>City / Town</label>
-                <input placeholder="Lahore" />
-            </div>
-
-            <div className="edition-box">
-                <p className="edition-heading">FIRST READER EDITION</p>
-                <p className="edition-limit">Limited to 3,000 copies only</p>
-                <p className="edition-alert">
-                    HURRY! Only <span>50 copies</span> remaining globally.
+            <div className="checkout-wrapper">
+                <h1 className="main-title">1. Pre-Order & Shipping Details</h1>
+                <p className="subtitle">
+                    Select the books and quantities you wish to pre-order (Prices are in PKR).
                 </p>
-            </div>
 
-            <button className="payment-btn">
-                Proceed to Payment (PKR {grandTotal})
-            </button>
-        </div>
+                <div className="books-row">
+                    {booksList.map((book) => (
+                        <div key={book.id} className="book-card">
+                            <div className="book-details"
+                                style={{
+                                    background: book.background,
+                                    border: book.border || "none",
+                                }}
+                            >
+
+
+
+                                <h3 className="book-title">{book.title}</h3>
+                            </div>
+                            <div className="book-attributes">
+                                <h3 className="book-title">{book.title}</h3>
+                                <p className="book-price">PKR {book.price}</p>
+                                <p className="book-edition">{book.edition}</p>
+                            </div>
+
+
+
+                            <div className="qty-box">
+                                <input
+                                    type="number"
+                                    min="0"
+                                    value={quantities[book.id]}
+                                    onChange={(e) => updateQty(book.id, Number(e.target.value))}
+                                />
+                            </div>
+                        </div>
+                    ))}
+                </div>
+
+                <div className="summary-box">
+                    <div className="summary-row">
+                        <span>Subtotal:</span>
+                        <strong>PKR {subtotal}</strong>
+                    </div>
+                    <div className="summary-row">
+                        <span>Shipping (Flat Rate):</span>
+                        <strong>PKR {shipping}</strong>
+                    </div>
+                    <div className="summary-row total">
+                        <span>Grand Total:</span>
+                        <strong>PKR {grandTotal}</strong>
+                    </div>
+                </div>
+
+                <h2 className="contact-title">Contact & Address</h2>
+
+                <div className="form-group">
+                    <label>Full Name</label>
+                    <input placeholder="Arsalan Demo User" />
+                </div>
+
+                <div className="form-group">
+                    <label>Phone Number</label>
+                    <input placeholder="+92 321 1234567" />
+                </div>
+
+                <div className="form-group">
+                    <label>Full Shipping Address</label>
+                    <input placeholder="123 Gulberg III, Main Boulevard" />
+                </div>
+
+                <div className="form-group">
+                    <label>City / Town</label>
+                    <input placeholder="Lahore" />
+                </div>
+
+                <div className="edition-box">
+                    <p className="edition-heading">FIRST READER EDITION</p>
+                    <p className="edition-limit">Limited to 3,000 copies only</p>
+                    <p className="edition-alert">
+                        HURRY! Only <span>50 copies</span> remaining globally.
+                    </p>
+                </div>
+
+                <button className="payment-btn">
+                    Proceed to Payment (PKR {grandTotal})
+                </button>
+            </div>
+        </>
+
     );
 }

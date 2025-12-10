@@ -194,6 +194,10 @@
     font-size: 14px;
 }
 
+.checkout-margin {
+    margin-bottom: 8%;
+}
+
 /* 📱 MOBILE VIEW — stack books vertically */
 @media (max-width: 700px) {
     .books-row {

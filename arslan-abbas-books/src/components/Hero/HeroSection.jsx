@@ -1,8 +1,18 @@
 import React from "react";
 import "./HeroSection.css";
+import { useNavigate } from "react-router-dom";
+import Navbar from "../navbar/Nav";
 
 const HeroSection = () => {
+
+    const navigate = useNavigate();
+
+    const handlePreOrderClick = () => {
+        navigate("/checkout");
+    }
     return (
+
+
         <div className="hero-container">
             {/* LEFT CONTENT */}
             <div className="hero-left">
@@ -21,7 +31,7 @@ const HeroSection = () => {
                     <strong> Don’t miss out on this exclusive First Reader Edition.</strong>
                 </p>
 
-                <button className="preorder-btn">Pre-Order Musafirat Now</button>
+                <button className="preorder-btn" onClick={handlePreOrderClick}>Pre-Order Musafirat Now</button>
             </div>
 
             {/* RIGHT CONTENT */}
@@ -32,6 +42,8 @@ const HeroSection = () => {
                 </div>
             </div>
         </div>
+
+
     );
 };
 
