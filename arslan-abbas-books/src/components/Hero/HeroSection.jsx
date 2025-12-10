@@ -27,7 +27,7 @@ const HeroSection = () => {
             {/* RIGHT CONTENT */}
             <div className="hero-right">
                 <div className="book-card-img">
-                    <img src="./src/assets/Musafirat_Hardcover.PNG" width="120%" />
+                    <img src="/assets/Musafirat_Hardcover.PNG" width="120%" />
 
                 </div>
             </div>
