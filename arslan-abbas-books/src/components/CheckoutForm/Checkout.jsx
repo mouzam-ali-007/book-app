@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import "./Checkout.css";
 import Navbar from "../navbar/Nav";
+import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const booksList = [
     {
@@ -32,6 +35,7 @@ const booksList = [
 
 
 export default function CheckoutForm() {
+    const navigate = useNavigate();
     const [quantities, setQuantities] = useState({
         1: 1,
         2: 0,
@@ -53,11 +57,123 @@ export default function CheckoutForm() {
         }));
     };
 
+    const [formData, setFormData] = useState({
+        fullName: "",
+        phone: "",
+        address: "",
+        city: "",
+    });
+
+    const handleChange = (e) => {
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value,
+        });
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+
+        // Validation
+        // if (!formData.phone || !formData.address || !formData.city) {
+        //     alert("Please fill out all fields before submitting.");
+        //     return;
+        // }
+
+        console.log("BOOKS ORDER:", quantities);
+        console.log("Subtotal:", subtotal);
+        console.log("Shipping:", shipping);
+        console.log("Grand Total:", grandTotal);
+
+        console.log("USER INFO:", formData);
+
+        const orderData = {
+            books: quantities,
+            subtotal,
+            shipping,
+            grandTotal,
+            customer: formData,
+            date: new Date().toISOString(),
+        };
+        try {
+            // const res = await fetch("YOUR_API_ENDPOINT_HERE", {
+            //     method: "POST",
+            //     headers: {
+            //         "Content-Type": "application/json",
+            //     },
+            //     body: JSON.stringify(orderData),
+            // });
+
+            // if (!res.ok) {
+            //     throw new Error(`Request failed with status ${res.status}`);
+            // }
+
+            // const data = await res.json();
+            // console.log("Order Saved:", data);
+
+            // You can redirect user
+            // navigate(`/order-success/${data.orderId}`);
+
+            toast.success('Order placed successfully', {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+
+
+            });
+
+            setTimeout(() => {
+                navigate("/order");
+            }, 2000);
+
+        } catch (error) {
+            console.error("Error saving order:", error);
+            toast.error('Some thing went wrong', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+
+            });
+
+
+            setTimeout(() => {
+                navigate("/order");
+            }, 5000);
+
+        }
+
+        // save JSON locally
+
+        localStorage.setItem("checkoutOrder", JSON.stringify(orderData));
+
+        console.log("Saved JSON:", orderData);
+    };
+
+
+
     return (
         <>
             <Navbar />
             <div className="checkout-margin">
             </div>
+            <ToastContainer
+                position="top-center"
+                autoClose={3000}
+                hideProgressBar={false}
+                pauseOnHover
+                closeOnClick
+            />
+
 
             <div className="checkout-wrapper">
                 <h1 className="main-title">1. Pre-Order & Shipping Details</h1>
@@ -116,37 +232,64 @@ export default function CheckoutForm() {
 
                 <h2 className="contact-title">Contact & Address</h2>
 
-                <div className="form-group">
-                    <label>Full Name</label>
-                    <input placeholder="Arsalan Demo User" />
-                </div>
 
-                <div className="form-group">
-                    <label>Phone Number</label>
-                    <input placeholder="+92 321 1234567" />
-                </div>
 
-                <div className="form-group">
-                    <label>Full Shipping Address</label>
-                    <input placeholder="123 Gulberg III, Main Boulevard" />
-                </div>
+                <form onSubmit={handleSubmit}>
+                    <div className="form-group">
+                        <label>Full Name</label>
+                        <input
+                            name="fullName"
+                            placeholder="User Name"
+                            value={formData.fullName}
+                            onChange={handleChange}
 
-                <div className="form-group">
-                    <label>City / Town</label>
-                    <input placeholder="Lahore" />
-                </div>
+                        />
+                    </div>
 
-                <div className="edition-box">
-                    <p className="edition-heading">FIRST READER EDITION</p>
-                    <p className="edition-limit">Limited to 3,000 copies only</p>
-                    <p className="edition-alert">
-                        HURRY! Only <span>50 copies</span> remaining globally.
-                    </p>
-                </div>
+                    <div className="form-group">
+                        <label>Phone Number</label>
+                        <input
+                            name="phone"
+                            placeholder="+92 321 1234567"
+                            value={formData.phone}
+                            onChange={handleChange}
+                            type="number"
 
-                <button className="payment-btn">
-                    Proceed to Payment (PKR {grandTotal})
-                </button>
+                        />
+                    </div>
+
+                    <div className="form-group">
+                        <label>Full Shipping Address</label>
+                        <input
+                            name="address"
+                            placeholder="123 Gulberg III, Main Boulevard"
+                            value={formData.address}
+                            onChange={handleChange}
+                        />
+                    </div>
+
+                    <div className="form-group">
+                        <label>City / Town</label>
+                        <input
+                            name="city"
+                            placeholder="Lahore"
+                            value={formData.city}
+                            onChange={handleChange}
+                        />
+                    </div>
+
+                    <div className="edition-box">
+                        <p className="edition-heading">FIRST READER EDITION</p>
+                        <p className="edition-limit">Limited to 3,000 copies only</p>
+                        <p className="edition-alert">
+                            HURRY! Only <span>50 copies</span> remaining globally.
+                        </p>
+                    </div>
+
+                    <button className="payment-btn" >
+                        Proceed to Payment (PKR {grandTotal})
+                    </button>
+                </form>
             </div>
         </>
 
