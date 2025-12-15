@@ -37,7 +37,7 @@ export default function AboutAuthor() {
 
                 {/* RIGHT SIDE — CARD WITH EMOJI */}
                 <div className="about-card">
-                    <span className="emoji">✍️</span>
+                    <img src="/assets/IMG_5151.jpeg" alt="Author Portrait" className="author-portrait" />
                 </div>
 
             </div>
