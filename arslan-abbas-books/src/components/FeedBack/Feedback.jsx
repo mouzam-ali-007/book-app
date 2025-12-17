@@ -61,9 +61,7 @@ const testimonials = [
 
 
 const Testimonials = () => {
-    return (
-
-
+    return (<>
         <div className="testimonials-container">
 
             <div className="slider">
@@ -81,6 +79,12 @@ const Testimonials = () => {
 
 
         </div>
+        {/* <button class="constant-preorder-btn">Secure Your Copy Now</button> */}
+    </>
+
+
+
+
     );
 };
 

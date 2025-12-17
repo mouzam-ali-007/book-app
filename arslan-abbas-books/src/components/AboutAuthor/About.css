@@ -97,4 +97,10 @@
     }
 
 
+    .author-portrait {
+        width: 60%;
+        height: 100%;
+        border-radius: 8px;
+    }
+
 }

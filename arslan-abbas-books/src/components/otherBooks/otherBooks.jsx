@@ -1,69 +1,68 @@
 import React from "react";
-import './otherBooks.css';
+import "./otherBooks.css";
 
-const otherBooks = [
+const data = [
     {
         id: 1,
         title: "Dil-e-Khwabzad",
-        cover: "/assets/Dil-e-Khwabzad.PNG", // replace with actual image path
-        tagline: "(Black cover with feet)",
+        cover: "/assets/Dil-e-Khwabzad.PNG",
+        tagline: "The Dream–Led Heart",
         rating: 4.34,
         reviews: 100,
         description:
-            "The Dream–Led Heart. A collection that touches on faith, love, passion, hope, patience, loyalty, journey, and above all, dreaming. This bestselling debut captured the hearts of students across Pakistan."
+            "A collection that touches on faith, love, passion, hope, patience, loyalty, journey, and above all, dreaming. This bestselling debut captured the hearts of students across Pakistan."
     },
     {
         id: 2,
         title: "Dard-e-Nayab",
-        cover: "/assets/Dard-e-Nayaab.PNG", // replace with actual image path
-        tagline: "(Maroon cover with silhouette)",
+        cover: "/assets/Dard-e-Nayaab.PNG",
+        tagline: "The Unique Pain",
         rating: 4.5,
         reviews: 24,
         description:
-            "The Unique Pain. Arslan's second poetry collection delves deeper into the complexities of human emotions, exploring themes of longing, separation, and the bittersweet nature of life’s journey."
+            "Arslan's second poetry collection delves deeper into the complexities of human emotions, exploring themes of longing, separation, and the bittersweet nature of life’s journey."
     }
 ];
 
-const OtherBooks = () => {
+const otherBooks = () => {
     return (
-        <div className="other-books-section">
-            <h2 className="other-books-heading">
-                Other books
-            </h2>
-
-            <div className="other-books-grid">
-                {otherBooks.map((book) => (
-                    <div
-                        key={book.id}
-                        className="other-book-card"
-                    >
-                        <div className="other-book-image">
-                            <img
-                                src={book.cover}
-                                alt={book.title}
-                                className="other-book-image__img"
-                            />
-                        </div>
-
-                        <div className="other-book-content">
-                            <h3 className="other-book-title">{book.title}</h3>
-
-                            <div className="other-book-rating">
-                                <span className="other-book-rating__stars">★★★★★</span>
-                                <p className="other-book-rating__meta">
-                                    {book.rating} ({book.reviews} reviews)
-                                </p>
+        <>
+            <div className="books-grid">
+                {data.map((book) => (
+                    <div className="book-card-container" key={book.id}>
+                        <div className="book-inner">
+                            {/* Cover */}
+                            <div className="other-books">
+                                <img src={book.cover} alt={book.title} />
                             </div>
 
-                            <p className="other-book-description">
-                                {book.description}
-                            </p>
+                            {/* Content */}
+                            <div className="book-content">
+                                <h2 className="book-title">{book.title}</h2>
+                                <h4 className="book-subtitle">{book.tagline}</h4>
+
+                                <p className="book-description">{book.description}</p>
+
+                                <div className="book-rating">
+                                    <span className="stars">
+                                        {"★".repeat(Math.round(book.rating))}
+                                    </span>
+                                    <span className="rating-text">
+                                        ({book.rating}/5 from {book.reviews}+ readers)
+                                    </span>
+                                </div>
+
+                                <div className="book-actions">
+                                    <button className="btn-outline">See Details</button>
+                                    <button className="btn-primary">Buy Now</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 ))}
             </div>
-        </div>
+        </>
     );
 };
 
-export default OtherBooks;
+export default otherBooks;

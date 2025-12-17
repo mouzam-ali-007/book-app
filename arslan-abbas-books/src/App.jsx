@@ -14,6 +14,7 @@ import Button from './components/Button/Button.jsx';
 import OrderSuccess from './components/OrderSuccess/orderSuccess.jsx';
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import AuthorSection from './components/AboutAuthor/AuthorSection.jsx';
 
 const MainPage = () => {
   return (
@@ -22,7 +23,8 @@ const MainPage = () => {
       <HeroSection />
       <Testimonials />
       <OtherBooks />
-      <AboutAuthor />
+
+      <AuthorSection />
       <Footer />
     </>
   )
