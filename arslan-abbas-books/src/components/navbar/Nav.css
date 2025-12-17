@@ -98,6 +98,32 @@
     text-decoration: none;
 }
 
+.transition {
+    transition-property: color, background-color, border-color, text-decoration-color,
+        fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter,
+        -webkit-text-decoration-color, -webkit-backdrop-filter;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+}
+
+.duration-200 {
+    transition-duration: 200ms;
+}
+
+
+.preorder {
+    padding: 10px 16px;
+    background-color: #6366F1;
+    color: white;
+    border: none;
+    border-radius: 6px;
+}
+
+.preorder:hover {
+    background-color: #1e40af;
+}
+
+
 /* ------------------------------- */
 /* 📱 MOBILE RESPONSIVE */
 /* ------------------------------- */

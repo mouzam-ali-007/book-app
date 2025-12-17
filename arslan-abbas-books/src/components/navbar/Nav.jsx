@@ -4,6 +4,10 @@ import "./Nav.css";
 const Navbar = () => {
     const [open, setOpen] = useState(false);
 
+    const handlePreOrderClick = () => {
+        console.log("Pre-Order button clicked");
+    }
+
     return (
         <nav className="navbar">
             {/* Logo */}
@@ -17,6 +21,12 @@ const Navbar = () => {
                 <li><a href="/">About</a></li>
                 <li><a href="/">Contact</a></li>
             </ul>
+
+            {/* <button className="preorder transition duration-200" onClick={handlePreOrderClick}>
+
+                Pre-Order Now
+
+            </button> */}
 
             {/* Mobile Icon */}
             <div className="nav-toggle" onClick={() => setOpen(!open)}>

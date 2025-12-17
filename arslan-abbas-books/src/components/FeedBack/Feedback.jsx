@@ -1,47 +1,86 @@
 import React from "react";
 import "./Feedback.css";
 
+
 const testimonials = [
     {
-        stars: "★★★★★",
-        text: `"Dil-e-Khwabzad changed my perspective on life. Arslan’s words have the power to heal and inspire. A must-read for every Urdu poetry lover."`,
-        author: "Muhammad Ali",
+        icon: "⭐",
+        text: "The Voice of Modern Urdu is back. December 27th can't come soon enough.",
+        name: "@PoetryHub",
+        role: "Literary Influencer",
     },
     {
-        stars: "★★★★☆",
-        text: `"Beautiful collection of poetry that speaks to the heart. Arslan Abbas is one of the most promising contemporary Urdu poets."`,
-        author: "Fatima R.",
+        icon: "💡",
+        text: "A profound exploration of ambition and conviction. Truly a masterpiece.",
+        name: "Literature Daily",
+        role: "Reviewer",
     },
     {
-        stars: "★★★★★",
-        text: `"His poetry is like a conversation with your own soul. Every word feels personal and deeply moving. Highly recommended!"`,
-        author: "Hassan M.",
+        icon: "✨",
+        text: "Arslan Abbas always delivers depth and style. A mandatory pre-order.",
+        name: "Ayesha K.",
+        role: "Longtime Reader",
     },
     {
-        stars: "★★★★★",
-        text: `"Arslan Abbas writes with such authenticity and passion. His work captures the essence of youth, dreams, and love beautifully."`,
-        author: "Zainab S.",
+        icon: "📖",
+        text: "This feels like the book I needed to read right now. Excited for the themes.",
+        name: "TEDx Listener",
+        role: "Community Member",
+    },
+    {
+        icon: "📚",
+        text: "A seamless blend of philosophy and poetry. Arslan's best work yet.",
+        name: "The Bookworm",
+        role: "Vlogger",
+    },
+    {
+        icon: "🖊️",
+        text: "Every line is a lesson. A must-read for anyone interested in modern Urdu literature.",
+        name: "Urdu Times",
+        role: "Magazine",
+    },
+    {
+        icon: "🤩",
+        text: "Pre-ordered immediately. The cover art alone is stunning, let alone the content.",
+        name: "Sara L.",
+        role: "Follower",
+    },
+    {
+        icon: "🎤",
+        text: "His recitations are hypnotic. Excited to read the source material.",
+        name: "Podcast Review",
+        role: "Host",
+    },
+    {
+        icon: "🔥",
+        text: "The raw emotion is palpable. This book is going to define the year. Don't miss it.",
+        name: "Javier M.",
+        role: "Literary Critic",
     },
 ];
 
+
 const Testimonials = () => {
     return (
-        <section className="testimonials-section">
-            <h2 className="testimonials-title">What readers are saying</h2>
 
+
+        <div className="testimonials-container">
 
             <div className="slider">
                 <div className="slide-track">
-                    {testimonials.concat(testimonials).map((t, index) => (
+                    {testimonials.map((item, index) => (
                         <div className="slide" key={index}>
-                            <p className="stars">{t.stars}</p>
-                            <p className="text">{t.text}</p>
-                            <p className="author">— {t.author}</p>
+                            <div className="icon">{item.icon}</div>
+                            <p className="text">"{item.text}"</p>
+                            <h4 className="name">{item.name}</h4>
+                            <span className="role">{item.role}</span>
                         </div>
                     ))}
                 </div>
             </div>
-        </section>
+
+
+        </div>
     );
 };
 
