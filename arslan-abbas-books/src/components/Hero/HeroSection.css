@@ -98,14 +98,14 @@
 .book-card-img {
     width: 340px;
     height: 480px;
-    background: #1a1a1a;
+
     border-radius: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
     color: #6d6d6d;
     font-size: 14px;
-    border: 1px solid #242424;
+
     right: 5%;
 }
 

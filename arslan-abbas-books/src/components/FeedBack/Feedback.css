@@ -1,3 +1,33 @@
+.see-reviews {
+    display: flex;
+    flex-direction: column;
+    /* stack vertically */
+    align-items: center;
+    /* center horizontally */
+    justify-content: center;
+    /* optional, center vertically if needed */
+    background: #000;
+    padding: 20px 0;
+    gap: 0.5rem;
+    /* space between the lines */
+}
+
+.see-reviews .text {
+    color: #fff;
+    font-size: 2rem;
+    /* desktop font size */
+    font-weight: 700;
+    text-align: center;
+    margin: 0;
+}
+
+/* Subtitle line smaller */
+.see-reviews .text:nth-of-type(2) {
+    font-size: 1rem;
+    font-weight: 400;
+    color: #aaa;
+}
+
 .testimonials-container {
     display: grid;
     grid-auto-flow: column;
@@ -122,5 +152,26 @@
 
     .slide {
         width: 280px;
+    }
+}
+
+/* Responsive for mobile */
+@media (max-width: 768px) {
+    .see-reviews .text {
+        font-size: 1.5rem;
+    }
+
+    .see-reviews .text:nth-of-type(2) {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .see-reviews .text {
+        font-size: 1.25rem;
+    }
+
+    .see-reviews .text:nth-of-type(2) {
+        font-size: 0.85rem;
     }
 }

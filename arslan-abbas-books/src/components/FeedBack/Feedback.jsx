@@ -62,7 +62,14 @@ const testimonials = [
 
 const Testimonials = () => {
     return (<>
+        <div className="see-reviews">
+            <p className="text"> The Anticipation is Building</p>
+
+            <p className="text"> See the reviews below.</p>
+
+        </div>
         <div className="testimonials-container">
+
 
             <div className="slider">
                 <div className="slide-track">
