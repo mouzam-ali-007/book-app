@@ -37,11 +37,11 @@ const Navbar = () => {
 
             {/* Mobile Menu */}
             <div className={`mobile-menu ${open ? "open" : ""}`}>
-                <a onClick={() => setOpen(false)} href="#home">Home</a>
-                <a onClick={() => setOpen(false)} href="#books">Books</a>
-                <a onClick={() => setOpen(false)} href="#order">Order</a>
-                <a onClick={() => setOpen(false)} href="#about">About</a>
-                <a onClick={() => setOpen(false)} href="#contact">Contact</a>
+                <a onClick={() => setOpen(false)} href="/">Home</a>
+                <a onClick={() => setOpen(false)} href="/">Books</a>
+                <a onClick={() => setOpen(false)} href="/checkout">Order</a>
+                <a onClick={() => setOpen(false)} href="/">About</a>
+                <a onClick={() => setOpen(false)} href="/">Contact</a>
             </div>
         </nav>
     );

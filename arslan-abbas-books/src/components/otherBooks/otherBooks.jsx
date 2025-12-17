@@ -1,5 +1,7 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import "./otherBooks.css";
+
 
 const data = [
     {
@@ -25,6 +27,14 @@ const data = [
 ];
 
 const otherBooks = () => {
+    const navigate = useNavigate();
+
+    const handleClick = () => {
+        navigate("/checkout");
+    }
+
+
+
     return (
         <>
             <div className="books-grid">
@@ -54,7 +64,7 @@ const otherBooks = () => {
 
                                 <div className="book-actions">
                                     <button className="btn-outline">See Details</button>
-                                    <button className="btn-primary">Buy Now</button>
+                                    <button className="btn-primary" onClick={handleClick}>Buy Now</button>
                                 </div>
                             </div>
                         </div>
