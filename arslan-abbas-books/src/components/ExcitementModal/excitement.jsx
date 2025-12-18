@@ -52,7 +52,7 @@ const ExcitementModal = ({ close }) => {
                 ></textarea>
 
                 <button className="login-btn" onClick={handleSubmit}>
-                    Log In
+                    Submit My Comment
                 </button>
             </div>
         </div>

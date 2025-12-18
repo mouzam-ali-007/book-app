@@ -1,5 +1,10 @@
 /* Container */
 .hero-container {
+    position: relative;
+    min-height: 100vh;
+    background: #000;
+    overflow: hidden;
+
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -154,6 +159,7 @@
 
 @media (max-width: 900px) {
     .hero-container {
+        position: relative;
         flex-direction: column;
         text-align: center;
         padding: 70px 30px;

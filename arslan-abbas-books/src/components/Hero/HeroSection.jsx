@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./HeroSection.css";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../navbar/Nav";
+import HeroAnimatedText from "./Animation";
 
 const HeroSection = () => {
     const navigate = useNavigate();
@@ -35,6 +36,9 @@ const HeroSection = () => {
 
     return (
         <div className="hero-container">
+
+            {/* <HeroAnimatedText /> */}
+
             {/* LEFT CONTENT */}
             <div className="hero-left">
                 <p className="new-release">NEW RELEASE</p>

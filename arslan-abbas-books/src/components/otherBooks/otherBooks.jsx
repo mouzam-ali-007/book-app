@@ -37,7 +37,9 @@ const otherBooks = () => {
 
     return (
         <>
+            <div className="explore-canon">  Explore the Canon</div>
             <div className="books-grid">
+
                 {data.map((book) => (
                     <div className="book-card-container" key={book.id}>
                         <div className="book-inner">

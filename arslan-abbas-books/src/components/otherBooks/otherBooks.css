@@ -16,6 +16,16 @@
     background: radial-gradient(circle at top, #0b0b0b, #000);
 }
 
+.explore-canon {
+    margin-top: '20px';
+    text-align: center;
+    color: #fff;
+    background-color: #000;
+    font-size: 3rem;
+    line-height: 1;
+    padding: 30px;
+}
+
 .books-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -121,6 +131,16 @@
 }
 
 @media (max-width: 768px) {
+    .explore-canon {
+
+        text-align: center;
+        color: #fff;
+        background-color: #000;
+        font-size: 2rem;
+        line-height: 1;
+        padding: 30px;
+    }
+
     .books-grid {
         grid-template-columns: 1fr;
         /* ✅ mobile: one column */

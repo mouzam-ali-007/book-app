@@ -16,25 +16,25 @@ const Footer = () => {
 
                         <div className="footer-column">
                             <h4>Navigation</h4>
-                            <a href="#">Home</a>
-                            <a href="#">Shop</a>
-                            <a href="#">About</a>
-                            <a href="#">Contact</a>
+                            <a href="/">Home</a>
+                            <a href="/">Shop</a>
+                            <a href="/">About</a>
+                            <a href="/">Contact</a>
                         </div>
 
                         <div className="footer-column">
                             <h4>Books</h4>
                             <a className="highlight" href="#">Musafirat (New)</a>
-                            <a href="#">Dil-e-Khwabzad</a>
-                            <a href="#">Dard-e-Nayab</a>
-                            <a href="#">All Editions</a>
+                            <a href="/">Dil-e-Khwabzad</a>
+                            <a href="/">Dard-e-Nayab</a>
+                            <a href="/">All Editions</a>
                         </div>
 
                         <div className="footer-column">
                             <h4>Legal & Press</h4>
-                            <a href="#">Privacy Policy</a>
-                            <a href="#">Terms of Service</a>
-                            <a href="#">Media / Press</a>
+                            <a href="/">Privacy Policy</a>
+                            <a href="/">Terms of Service</a>
+                            <a href="/">Media / Press</a>
                         </div>
 
 
