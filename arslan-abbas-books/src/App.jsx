@@ -9,7 +9,7 @@ import CheckoutForm from './components/CheckoutForm/checkout.jsx';
 import AboutAuthor from './components/AboutAuthor/About.jsx';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-import Footer from './components/Footer/footer.jsx';
+import Footer from './components/Footer/Footer.jsx';
 import Button from './components/Button/Button.jsx';
 import OrderSuccess from './components/OrderSuccess/orderSuccess.jsx';
 import { ToastContainer } from "react-toastify";

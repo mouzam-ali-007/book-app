@@ -1,0 +1,30 @@
+.social-strip {
+    background-color: #000;
+    padding: 40px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+}
+
+.social-strip a {
+    color: #fff;
+    font-size: 28px;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.social-strip a:hover {
+    transform: translateY(-3px);
+    opacity: 0.7;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .social-strip {
+        gap: 30px;
+    }
+
+    .social-strip a {
+        font-size: 24px;
+    }
+}

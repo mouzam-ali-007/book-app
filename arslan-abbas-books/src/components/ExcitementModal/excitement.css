@@ -1,0 +1,133 @@
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(6px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.modal-box {
+    background: #0b0b0f;
+    padding: 32px;
+    width: 420px;
+    border-radius: 18px;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.6);
+    position: relative;
+}
+
+.modal-box h2 {
+    color: #fff;
+    margin-bottom: 8px;
+}
+
+.modal-box p {
+    color: #aaa;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.modal-box input {
+    width: 100%;
+    padding: 14px;
+    margin-bottom: 14px;
+    border-radius: 30px;
+    border: 1px solid #2d2f45;
+    background: #121625;
+    color: #fff;
+    outline: none;
+}
+
+.modal-box input:focus {
+    border-color: #6c63ff;
+}
+
+.modal-box .login-btn {
+    width: 100%;
+    padding: 14px 28px;
+    background: #6366f1;
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 25px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 20px 40px rgba(99, 102, 241, 0.4);
+}
+
+
+
+.modal-box .login-btn:hover {
+    background: #4a46d1;
+}
+
+.close-btn {
+    position: absolute;
+    top: 14px;
+    right: 16px;
+    background: none;
+    border: none;
+    color: #999;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* Select container */
+.modal-box select {
+    width: 100%;
+    padding: 14px;
+    margin-bottom: 14px;
+    border-radius: 30px;
+    border: 1px solid #2d2f45;
+    background: #121625;
+    color: #fff;
+    font-size: 16px;
+    outline: none;
+    appearance: none;
+    /* Remove default arrow in some browsers */
+    cursor: pointer;
+}
+
+/* Change border color on focus */
+.modal-box select:focus {
+    border-color: #6c63ff;
+}
+
+/* Style options inside select */
+.modal-box select option {
+    background: #121625;
+    color: #fff;
+    padding: 10px;
+}
+
+/* Optional: add a custom arrow */
+.modal-box select.custom-arrow {
+    background-image: url('data:image/svg+xml;utf8,<svg fill="%23fff" height="16" viewBox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    background-size: 16px 16px;
+}
+
+/* Textarea inside modal */
+.modal-box textarea {
+    width: 100%;
+    padding: 14px;
+    margin-bottom: 14px;
+    border-radius: 18px;
+    border: 1px solid #2d2f45;
+    background: #121625;
+    color: #fff;
+    font-size: 16px;
+    outline: none;
+    resize: vertical;
+    /* Allows vertical resizing only */
+    min-height: 100px;
+    /* Default height */
+}
+
+/* Focus effect */
+.modal-box textarea:focus {
+    border-color: #6c63ff;
+}

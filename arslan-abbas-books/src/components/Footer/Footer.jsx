@@ -1,21 +1,63 @@
+import { useState } from "react";
+import Social from "../SocialStrip/social";
 import "./Footer.css";
+import ReviewModal from "../ReviewModal/reviewModal";
+
 const Footer = () => {
+    const [isModalOpen, setIsModalOpen] = useState(false);
     return (
-        <footer className="footer">
-            <div className="footer-links">
-                <a href="https://www.instagram.com/arslanabbaas/" target="_blank" rel="noopener noreferrer">Instagram</a>
-                <a href="https://x.com/arslanabbaas" target="_blank" rel="noopener noreferrer">X</a>
-                <a href="https://www.tiktok.com/@arslanabbaasofficial" target="_blank" rel="noopener noreferrer">Tiktok</a>
-                <a href="https://www.facebook.com/arslanabbaas" target="_blank" rel="noopener noreferrer">Facebook</a>
-                <a href=" https://youtube.com/@arslanabbaas" target="_blank" rel="noopener noreferrer">YouTube</a>
+        <>
+            <footer className="footer">
+                <div className="footer-container">
+
+                    <h2 className="footer-title">Arslan Abbas</h2>
+
+                    <div className="footer-grid">
+
+                        <div className="footer-column">
+                            <h4>Navigation</h4>
+                            <a href="#">Home</a>
+                            <a href="#">Shop</a>
+                            <a href="#">About</a>
+                            <a href="#">Contact</a>
+                        </div>
+
+                        <div className="footer-column">
+                            <h4>Books</h4>
+                            <a className="highlight" href="#">Musafirat (New)</a>
+                            <a href="#">Dil-e-Khwabzad</a>
+                            <a href="#">Dard-e-Nayab</a>
+                            <a href="#">All Editions</a>
+                        </div>
+
+                        <div className="footer-column">
+                            <h4>Legal & Press</h4>
+                            <a href="#">Privacy Policy</a>
+                            <a href="#">Terms of Service</a>
+                            <a href="#">Media / Press</a>
+                        </div>
 
 
-            </div>
 
-            <p className="footer-copy">© 2025 Arslan Abbas. All rights reserved.</p>
-        </footer>
+                    </div>
+                    <Social />
+
+                    <div className="review-comments" onClick={() => setIsModalOpen(true)}>
+                        <a>Comments Review Panel.</a>
+                    </div>
+
+                    <div className="footer-bottom">
+                        <p>© 2025 Arslan Abbas. All rights reserved.</p>
+                    </div>
+
+                </div>
+            </footer>
+
+            {/* Modal */}
+            {isModalOpen && <ReviewModal close={() => setIsModalOpen(false)} />}
+
+        </>
     );
 };
 
 export default Footer;
-

@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Feedback.css";
+import ExcitementModal from "../ExcitementModal/excitement";
 
 
 const testimonials = [
@@ -61,6 +62,7 @@ const testimonials = [
 
 
 const Testimonials = () => {
+    const [isModalOpen, setIsModalOpen] = useState(false);
     return (<>
         <div className="see-reviews">
             <p className="text"> The Anticipation is Building</p>
@@ -85,6 +87,13 @@ const Testimonials = () => {
             </div>
 
 
+        </div>
+
+        {/* Modal */}
+        {isModalOpen && <ExcitementModal close={() => setIsModalOpen(false)} />}
+
+        <div className="excitement-comments" onClick={() => setIsModalOpen(true)}>
+            <a>Share Your Excitement</a>
         </div>
         {/* <button class="constant-preorder-btn">Secure Your Copy Now</button> */}
     </>

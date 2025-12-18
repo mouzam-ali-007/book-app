@@ -83,7 +83,11 @@
 }
 
 
-
+.excitement-comments {
+    text-align: center;
+    color: #fff;
+    background-color: #000;
+}
 
 /* SLIDER AREA */
 .slider {
