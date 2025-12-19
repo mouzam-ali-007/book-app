@@ -11,6 +11,11 @@ const Navbar = () => {
     const handleStoreClick = () => {
         navigate("/store");
     };
+
+    const handleAboutClick = () => {
+        navigate("/about");
+    };
+
     return (
         <nav className="navbar">
             {/* Logo */}
@@ -21,7 +26,7 @@ const Navbar = () => {
                 <li><a href="/">Home</a></li>
                 <li onClick={handleStoreClick}><a>Store</a></li>
 
-                <li><a href="/">About</a></li>
+                <li onClick={handleAboutClick}><a>About</a></li>
                 <li><a href="/">Contact</a></li>
             </ul>
 
@@ -38,13 +43,15 @@ const Navbar = () => {
                 <span className={open ? "bar bar3-open" : "bar"}></span>
             </div>
 
+
+
             {/* Mobile Menu */}
             <div className={`mobile-menu ${open ? "open" : ""}`}>
-                <a onClick={() => setOpen(false)} href="/">Home</a>
-                <a onClick={() => setOpen(false)} href="/">Store</a>
+                <a onClick={() => setOpen(false)} >Home</a>
+                <a onClick={handleStoreClick} >Store</a>
 
-                <a onClick={() => setOpen(false)} href="/">About</a>
-                <a onClick={() => setOpen(false)} href="/">Contact</a>
+                <a onClick={handleAboutClick} >About</a>
+                <a onClick={() => setOpen(false)} >Contact</a>
             </div>
         </nav>
     );

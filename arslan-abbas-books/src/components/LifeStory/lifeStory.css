@@ -1,0 +1,56 @@
+/* ComingSoon.css */
+.coming-soon-container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: linear-gradient(135deg, #1e1e1e, #3a3a3a);
+    color: #fff;
+    font-family: Arial, sans-serif;
+    padding: 20px;
+}
+
+h1 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+}
+
+p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+}
+
+.countdown {
+    display: flex;
+    gap: 15px;
+    font-size: 1.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.countdown div {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 15px 20px;
+    border-radius: 10px;
+}
+
+footer {
+    margin-top: 40px;
+    font-size: 0.9rem;
+    color: #ccc;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    h1 {
+        font-size: 2rem;
+    }
+
+    .countdown {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
