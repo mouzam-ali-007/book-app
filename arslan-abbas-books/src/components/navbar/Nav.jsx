@@ -1,13 +1,16 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Nav.css";
 
 const Navbar = () => {
+    const navigate = useNavigate();
     const [open, setOpen] = useState(false);
 
-    const handlePreOrderClick = () => {
-        console.log("Pre-Order button clicked");
-    }
 
+
+    const handleStoreClick = () => {
+        navigate("/store");
+    };
     return (
         <nav className="navbar">
             {/* Logo */}
@@ -16,8 +19,8 @@ const Navbar = () => {
             {/* Desktop Menu */}
             <ul className="nav-links">
                 <li><a href="/">Home</a></li>
-                <li><a href="/">Books</a></li>
-                <li><a href="/checkout">Order</a></li>
+                <li onClick={handleStoreClick}><a>Store</a></li>
+
                 <li><a href="/">About</a></li>
                 <li><a href="/">Contact</a></li>
             </ul>
@@ -38,8 +41,8 @@ const Navbar = () => {
             {/* Mobile Menu */}
             <div className={`mobile-menu ${open ? "open" : ""}`}>
                 <a onClick={() => setOpen(false)} href="/">Home</a>
-                <a onClick={() => setOpen(false)} href="/">Books</a>
-                <a onClick={() => setOpen(false)} href="/checkout">Order</a>
+                <a onClick={() => setOpen(false)} href="/">Store</a>
+
                 <a onClick={() => setOpen(false)} href="/">About</a>
                 <a onClick={() => setOpen(false)} href="/">Contact</a>
             </div>

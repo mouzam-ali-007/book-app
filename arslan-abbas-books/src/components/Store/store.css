@@ -1,0 +1,141 @@
+.store {
+    background: #000;
+    min-height: 100vh;
+    padding: 60px 80px;
+    color: #fff;
+    font-family: Inter, sans-serif;
+}
+
+.back-link {
+    color: #7c83ff;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+h1 {
+    font-size: 56px;
+    margin: 20px 0 10px;
+}
+
+.subtitle {
+    color: #9ca3af;
+    margin-bottom: 50px;
+}
+
+.books-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 30px;
+}
+
+.book-card {
+    background: #050505;
+    border: 1px solid #1f1f1f;
+    border-radius: 18px;
+    padding: 24px;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.book-card:hover {
+    border-color: #4f46e5;
+    transform: translateY(-6px);
+}
+
+.book-card.highlight {
+    border-color: #4f46e5;
+    box-shadow: 0 0 0 1px #4f46e5;
+}
+
+.tag {
+    font-size: 12px;
+    color: #f97316;
+    letter-spacing: 1px;
+}
+
+.sub-tag {
+    display: block;
+    font-size: 12px;
+    color: #ef4444;
+    margin-bottom: 8px;
+}
+
+.book-card h3 {
+    margin: 8px 0 4px;
+    font-size: 22px;
+}
+
+.desc {
+    font-size: 14px;
+    color: #9ca3af;
+    margin-bottom: 20px;
+}
+
+.cover-placeholder {
+    height: 220px;
+    background: linear-gradient(180deg, #222, #111);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #aaa;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.price {
+    color: #7c83ff;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.details-btn {
+    background: transparent;
+    border: none;
+    color: #7c83ff;
+    cursor: pointer;
+    padding: 0;
+    font-size: 14px;
+}
+
+.details-btn:hover {
+    text-decoration: underline;
+}
+
+.hand-signed {
+    margin-left: 5%
+}
+
+/* Mobile full-width horizontal scroll */
+@media (max-width: 768px) {
+    .store {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .books-grid {
+        display: flex;
+        overflow-x: auto;
+        gap: 16px;
+
+        padding-left: 16px;
+        padding-right: 16px;
+
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .books-grid::-webkit-scrollbar {
+        display: none;
+    }
+
+    .book-card {
+        min-width: 280px;
+        flex-shrink: 0;
+        scroll-snap-align: start;
+    }
+
+    .hand-signed {
+        margin-left: 7%
+    }
+}

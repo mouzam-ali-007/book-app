@@ -15,6 +15,7 @@ import OrderSuccess from './components/OrderSuccess/orderSuccess.jsx';
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import AuthorSection from './components/AboutAuthor/AuthorSection.jsx';
+import Store from './components/Store/store.jsx';
 
 const MainPage = () => {
   return (
@@ -38,6 +39,8 @@ function App() {
           <Route path="/" element={<MainPage />} />
           <Route path="/checkout" element={<CheckoutForm />} />
           <Route path="/order" element={<OrderSuccess />} />
+          <Route path="/store" element={<Store />} />
+
         </Routes>
       </Router>
 

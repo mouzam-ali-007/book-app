@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Feedback.css";
 import ExcitementModal from "../ExcitementModal/excitement";
 
-
-const testimonials = [
+const existingData = [
     {
         icon: "⭐",
         text: "The Voice of Modern Urdu is back. December 27th can't come soon enough.",
@@ -46,61 +45,67 @@ const testimonials = [
         name: "Sara L.",
         role: "Follower",
     },
-    {
-        icon: "🎤",
-        text: "His recitations are hypnotic. Excited to read the source material.",
-        name: "Podcast Review",
-        role: "Host",
-    },
-    {
-        icon: "🔥",
-        text: "The raw emotion is palpable. This book is going to define the year. Don't miss it.",
-        name: "Javier M.",
-        role: "Literary Critic",
-    },
+
 ];
 
-
 const Testimonials = () => {
+    const [testimonials, setTestimonials] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
-    return (<>
-        <div className="see-reviews">
-            <p className="text"> The Anticipation is Building</p>
 
-            <p className="text"> See the reviews below.</p>
+    useEffect(() => {
+        const fetchReviews = async () => {
+            try {
+                const res = await fetch("http://localhost:8001/api/getAllReviews");
+                const data = await res.json();
 
-        </div>
-        <div className="testimonials-container">
+                if (res.ok) {
+                    // Filter only approved reviews
+                    const approvedReviews = data.data.filter(item => !item.approvedByAdmin);
+                    setTestimonials(approvedReviews, ...existingData);
+                } else {
+                    console.error("Failed to fetch reviews:", data.message);
+                }
+            } catch (err) {
+                console.error("Error fetching reviews:", err);
+            }
+        };
 
+        fetchReviews();
+    }, []);
 
-            <div className="slider">
-                <div className="slide-track">
-                    {testimonials.map((item, index) => (
-                        <div className="slide" key={index}>
-                            <div className="icon">{item.icon}</div>
-                            <p className="text">"{item.text}"</p>
-                            <h4 className="name">{item.name}</h4>
-                            <span className="role">{item.role}</span>
-                        </div>
-                    ))}
+    return (
+        <>
+            <div className="see-reviews">
+                <p className="text">The Anticipation is Building</p>
+                <p className="text">See the reviews below.</p>
+            </div>
+
+            <div className="testimonials-container">
+                <div className="slider">
+                    <div className="slide-track">
+                        {testimonials.length ? (
+                            testimonials.map((item) => (
+                                <div className="slide" key={item._id}>
+                                    <div className="icon">{item.icons}</div>
+                                    <p className="text">"{item.description}"</p>
+                                    <h4 className="name">{item.name}</h4>
+                                    <span className="role">{item.role}</span>
+                                </div>
+                            ))
+                        ) : (
+                            <p>No reviews available yet.</p>
+                        )}
+                    </div>
                 </div>
             </div>
 
+            {/* Modal */}
+            {isModalOpen && <ExcitementModal close={() => setIsModalOpen(false)} />}
 
-        </div>
-
-        {/* Modal */}
-        {isModalOpen && <ExcitementModal close={() => setIsModalOpen(false)} />}
-
-        <div className="excitement-comments" onClick={() => setIsModalOpen(true)}>
-            <a>Share Your Excitement</a>
-        </div>
-        {/* <button class="constant-preorder-btn">Secure Your Copy Now</button> */}
-    </>
-
-
-
-
+            <div className="excitement-comments" onClick={() => setIsModalOpen(true)}>
+                <a>Share Your Excitement</a>
+            </div>
+        </>
     );
 };
 
