@@ -23,7 +23,6 @@ const MainPage = () => {
       <HeroSection />
       <Testimonials />
       <OtherBooks />
-
       <AuthorSection />
       <Footer />
     </>

@@ -1,260 +1,77 @@
-/* OrderSuccess.css - clean, modern, pretty custom CSS */
-
-.order-wrapper {
-    min-height: 100vh;
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #0f0f0f;
-    padding: 40px;
-    font-family: "Inter", sans-serif;
-    z-index: 9999999;
+    padding: 16px;
+    z-index: 9999;
 }
 
-.order-card {
-    width: 100%;
-    max-width: 900px;
+.modal-box {
     background: #fff;
-    border-radius: 18px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-    overflow: hidden;
-    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    max-width: 600px;
+    width: 100%;
+    padding: 24px;
+    position: relative;
 }
 
-/* Header */
-.order-header {
+.close-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    border: none;
+    background: #f2f2f2;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+.close-btn:hover {
+    background: #e6e6e6;
+}
+
+.modal-header {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 30px 40px;
-    border-bottom: 1px solid #f1f1f1;
+    gap: 16px;
+    margin-bottom: 24px;
 }
 
 .checkmark-circle {
-    width: 65px;
-    height: 65px;
-    background: #eafaf1;
+    width: 40px;
+    height: 40px;
+    background: #16a34a;
     border-radius: 50%;
-    border: 2px solid #c6f0d3;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .checkmark-icon {
-    width: 34px;
-    height: 34px;
-    color: #1f9d55;
-}
-
-.order-title {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: #222;
-}
-
-.order-subtitle {
-    font-size: 0.85rem;
-    color: #6b7280;
-    margin-top: 4px;
+    width: 20px;
+    height: 20px;
+    color: #fff;
 }
 
 .status-pill {
-    background: #eafaf1;
-    color: #1f9d55;
-    padding: 6px 16px;
-    border-radius: 20px;
-    font-weight: 600;
-    font-size: 0.85rem;
-    border: 1px solid #c6f0d3;
+    margin-left: auto;
+    padding: 4px 10px;
+    background: #e0f2fe;
+    color: #0369a1;
+    border-radius: 999px;
+    font-size: 12px;
 }
 
-/* Grid */
-.order-grid {
-    padding: 40px;
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 30px;
-}
-
-/* Left area */
-.section-title {
-    font-size: 1rem;
-    font-weight: 600;
-    color: #444;
+.modal-body h3 {
+    margin-top: 16px;
     margin-bottom: 8px;
 }
 
-.info-box {
-    background: #f9fafb;
-    padding: 15px;
-    border-radius: 10px;
-    border: 1px solid #ececec;
-}
-
-.info-row {
-    margin-bottom: 8px;
-    font-size: 0.9rem;
-    display: flex;
-    justify-content: space-between;
-    color: #444;
-}
-
-.info-row span {
-    color: #6b7280;
-}
-
-.mt {
-    margin-top: 25px;
-}
-
-.items-box {
-    background: #fff;
-    padding: 15px;
-    border-radius: 10px;
-    border: 1px solid #ebecec;
-    max-height: 240px;
-    overflow-y: auto;
-}
-
-.item-row {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px 0;
-    border-bottom: 1px solid #f1f1f1;
-}
-
-.item-row:last-child {
-    border-bottom: none;
-}
-
-.item-title {
-    font-weight: 600;
-    color: #333;
-}
-
-.item-tag {
-    font-size: 0.75rem;
-    color: #9ca3af;
-}
-
-.item-price {
-    font-weight: 600;
-    color: #111;
-}
-
-.empty-items {
-    text-align: center;
-    padding: 20px;
-    color: #9ca3af;
-}
-
-/* Summary */
-.order-summary {
-    background: #f9fafb;
-    padding: 20px 25px;
-    border-radius: 12px;
-    border: 1px solid #ececec;
-    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.02);
-}
-
-.summary-title {
-    font-size: 1rem;
-    font-weight: 600;
-    color: #444;
-    margin-bottom: 15px;
-}
-
-.summary-row {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
-    font-size: 0.9rem;
-    color: #444;
-}
-
-.summary-row.total {
-    margin-top: 12px;
-    font-size: 1.1rem;
-    font-weight: 700;
-}
-
-hr {
-    border: none;
-    border-top: 1px dashed #d1d5db;
-    margin: 15px 0;
-}
-
-.copy-btn,
-.print-btn {
-    width: 100%;
-    padding: 12px;
-    border-radius: 10px;
-    font-size: 0.9rem;
-    margin-top: 10px;
-    cursor: pointer;
-    transition: 0.25s ease;
-}
-
-.copy-btn {
-    background: #1f9d55;
-    color: white;
-    border: none;
-}
-
-.copy-btn:hover {
-    background: #178545;
-}
-
-.print-btn {
-    background: white;
-    border: 1px solid #cfd3d6;
-    color: #333;
-}
-
-.print-btn:hover {
-    background: #f3f4f6;
-}
-
-/* Footer */
-.order-footer {
-    background: #f9fafb;
-    padding: 20px 30px;
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.8rem;
-    color: #6b7280;
-    border-top: 1px solid #ececec;
-}
-
-/* Responsive styles for smaller screens */
-@media (max-width: 768px) {
-    .order-header {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        gap: 10px;
-    }
-
-    .checkmark-circle {
-        width: 50px;
-        height: 50px;
-    }
-
-    .checkmark-icon {
-        width: 25px;
-        height: 25px;
-    }
-
-    .order-title {
-        font-size: 1.2rem;
-    }
-
-    .order-subtitle {
-        font-size: 0.9rem;
-    }
-
-    .status-pill {
-        font-size: 0.8rem;
-    }
+.modal-body p {
+    margin: 4px 0;
 }

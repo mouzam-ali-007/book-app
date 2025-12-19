@@ -1,17 +1,56 @@
 import { useState } from "react";
 import "./excitement.css";
+import { BASE_URL } from "../../utilities/constants";
 
 const ExcitementModal = ({ close }) => {
     const [name, setName] = useState("");
     const [role, setRole] = useState("");
     const [message, setMessage] = useState("");
 
-    const handleSubmit = () => {
-        // Example: log the values or send to API
-        console.log({ name, role, message });
-        // You can also close the modal after submission
-        close();
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState("");
+
+
+    const handleSubmit = async () => {
+        if (!name || !role || !message) {
+            setError("All fields are required");
+            return;
+        }
+
+        try {
+            setLoading(true);
+            setError("");
+
+            const url = `${BASE_URL} + $/api/review`
+
+            const res = await fetch(url, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    name,
+                    role,
+                    description: message
+                })
+            });
+
+            const data = await res.json();
+
+            if (!res.ok) {
+                throw new Error(data.message || "Something went wrong");
+            }
+
+            // Success → close modal
+            close();
+
+        } catch (err) {
+            setError(err.message);
+        } finally {
+            setLoading(false);
+        }
     };
+
 
     return (
         <div className="modal-overlay" onClick={close}>
@@ -51,9 +90,18 @@ const ExcitementModal = ({ close }) => {
                     onChange={(e) => setMessage(e.target.value)}
                 ></textarea>
 
-                <button className="login-btn" onClick={handleSubmit}>
-                    Submit My Comment
+                {error && <p className="error-text">{"Some went wrong"}</p>}
+                <button
+                    className="login-btn"
+                    onClick={handleSubmit}
+                    disabled={loading}
+                >
+                    {loading ? <span className="loader"></span> : "Submit My Comment"}
                 </button>
+
+
+
+
             </div>
         </div>
     );

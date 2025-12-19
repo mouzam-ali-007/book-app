@@ -63,6 +63,8 @@
     background: #4a46d1;
 }
 
+
+
 .close-btn {
     position: absolute;
     top: 14px;
@@ -130,4 +132,25 @@
 /* Focus effect */
 .modal-box textarea:focus {
     border-color: #6c63ff;
+}
+
+.loader {
+    width: 18px;
+    height: 18px;
+    border: 2px solid #fff;
+    border-top: 2px solid transparent;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.error-text {
+    color: #ff4d4f;
+    font-size: 13px;
+    margin-top: 8px;
 }
