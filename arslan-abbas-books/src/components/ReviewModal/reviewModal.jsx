@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import "./ReviewModal.css";
+import { BASE_URL } from "../../utilities/constants";
 
 const ReviewModal = ({ close }) => {
     const [username, setUsername] = useState("");
@@ -31,7 +32,7 @@ const ReviewModal = ({ close }) => {
         try {
             setLoading(true);
 
-            const url = `${BASE_URL} + /admin/login`
+            const url = `${BASE_URL}api/admin/login`
 
             const response = await fetch(url, {
                 method: "POST",
@@ -39,7 +40,7 @@ const ReviewModal = ({ close }) => {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    username,
+                    email: username,
                     password,
                 }),
             });
@@ -55,9 +56,9 @@ const ReviewModal = ({ close }) => {
 
             // Close modal
             close();
+            // Open Admin Panel in a new tab
+            window.open("https://www.facebook.com", "_blank");
 
-            // Redirect to Admin Panel
-            window.location.href = "/admin";
         } catch (err) {
             setError(err.message);
         } finally {

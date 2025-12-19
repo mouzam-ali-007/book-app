@@ -89,7 +89,7 @@ const AuthorSection = () => {
 
                     {/* CTA Button */}
                     <a
-                        href="about.html"
+
                         className="author-cta-button"
                     >
                         Read The Full Story
