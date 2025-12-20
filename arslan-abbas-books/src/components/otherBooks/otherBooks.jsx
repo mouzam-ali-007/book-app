@@ -30,7 +30,7 @@ const otherBooks = () => {
     const navigate = useNavigate();
 
     const handleClick = () => {
-        navigate("/checkout");
+        navigate("/order");
     }
 
 

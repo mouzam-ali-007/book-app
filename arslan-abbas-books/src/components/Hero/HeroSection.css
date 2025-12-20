@@ -26,6 +26,144 @@
     right: 5%;
 }
 
+/* Global CSS Variables for Hero Card Morph */
+:root {
+    /* Initial state for the Hero Card Morph */
+    --card-width-percent: 100%;
+    --card-height-percent: 100%;
+    --card-radius: 0px;
+    --card-translateY: 0px;
+}
+
+/* --- Custom Padding Definitions --- */
+.vw-padding-main {
+    padding-top: 0.5vw;
+    padding-left: 12.5vw;
+    padding-right: 12.5vw;
+}
+
+@media (max-width: 640px) {
+    .vw-padding-main {
+        padding-left: 10vw;
+        padding-right: 10vw;
+        padding-top: 5vw;
+        padding-bottom: 5vw;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    .vw-padding-main {
+        padding-left: 10vw;
+        padding-right: 10vw;
+        padding-top: 10vw;
+        padding-bottom: 10vw;
+    }
+}
+
+/* 4k monitor padding */
+@media (min-width: 2560px) {
+    .vw-padding-main {
+        padding-left: 12.5vw;
+        padding-right: 12.5vw;
+        padding-bottom: 2vw;
+    }
+}
+
+/* --- Hero Section setup --- */
+.hero-scroll-container {
+    height: 200vh;
+    /* Make it scrollable */
+    position: relative;
+}
+
+.pinned-content-wrapper {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.large-title {
+    font-size: clamp(3rem, 9vw, 5rem);
+    line-height: 0.95;
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    text-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
+}
+
+/* --- Hero Landing Animation Styles (Only for initial page load) --- */
+.hero-reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+        transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.hero-reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* --- Animated Background Card --- */
+.hero-morph-card {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: var(--card-width-percent);
+    height: var(--card-height-percent);
+
+    /* Placeholder image for a dark, abstract texture */
+    background-image: url('https://arslanabbaas.com/wp-content/uploads/2025/12/hero1-1-scaled.webp');
+    background-size: cover;
+    background-position: center;
+
+    opacity: 0;
+    transform: scale(1.05) translateY(var(--card-translateY));
+
+    /* Transition handles both landing reveal and scroll morph */
+    transition: opacity 1.5s ease-out;
+    border-radius: var(--card-radius);
+}
+
+.hero-morph-card.active {
+    opacity: 1;
+    transform: scale(1) translateY(var(--card-translateY));
+    /* Only opacity has a long transition. Dimensions are controlled immediately by JS. */
+    transition: opacity 1.5s ease-out, transform 0s, border-radius 0s, width 0s, height 0s;
+}
+
+.hero-overlay {
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.8));
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+}
+
+.hero-content-layer {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 5xl;
+    margin: auto;
+    pointer-events: none;
+}
+
+.tracking-widest {
+    letter-spacing: 0.1em;
+}
+
+.uppercase {
+    text-transform: uppercase;
+}
+
 .new-release {
     color: #9b9b9b;
     letter-spacing: 2px;
@@ -38,6 +176,7 @@
     font-weight: 700;
     margin: 0 0 20px 0;
 }
+
 
 .tag {
     display: inline-block;
@@ -81,7 +220,10 @@
     pointer-events: auto;
 }
 
-/* Your existing button styles */
+
+
+/* Button styles */
+
 .preorder-btn {
     padding: 14px 28px;
     background: #6366f1;
@@ -152,11 +294,6 @@
     pointer-events: auto;
 }
 
-
-/* ------------------------------- */
-/* 📱 MOBILE RESPONSIVE */
-/* ------------------------------- */
-
 @media (max-width: 900px) {
     .hero-container {
         position: relative;
@@ -196,5 +333,254 @@
         font-size: 36px;
     }
 
+}
 
+.hero-cta-button {
+    padding: 0.5rem 1.5rem;
+    background-color: #6366f1;
+    color: white;
+    font-size: 1rem;
+    font-weight: 700;
+    border-radius: 1.5rem;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 25px 50px -12px rgba(99, 102, 241, 0.5);
+    transition: background-color 300ms, transform 300ms;
+    width: 100%;
+    max-width: 20rem;
+    pointer-events: auto;
+}
+
+.hero-cta-button:hover {
+    background-color: #4f46e5;
+    transform: scale(1.02);
+}
+
+
+/* Responsive utilities */
+@media (min-width: 768px) {
+    .md-text-xl {
+        font-size: 1.25rem;
+    }
+
+    .md-pt-20 {
+        padding-top: 5rem;
+    }
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 640px) {
+    .large-title {
+        font-size: clamp(2rem, 8vw, 4rem);
+    }
+
+    .pt-20 {
+        padding-top: 3rem;
+    }
+
+    .pb-32 {
+        padding-bottom: 4rem;
+    }
+}
+
+
+/* Utility classes for flexbox */
+.flex {
+    display: flex;
+}
+
+.items-start {
+    align-items: flex-start;
+}
+
+.items-end {
+    align-items: flex-end;
+}
+
+.items-center {
+    align-items: center;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.flex-col {
+    flex-direction: column;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.w-full {
+    width: 100%;
+}
+
+
+.px-6 {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+}
+
+.py-2 {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+.bg-indigo {
+    background-color: #6366f1;
+}
+
+.btn-hover:hover {
+    background-color: #4f46e5;
+}
+
+.rounded-3xl {
+    border-radius: 1.5rem;
+}
+
+.shadow-2xl {
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+.shadow-indigo {
+    box-shadow: 0 25px 50px -12px rgba(99, 102, 241, 0.5);
+}
+
+.transition {
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+}
+
+.duration-300 {
+    transition-duration: 300ms;
+}
+
+.transform {
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.btn-scale:hover {
+    transform: scale(1.02);
+}
+
+.max-w-xs {
+    max-width: 20rem;
+}
+
+.max-w-lg {
+    max-width: 32rem;
+}
+
+.pointer-events-auto {
+    pointer-events: auto;
+}
+
+/* Z-index utilities */
+.z-10 {
+    z-index: 10;
+}
+
+.z-20 {
+    z-index: 20;
+}
+
+.z-30 {
+    z-index: 30;
+}
+
+.z-40 {
+    z-index: 40;
+}
+
+.max-w-5xl {
+    max-width: 64rem;
+}
+
+.mx-auto {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.mb-4 {
+    margin-bottom: 1rem;
+}
+
+.mb-6 {
+    margin-bottom: 1.5rem;
+}
+
+.mb-10 {
+    margin-bottom: 2.5rem;
+}
+
+.mt-8 {
+    margin-top: 2rem;
+}
+
+.pt-20 {
+    padding-top: 5rem;
+}
+
+.pb-32 {
+    padding-bottom: 8rem;
+}
+
+.space-y-4>*+* {
+    margin-top: 1rem;
+}
+
+/* Text utilities */
+.text-l {
+    font-size: 1.125rem;
+}
+
+.text-lg {
+    font-size: 1.125rem;
+}
+
+.text-xl {
+    font-size: 1.25rem;
+}
+
+.text-sm {
+    font-size: 0.875rem;
+}
+
+.text-base {
+    font-size: 1rem;
+}
+
+.font-medium {
+    font-weight: 500;
+}
+
+.font-light {
+    font-weight: 300;
+}
+
+.font-bold {
+    font-weight: 700;
+}
+
+.text-indigo {
+    color: #6366f1;
+}
+
+.text-light {
+    color: #f5f5f5;
+}
+
+.text-gray-300 {
+    color: #d1d5db;
+}
+
+.text-gray-400 {
+    color: #9ca3af;
+}
+
+.text-white {
+    color: white;
 }

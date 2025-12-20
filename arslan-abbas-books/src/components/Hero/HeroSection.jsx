@@ -1,76 +1,173 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
 import "./HeroSection.css";
 import { useNavigate } from "react-router-dom";
-import Navbar from "../navbar/Nav";
-import HeroAnimatedText from "./Animation";
+
+// Helper function for linear interpolation
+const lerp = (a, b, t) => a + (b - a) * t;
+
+// Helper function to map scroll progress to a value range and clamp it
+const mapAndClamp = (progress, start, end, targetA, targetB) => {
+    const segmentProgress = Math.max(0, Math.min(1, (progress - start) / (end - start)));
+    return lerp(targetA, targetB, segmentProgress);
+};
 
 const HeroSection = () => {
     const navigate = useNavigate();
-    const [showButton, setShowButton] = useState(false);
-    let lastScrollY = 0;
+    const heroContainerRef = useRef(null);
+    const morphCardRef = useRef(null);
+    const titleLayerRef = useRef(null);
+    const ctaLayerRef = useRef(null);
+    const pretitleRef = useRef(null);
+    const mainTitleRef = useRef(null);
+    const [cardActive, setCardActive] = useState(false);
+    const [pretitleActive, setPretitleActive] = useState(false);
+    const [mainTitleActive, setMainTitleActive] = useState(false);
+    const animationFrameIdRef = useRef(null);
 
     const handlePreOrderClick = () => {
-        navigate("/store");
+        navigate("/checkout");
     };
 
-    useEffect(() => {
-        const handleScroll = () => {
-            const currentScrollY = window.scrollY;
+    // Core logic for updating the hero state based on scroll position
+    const updateHeroState = useCallback(() => {
+        if (!heroContainerRef.current || !morphCardRef.current) return;
 
-            // scroll down → show
-            if (currentScrollY > lastScrollY && currentScrollY > 100) {
-                setShowButton(true);
-            }
+        const containerHeight = heroContainerRef.current.offsetHeight;
+        const scrollY = window.scrollY;
+        const scrollProgress = Math.max(0, Math.min(1, scrollY / (containerHeight - window.innerHeight)));
 
-            // scroll up → hide
-            if (currentScrollY < lastScrollY) {
-                setShowButton(false);
-            }
+        // Update CSS custom properties for card morph
+        const widthPercent = mapAndClamp(scrollProgress, 0.0, 1.0, 100, 85);
+        const heightPercent = mapAndClamp(scrollProgress, 0.0, 1.0, 100, 75);
+        const radius = mapAndClamp(scrollProgress, 0.0, 1.0, 0, 32);
+        const translateY = mapAndClamp(scrollProgress, 0.0, 1.0, 0, 8);
 
-            lastScrollY = currentScrollY;
-        };
+        document.documentElement.style.setProperty('--card-width-percent', `${widthPercent}%`);
+        document.documentElement.style.setProperty('--card-height-percent', `${heightPercent}%`);
+        document.documentElement.style.setProperty('--card-radius', `${radius}px`);
+        document.documentElement.style.setProperty('--card-translateY', `${translateY}px`);
 
-        window.addEventListener("scroll", handleScroll);
-        return () => window.removeEventListener("scroll", handleScroll);
+        // Animate the Text Layers (Fade In/Out)
+        if (titleLayerRef.current) {
+            const titleOpacity = mapAndClamp(scrollProgress, 0.0, 0.3, 1.0, 0.0);
+            const titleTranslateY = mapAndClamp(scrollProgress, 0.0, 0.3, 0, -20);
+            titleLayerRef.current.style.opacity = titleOpacity;
+            titleLayerRef.current.style.transform = `translateY(${titleTranslateY}px)`;
+        }
+
+        if (ctaLayerRef.current) {
+            const ctaOpacity = mapAndClamp(scrollProgress, 0.5, 0.8, 0.0, 1.0);
+            const ctaTranslateY = mapAndClamp(scrollProgress, 0.5, 0.8, 20, 0);
+            ctaLayerRef.current.style.opacity = ctaOpacity;
+            ctaLayerRef.current.style.transform = `translateY(${ctaTranslateY}px)`;
+        }
     }, []);
 
+    // Throttled scroll handler using requestAnimationFrame
+    const onScroll = useCallback(() => {
+        if (!animationFrameIdRef.current) {
+            animationFrameIdRef.current = requestAnimationFrame(() => {
+                updateHeroState();
+                animationFrameIdRef.current = null;
+            });
+        }
+    }, [updateHeroState]);
+
+    useEffect(() => {
+        // Initial state update
+        updateHeroState();
+
+        // Add scroll listener
+        window.addEventListener("scroll", onScroll, { passive: true });
+
+        // Hero Landing Transition Logic - Staggered reveal on load
+        setTimeout(() => {
+            setCardActive(true);
+        }, 50);
+
+        setTimeout(() => {
+            setPretitleActive(true);
+        }, 300);
+
+        setTimeout(() => {
+            setMainTitleActive(true);
+        }, 450);
+
+        return () => {
+            window.removeEventListener("scroll", onScroll);
+            if (animationFrameIdRef.current) {
+                cancelAnimationFrame(animationFrameIdRef.current);
+            }
+        };
+    }, [onScroll, updateHeroState]);
+
     return (
-        <div className="hero-container">
+        <section className="hero-scroll-container" ref={heroContainerRef}>
+            {/* Sticky Content Wrapper (100vh tall, holds fixed content) */}
+            <div className="pinned-content-wrapper z-20">
+                {/* Animated Background Card */}
+                <div
+                    className={`hero-morph-card z-10 ${cardActive ? 'active' : ''}`}
+                    ref={morphCardRef}
+                >
+                    <div className="hero-overlay"></div>
+                </div>
 
-            {/* <HeroAnimatedText /> */}
+                {/* LAYER 1: Title & Pretitle Layer */}
+                <div
+                    className="title-layer hero-content-layer z-30 flex items-start pt-20 md-pt-20"
+                    ref={titleLayerRef}
+                >
+                    <div className="text-center w-full vw-padding-main">
+                        <p
+                            className={`pretitle text-l md-text-xl font-medium text-indigo mb-4 tracking-widest uppercase hero-reveal ${pretitleActive ? 'active' : ''}`}
+                            ref={pretitleRef}
+                        >
+                            NEW RELEASE
+                        </p>
+                        <h1
+                            className={`large-title text-light mb-6 hero-reveal ${mainTitleActive ? 'active' : ''}`}
+                            ref={mainTitleRef}
+                        >
+                            Musafirat
+                        </h1>
 
-            {/* LEFT CONTENT */}
-            <div className="hero-left">
-                <p className="new-release">NEW RELEASE</p>
-                <h1 className="hero-title">Musafirat</h1>
 
-                <span className="tag">
-                    FIRST READER EDITION – LIMITED 3000 COPIES!
-                </span>
 
-                <p className="description">
-                    A story of every young heart. Experience a poetic journey that explores
-                    the depths of dreams, love, and the human spirit through the eyes of
-                    Pakistan's most resonating contemporary voice.
-                    <strong> Don’t miss out on this exclusive First Reader Edition.</strong>
-                </p>
-            </div>
+                    </div>
+                </div>
 
-            {/* CENTER CTA (SCROLL BASED) */}
-            <button
-                className={`preorder-btn scroll-cta ${showButton ? "show" : ""}`}
-                onClick={handlePreOrderClick}
-            >
-                Pre-Order Now
-            </button>
+                {/* LAYER 2: CTA Layer (Starts hidden) */}
+                <div
+                    className="cta-layer hero-content-layer z-40 flex items-end pb-32"
+                    ref={ctaLayerRef}
+                    style={{ opacity: 0 }}
+                >
+                    <div className="text-center max-w-5xl mx-auto w-full vw-padding-main">
+                        <span className="tag">
+                            FIRST READER EDITION – LIMITED 3000 COPIES!
+                        </span>
+                        <p className="text-lg md-text-xl font-light max-w-lg mx-auto mb-10 text-gray-300">
+                            A profound exploration of ambition, faith, and the restless human heart.
+                        </p>
 
-            {/* RIGHT CONTENT */}
-            <div className="hero-right">
-                <div className="book-card-img">
-                    <img src="/assets/Musafirat_Hardcover.PNG" width="90%" />
+                        <div className="flex flex-col items-center justify-center space-y-4">
+                            <button
+                                onClick={handlePreOrderClick}
+                                className="hero-cta-button"
+                            >
+                                Pre-Order Now
+                            </button>
+                        </div>
+
+                        <p className="mt-8 text-sm text-gray-400">
+                            Launching Worldwide: December 27th
+                        </p>
+
+                    </div>
                 </div>
             </div>
-        </div>
+        </section>
     );
 };
 
