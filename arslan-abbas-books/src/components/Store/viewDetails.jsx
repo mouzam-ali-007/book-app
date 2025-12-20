@@ -1,17 +1,33 @@
 import React, { useState, useEffect } from "react";
 import "./viewDetails.css";
+import { PRODUCTS } from "../../utilities/constants";
 
 const ViewDetailsModal = ({ book, close, onNext, onPrev }) => {
+
+
+    console.log("book", book)
     const [index, setIndex] = useState(0);
     const [isRotating, setIsRotating] = useState(false);
     const [rotateY, setRotateY] = useState(-25); // Default perspective angle
 
+    const [orderCount, setOrderCount] = useState(1);
+
+
+    const [version, setVersion] = useState(null);
     // Reset image index and rotation when book changes
     useEffect(() => {
         setIndex(0);
         setRotateY(-25);
+
+        if (!book?.title) return;
+
+        const matchedProduct = PRODUCTS[book.title];
+        setVersion(matchedProduct || null);
+
     }, [book]);
 
+
+    console.log("version", version)
     // Keyboard navigation
     useEffect(() => {
         const handleKeyDown = (e) => {
@@ -23,10 +39,19 @@ const ViewDetailsModal = ({ book, close, onNext, onPrev }) => {
         return () => window.removeEventListener("keydown", handleKeyDown);
     }, [onNext, onPrev, close]);
 
-    if (!book) return null;
+    if (!version) return null;
 
-    const nextImage = () => setIndex((index + 1) % book.images.length);
-    const prevImage = () => setIndex((index - 1 + book.images.length) % book.images.length);
+
+    const increase = () => {
+        setOrderCount((prev) => Math.min(prev + 1, version.max));
+    };
+
+    const decrease = () => {
+        setOrderCount((prev) => Math.max(prev - 1, 1));
+    };
+
+    const nextImage = () => setIndex((index + 1) % version.images.length);
+    const prevImage = () => setIndex((index - 1 + version.images.length) % version.images.length);
 
     const handleMouseMove = (e) => {
         if (!isRotating) return;
@@ -41,9 +66,24 @@ const ViewDetailsModal = ({ book, close, onNext, onPrev }) => {
             <div className="details-modal" onClick={(e) => e.stopPropagation()}>
 
                 <div className="modal-header-actions">
-                    <button className="nav-book prev-book" onClick={onPrev}>← Prev Book</button>
                     <button className="close-btn" onClick={close}>✕</button>
-                    <button className="nav-book next-book" onClick={onNext}>Next Book →</button>
+                </div>
+
+
+
+                {/* CARD 2 — PRODUCT INFO */}
+                <div className="card">
+                    <h2 className="title">{version.title}</h2>
+                    <p className="sub">{version.subtitle || book.tag}</p>
+                    <p className="price">{version.price}</p>
+
+                    <div className="order-row">
+                        <button className="qty" onClick={decrease}>−</button>
+                        <button className="order-btn">Order {orderCount} Copies</button>
+                        <button className="qty" onClick={increase}>+</button>
+                    </div>
+
+                    <p className="limit">Max {version.max} per person</p>
                 </div>
 
                 {/* CARD 1 — IMAGE SLIDER / 3D VIEW */}
@@ -66,12 +106,12 @@ const ViewDetailsModal = ({ book, close, onNext, onPrev }) => {
                     {!isRotating ? (
                         <>
                             <div className="slider">
-                                <img src={book.images[index]} alt={book.title} />
+                                <img src={version.images[index]} alt={version.title} />
                                 <button className="nav left" onClick={prevImage}>‹</button>
                                 <button className="nav right" onClick={nextImage}>›</button>
                             </div>
                             <div className="dots">
-                                {book.images.map((_, i) => (
+                                {version.images.map((_, i) => (
                                     <span
                                         key={i}
                                         className={i === index ? "dot active" : "dot"}
@@ -91,7 +131,8 @@ const ViewDetailsModal = ({ book, close, onNext, onPrev }) => {
                                 style={{ transform: `rotateY(${rotateY}deg)` }}
                             >
                                 <div className="book-face front">
-                                    <img src={book.images[0]} alt="Front Cover" />
+
+                                    <img src={version.images[index]} alt="Front Cover" />
                                 </div>
                                 <div className="book-face spine"></div>
                                 <div className="book-face back"></div>
@@ -101,40 +142,26 @@ const ViewDetailsModal = ({ book, close, onNext, onPrev }) => {
                     )}
                 </div>
 
-                {/* CARD 2 — PRODUCT INFO */}
-                <div className="card">
-                    <h2>{book.title}</h2>
-                    <p className="sub">{book.subtitle || book.tag}</p>
-                    <p className="price">{book.price}</p>
-
-                    <div className="order-row">
-                        <button className="qty">−</button>
-                        <button className="order-btn">Order Now</button>
-                        <button className="qty">+</button>
-                    </div>
-
-                    <p className="limit">Max {book.max} per person</p>
-                </div>
-
                 {/* CARD 3 — OVERVIEW */}
                 <div className="card">
-                    <h3>Overview</h3>
-                    <div className="tags">
-                        {/* Tags not in new schema, removing or keeping if derived */}
-                        {book.tag && <span className="tag-pill">{book.tag}</span>}
-                    </div>
-                    <p>{book.overview}</p>
+                    <h3 className="overview">Overview</h3>
+                    <h3 className="handcover">Handcover  <p className="handcover-value">{version.handcover}</p></h3>
+
+                    <p className="description">{version.description}</p>
                 </div>
 
                 {/* CARD 4 — WHAT’S IN THE BOX */}
-                <div className="card">
-                    <h3>What’s in the box</h3>
-                    <ul>
-                        {book.box && book.box.map((item, i) => (
-                            <li key={i}>{item}</li>
-                        ))}
-                    </ul>
-                    {book.ships && <p className="save">{book.ships}</p>}
+                <div className="card ">
+                    <div className="box-item">
+                        <h3>What’s in the box</h3>
+                        <ul>
+                            {version.box && version.box.map((item, i) => (
+                                <li key={i}>{item}</li>
+                            ))}
+                        </ul>
+
+                    </div>
+                    {version.ships && <p className="shipping-details">{version.ships}</p>}
                 </div>
             </div>
         </div>

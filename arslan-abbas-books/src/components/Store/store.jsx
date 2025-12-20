@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import "./store.css";
 import ViewDetailsModal from "./viewDetails";
 
-
-
 const books = [
     {
         id: 1,
