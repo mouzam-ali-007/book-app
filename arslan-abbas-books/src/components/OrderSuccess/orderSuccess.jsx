@@ -63,8 +63,8 @@ const OrderSuccessModal = ({ order, close }) => {
                                 <h4 className="summary-title">Order Summary</h4>
 
                                 <div className="summary-row">
-                                    <span>Subtotal</span>
-                                    <b>{formatCurrency(totals?.subtotal)}</b>
+                                    <span>SubTotal</span>
+                                    <b>{formatCurrency(totals?.subTotal)}</b>
                                 </div>
 
                                 <div className="summary-row">

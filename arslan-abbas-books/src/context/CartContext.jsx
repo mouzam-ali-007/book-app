@@ -39,8 +39,8 @@ export const CartProvider = ({ children }) => {
         setIsBagOpen(true);
     };
 
-    const removeFromCart = (id) => {
-        setCartItems((prevItems) => prevItems.filter((item) => item.id !== id));
+    const removeFromCart = (title) => {
+        setCartItems((prevItems) => prevItems.filter((item) => item.title !== title));
     };
 
     const updateQuantity = (id, newQuantity) => {

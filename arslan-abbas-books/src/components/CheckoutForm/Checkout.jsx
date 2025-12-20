@@ -147,11 +147,16 @@ export default function CheckoutForm() {
                 total: book.price * quantities[book.id],
             }));
 
-        if (items.length === 0) {
+
+
+        const addedData = localStorage.getItem("cartItems");
+        const parsedData = addedData ? JSON.parse(addedData) : [];
+
+
+        if (parsedData.length === 0) {
             toast.error("Please select at least one book");
             return;
         }
-
         const orderRequest = {
             customer: {
                 fullName: formData.fullName,
@@ -162,7 +167,7 @@ export default function CheckoutForm() {
                 postalCode: formData.postalCode,
                 notes: formData.notes,
             },
-            books: items,
+            books: parsedData,
             shipping: {
                 method: shippingMethod,
                 cost: shipping,
@@ -171,7 +176,7 @@ export default function CheckoutForm() {
                 method: "Cash on Delivery",
             },
             totals: {
-                subtotal,
+                subTotal,
                 shipping,
                 grandTotal,
             },
@@ -180,6 +185,7 @@ export default function CheckoutForm() {
         };
 
 
+        console.log("orderRequest", orderRequest)
         setOrderData(orderRequest)
         setIsSubmitting(true);
 
@@ -203,6 +209,7 @@ export default function CheckoutForm() {
             setIsSubmitting(false);
         }
 
+        localStorage.removeItem('cartItems')
 
     };
 
@@ -400,7 +407,7 @@ export default function CheckoutForm() {
                     <h2 className="section-title">Order Summary</h2>
 
                     <div className="summary-line">
-                        <span>Subtotal</span>
+                        <span>SubTotal</span>
                         <span>Rs. {subTotal}</span>
                     </div>
 
