@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Checkout.css";
 import Navbar from "../navbar/Nav";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import OrderSuccessModal from "../OrderSuccess/orderSuccess";
+
 
 const booksList = [
     {
@@ -43,7 +44,7 @@ export default function CheckoutForm() {
 
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
-
+    const [subTotal, setSubTotal] = useState(false);
 
 
     const [formData, setFormData] = useState({
@@ -64,13 +65,37 @@ export default function CheckoutForm() {
         3: 0,
     });
 
-    const subtotal = booksList.reduce(
-        (sum, book) => sum + quantities[book.id] * book.price,
-        0
-    );
+    const getSubTotalfromCart = () => {
+        const addedData = localStorage.getItem("cartItems");
+        const parsedData = addedData ? JSON.parse(addedData) : [];
 
-    const shipping = subtotal > 0 ? 250 : 0;
-    const grandTotal = subtotal + shipping;
+        const price = parsedData.reduce((acc, item) => {
+            // Convert price string like "Rs. 1,500" to number 1500
+            const priceNumber = typeof item.price === "string"
+                ? parseInt(item.price.replace(/[^0-9]/g, ""), 10)
+                : item.price;
+
+            return acc + priceNumber * (item.quantity || 1);
+        }, 0);
+
+        setSubTotal(price)
+
+        return price;
+    };
+
+    useEffect(() => {
+        getSubTotalfromCart();
+
+    }, [])
+
+
+
+
+    const shipping = shippingMethod === "express"
+        ? 800
+        : 300;
+
+    const grandTotal = subTotal + shipping;
 
     const updateQty = (id, value) => {
         setQuantities((prev) => ({
@@ -80,6 +105,10 @@ export default function CheckoutForm() {
     };
 
 
+    const handleBack = () => {
+
+        navigate("/store");
+    };
 
     const handleChange = (e) => {
 
@@ -92,13 +121,13 @@ export default function CheckoutForm() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const shipping = subtotal === 0
+        const shipping = subTotal === 0
             ? 0
             : shippingMethod === "express"
                 ? 800
                 : 300;
 
-        const grandTotal = subtotal + shipping;
+
 
 
 
@@ -196,12 +225,23 @@ export default function CheckoutForm() {
 
 
             <div className="checkout-wrapper">
-                <h1 className="main-title">1. Pre-Order & Shipping Details</h1>
-                <p className="subtitle">
-                    Select the books and quantities you wish to pre-order (Prices are in PKR).
-                </p>
 
-                <div className="books-row">
+                <div className="back-store">
+                    <a onClick={handleBack} className="back-link">← Back to Store</a>
+
+                    <h1 className="main-title">Checkout</h1>
+                    <p className="subtitle">
+                        Final Step to secure your signed copies
+                    </p>
+
+                </div>
+
+
+
+
+
+
+                {/* <div className="books-row">
                     {booksList.map((book) => (
                         <div key={book.id} className="book-card">
                             <div className="book-details"
@@ -233,7 +273,7 @@ export default function CheckoutForm() {
                             </div>
                         </div>
                     ))}
-                </div>
+                </div> */}
 
                 {/* SHIPPING INFORMATION */}
                 <div className="shipping-card">
@@ -339,6 +379,8 @@ export default function CheckoutForm() {
                 </div>
 
 
+
+
                 {/* PAYMENT */}
                 <div className="checkout-card">
                     <h2 className="section-title">Payment</h2>
@@ -359,7 +401,7 @@ export default function CheckoutForm() {
 
                     <div className="summary-line">
                         <span>Subtotal</span>
-                        <span>Rs. {subtotal}</span>
+                        <span>Rs. {subTotal}</span>
                     </div>
 
                     <div className="summary-line">

@@ -334,6 +334,21 @@
     cursor: not-allowed;
 }
 
+.back-store {
+    margin-top: 5%;
+}
+
+.hand-store {
+    margin-top: 8%;
+    text-align: left;
+    display: flex;
+    /* make it flex container */
+    justify-content: flex-start;
+    /* align items horizontally to start (left) */
+    align-items: flex-start;
+    /* align items vertically to top */
+}
+
 .place-order-btn {
 
 
