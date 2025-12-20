@@ -11,6 +11,10 @@ const ExcitementModal = ({ close }) => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
 
+    const [status, setStatus] = useState("form");
+    // "form" | "success" | "error"
+
+
     const handleSubmit = async () => {
         if (!name || !role || !message) {
             setError("All fields are required");
@@ -44,11 +48,14 @@ const ExcitementModal = ({ close }) => {
             setRole("");
             setMessage("");
 
+            setStatus("success");
+
             // optionally close modal after submission
             // close();
 
         } catch (err) {
             setError(err.message || "Something went wrong");
+            setStatus("error");
         } finally {
             setLoading(false); // stop loading in finally
         }
@@ -68,48 +75,73 @@ const ExcitementModal = ({ close }) => {
                 <div className="modal-box" onClick={(e) => e.stopPropagation()}>
                     <button className="close-btn" onClick={close}>×</button>
 
-                    <h2>Share Your Excitement</h2>
+                    {
+                        status === "success" ? (
+                            <div className="status-box success">
+                                <h2>🎉 Thank You!</h2>
+                                <p>Your excitement has been submitted successfully.</p>
+                                <button className="login-btn" onClick={close}>
+                                    Close
+                                </button>
+                            </div>
+                        ) : status === "error" ? (
+                            <div className="status-box error">
+                                <h2>❌ Submission Failed</h2>
+                                <p>{error || "Please try again later."}</p>
+                                <button
+                                    className="login-btn"
+                                    onClick={() => setStatus("form")}
+                                >
+                                    Try Again
+                                </button>
+                            </div>
+                        ) : (
+                            <>
+                                <h2>Share Your Excitement</h2>
 
-                    <input
-                        type="text"
-                        placeholder="Your Name"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                    />
+                                <input
+                                    type="text"
+                                    placeholder="Your Name"
+                                    value={name}
+                                    onChange={(e) => setName(e.target.value)}
+                                />
 
-                    <select
-                        id="role-select"
-                        value={role}
-                        onChange={(e) => setRole(e.target.value)}
-                    >
-                        <option value="" disabled>Select Your Role</option>
-                        <option value="Longtime Reader">Longtime Reader</option>
-                        <option value="Poetry Observer">Poetry Observer</option>
-                        <option value="Reviewer">Reviewer</option>
-                        <option value="Literary Critic">Literary Critic</option>
-                        <option value="Aspiring Writer">Aspiring Writer</option>
-                        <option value="Student">Student</option>
-                        <option value="Journalist">Journalist</option>
-                        <option value="Community Member">Community Member</option>
-                        <option value="Author">Author</option>
-                    </select>
+                                <select
+                                    value={role}
+                                    onChange={(e) => setRole(e.target.value)}
+                                >
+                                    <option value="" disabled>Select Your Role</option>
+                                    <option value="Longtime Reader">Longtime Reader</option>
+                                    <option value="Poetry Observer">Poetry Observer</option>
+                                    <option value="Reviewer">Reviewer</option>
+                                    <option value="Literary Critic">Literary Critic</option>
+                                    <option value="Aspiring Writer">Aspiring Writer</option>
+                                    <option value="Student">Student</option>
+                                    <option value="Journalist">Journalist</option>
+                                    <option value="Community Member">Community Member</option>
+                                    <option value="Author">Author</option>
+                                </select>
 
-                    <textarea
-                        placeholder="I'm counting down the days for Musafirat"
-                        value={message}
-                        onChange={(e) => setMessage(e.target.value)}
-                    ></textarea>
+                                <textarea
+                                    placeholder="I'm counting down the days for Musafirat"
+                                    value={message}
+                                    onChange={(e) => setMessage(e.target.value)}
+                                />
 
-                    {error && <p className="error-text">{error}</p>}
+                                {error && <p className="error-text">{error}</p>}
 
-                    <button
-                        className="login-btn"
-                        onClick={handleSubmit}
-                        disabled={loading}
-                    >
-                        {loading ? "Submitting..." : "Submit My Comment"}
-                    </button>
+                                <button
+                                    className="login-btn"
+                                    onClick={handleSubmit}
+                                    disabled={loading}
+                                >
+                                    {loading ? "Submitting..." : "Submit My Comment"}
+                                </button>
+                            </>
+                        )
+                    }
                 </div>
+
             </div>
         </>
     );

@@ -2,9 +2,24 @@ import { useState } from "react";
 import Social from "../SocialStrip/social";
 import "./Footer.css";
 import ReviewModal from "../ReviewModal/reviewModal";
+import { useNavigate } from "react-router-dom";
 
 const Footer = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const navigate = useNavigate();
+
+    const handleStore = () => {
+
+        navigate("/store");
+    };
+
+
+    const handleAbout = () => {
+
+        navigate("/about");
+    };
+
+
     return (
         <>
             <footer className="footer">
@@ -17,8 +32,8 @@ const Footer = () => {
                         <div className="footer-column">
                             <h4>Navigation</h4>
                             <a href="/">Home</a>
-                            <a href="/store">Shop</a>
-                            <a href="/about">About</a>
+                            <a onClick={handleStore}>Shop</a>
+                            <a onClick={handleAbout}>About</a>
                             <a href="/">Contact</a>
                         </div>
 
