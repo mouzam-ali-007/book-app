@@ -22,8 +22,10 @@ export const CartProvider = ({ children }) => {
     }, [cartItems]);
 
     const addToCart = (product, quantity) => {
+
+
         setCartItems((prevItems) => {
-            const existingItem = prevItems.find((item) => item.id === product.id);
+            const existingItem = prevItems.find((item) => item.title === product.title);
             if (existingItem) {
                 return prevItems.map((item) =>
                     item.id === product.id
