@@ -79,7 +79,7 @@ const ExcitementModal = ({ close }) => {
                         status === "success" ? (
                             <div className="status-box success">
                                 <h2>🎉 Thank You!</h2>
-                                <p>Your excitement has been submitted successfully.</p>
+                                <p>Your feeback has been submitted successfully.</p>
                                 <button className="login-btn" onClick={close}>
                                     Close
                                 </button>
