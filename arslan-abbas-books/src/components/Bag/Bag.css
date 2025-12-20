@@ -1,0 +1,239 @@
+.bag-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 10000;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.bag-drawer {
+    /* width: 400px;
+    max-width: 90%;
+    height: 100%;
+    background: #000;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5);
+    border-left: 1px solid #333;
+    animation: slideIn 0.3s ease-out; */
+
+
+    position: fixed;
+    bottom: 10%;
+    left: 50%;
+    transform: translateX(20%);
+
+    width: 400px;
+    max-width: 90%;
+    height: 50%;
+
+    background: #000;
+    color: #fff;
+
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+
+    box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.5);
+    border-top: 1px solid #333;
+
+    animation: slideUp 0.3s ease-out;
+    z-index: 1000;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+    }
+
+    to {
+        transform: translateX(0);
+    }
+}
+
+.bag-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #333;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+}
+
+.bag-header h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.close-bag {
+    background: none;
+    border: none;
+    color: #888;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.close-bag:hover {
+    color: #fff;
+}
+
+.bag-items {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.bag-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #222;
+}
+
+.item-info h3 {
+    margin: 0 0 5px;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.item-price {
+    color: #aaa;
+    margin: 0;
+}
+
+.item-multiply {
+    color: #666;
+    font-size: 0.9em;
+}
+
+.item-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.qty-controls {
+    display: flex;
+    gap: 5px;
+}
+
+.qty-controls button {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: none;
+    background: #2a2a2a;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+}
+
+.qty-controls button:hover {
+    background: #444;
+}
+
+.delete-btn {
+    background: none;
+    border: none;
+    color: #ff4d4d;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.delete-btn:hover {
+    color: #ff0000;
+}
+
+.bag-footer {
+    border-top: 1px solid #333;
+    padding-top: 20px;
+}
+
+.total-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.checkout-btn {
+    width: 100%;
+    padding: 15px;
+    background: #8b5cf6;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.checkout-btn:hover {
+    background: #7c3aed;
+}
+
+.checkout-btn:disabled {
+    background: #333;
+    cursor: not-allowed;
+    color: #666;
+}
+
+.empty-msg {
+    color: #888;
+    text-align: center;
+    margin-top: 50px;
+}
+
+
+@media (max-width: 768px) {
+    .bag-drawer {
+        /* width: 400px;
+    max-width: 90%;
+    height: 100%;
+    background: #000;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5);
+    border-left: 1px solid #333;
+    animation: slideIn 0.3s ease-out; */
+
+
+        position: fixed;
+        bottom: 10%;
+        left: 50%;
+        transform: translateX(-40%);
+
+        width: 300px;
+        max-width: 90%;
+        height: 50%;
+
+        background: #000;
+        color: #fff;
+
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+
+        box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.5);
+        border-top: 1px solid #333;
+
+        animation: slideUp 0.3s ease-out;
+        z-index: 1000;
+    }
+}

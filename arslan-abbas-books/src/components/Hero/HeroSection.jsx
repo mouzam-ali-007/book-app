@@ -10,7 +10,7 @@ const HeroSection = () => {
     let lastScrollY = 0;
 
     const handlePreOrderClick = () => {
-        navigate("/checkout");
+        navigate("/store");
     };
 
     useEffect(() => {

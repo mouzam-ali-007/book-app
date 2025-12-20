@@ -398,9 +398,6 @@ export default function CheckoutForm() {
 
                     {isModalOpen && <OrderSuccessModal order={orderData} close={() => setIsModalOpen(false)} />}
 
-                    {/* <button className="place-order-btn">
-                        Bag <span className="bag-count">{Object.values(quantities).reduce((a, b) => a + b, 0)}</span>
-                    </button> */}
                 </div>
 
             </div>

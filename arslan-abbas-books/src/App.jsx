@@ -17,6 +17,8 @@ import "react-toastify/dist/ReactToastify.css";
 import AuthorSection from './components/AboutAuthor/AuthorSection.jsx';
 import Store from './components/Store/store.jsx';
 import ComingSoon from './components/LifeStory/lifeStory.jsx';
+import { CartProvider } from './context/CartContext';
+import Bag from './components/Bag/Bag';
 
 const MainPage = () => {
   return (
@@ -35,15 +37,18 @@ function App() {
   return (
     <>
       <ToastContainer position="top-right" autoClose={2000} />
-      <Router>
-        <Routes>
-          <Route path="/" element={<MainPage />} />
-          <Route path="/checkout" element={<CheckoutForm />} />
-          <Route path="/order" element={<OrderSuccess />} />
-          <Route path="/store" element={<Store />} />
-          <Route path="/about" element={<ComingSoon />} />
-        </Routes>
-      </Router>
+      <CartProvider>
+        <Router>
+          <Routes>
+            <Route path="/" element={<MainPage />} />
+            <Route path="/checkout" element={<CheckoutForm />} />
+            <Route path="/order" element={<OrderSuccess />} />
+            <Route path="/store" element={<Store />} />
+            <Route path="/about" element={<ComingSoon />} />
+          </Routes>
+          <Bag />
+        </Router>
+      </CartProvider>
 
 
 

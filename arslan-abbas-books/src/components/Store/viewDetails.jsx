@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useCart } from "../../context/CartContext.jsx";
 import "./viewDetails.css";
 import { PRODUCTS } from "../../utilities/constants";
 
@@ -11,6 +12,12 @@ const ViewDetailsModal = ({ book, close, onNext, onPrev }) => {
     const [rotateY, setRotateY] = useState(-25); // Default perspective angle
 
     const [orderCount, setOrderCount] = useState(1);
+    const { addToCart, toggleBag, cartItems } = useCart();
+    const totalItems = cartItems.reduce((acc, item) => acc + item.quantity, 0);
+
+
+
+
 
 
     const [version, setVersion] = useState(null);
@@ -62,109 +69,119 @@ const ViewDetailsModal = ({ book, close, onNext, onPrev }) => {
     };
 
     return (
-        <div className="details-overlay" onClick={close}>
-            <div className="details-modal" onClick={(e) => e.stopPropagation()}>
+        <>
+            <div className="details-overlay" onClick={close}>
 
-                <div className="modal-header-actions">
-                    <button className="close-btn" onClick={close}>✕</button>
-                </div>
+                <div className="details-modal" onClick={(e) => e.stopPropagation()}>
 
-
-
-                {/* CARD 2 — PRODUCT INFO */}
-                <div className="card">
-                    <h2 className="title">{version.title}</h2>
-                    <p className="sub">{version.subtitle || book.tag}</p>
-                    <p className="price">{version.price}</p>
-
-                    <div className="order-row">
-                        <button className="qty" onClick={decrease}>−</button>
-                        <button className="order-btn">Order {orderCount} Copies</button>
-                        <button className="qty" onClick={increase}>+</button>
+                    <div className="modal-header-actions">
+                        <button className="close-btn" onClick={close}>✕</button>
                     </div>
 
-                    <p className="limit">Max {version.max} per person</p>
-                </div>
 
-                {/* CARD 1 — IMAGE SLIDER / 3D VIEW */}
-                <div className="card slider-card">
-                    <div className="view-toggle">
-                        <button
-                            className={!isRotating ? "active" : ""}
-                            onClick={() => setIsRotating(false)}
-                        >
-                            Gallery
-                        </button>
-                        <button
-                            className={isRotating ? "active" : ""}
-                            onClick={() => setIsRotating(true)}
-                        >
-                            3D View
-                        </button>
-                    </div>
 
-                    {!isRotating ? (
-                        <>
-                            <div className="slider">
-                                <img src={version.images[index]} alt={version.title} />
-                                <button className="nav left" onClick={prevImage}>‹</button>
-                                <button className="nav right" onClick={nextImage}>›</button>
-                            </div>
-                            <div className="dots">
-                                {version.images.map((_, i) => (
-                                    <span
-                                        key={i}
-                                        className={i === index ? "dot active" : "dot"}
-                                        onClick={() => setIndex(i)}
-                                    />
-                                ))}
-                            </div>
-                        </>
-                    ) : (
-                        <div
-                            className="book-3d-wrapper"
-                            onMouseMove={handleMouseMove}
-                            onMouseLeave={() => setRotateY(-25)} // Reset on leave
-                        >
-                            <div
-                                className="book-3d"
-                                style={{ transform: `rotateY(${rotateY}deg)` }}
-                            >
-                                <div className="book-face front">
+                    {/* CARD 2 — PRODUCT INFO */}
+                    <div className="card">
+                        <h2 className="title">{version.title}</h2>
+                        <p className="sub">{version.subtitle || book.tag}</p>
+                        <p className="price">{version.price}</p>
 
-                                    <img src={version.images[index]} alt="Front Cover" />
-                                </div>
-                                <div className="book-face spine"></div>
-                                <div className="book-face back"></div>
-                            </div>
-                            <p className="rotate-instruction">Move cursor to rotate</p>
+                        <div className="order-row">
+                            <button className="qty" onClick={decrease}>−</button>
+                            <button className="order-btn" onClick={() => addToCart(version, orderCount)}>
+                                Order {orderCount} Copies
+                            </button>
+                            <button className="qty" onClick={increase}>+</button>
                         </div>
-                    )}
-                </div>
 
-                {/* CARD 3 — OVERVIEW */}
-                <div className="card">
-                    <h3 className="overview">Overview</h3>
-                    <h3 className="handcover">Handcover  <p className="handcover-value">{version.handcover}</p></h3>
-
-                    <p className="description">{version.description}</p>
-                </div>
-
-                {/* CARD 4 — WHAT’S IN THE BOX */}
-                <div className="card ">
-                    <div className="box-item">
-                        <h3>What’s in the box</h3>
-                        <ul>
-                            {version.box && version.box.map((item, i) => (
-                                <li key={i}>{item}</li>
-                            ))}
-                        </ul>
-
+                        <p className="limit">Max {version.max} per person</p>
                     </div>
-                    {version.ships && <p className="shipping-details">{version.ships}</p>}
+
+                    {/* CARD 1 — IMAGE SLIDER / 3D VIEW */}
+                    <div className="card slider-card">
+                        <div className="view-toggle">
+                            <button
+                                className={!isRotating ? "active" : ""}
+                                onClick={() => setIsRotating(false)}
+                            >
+                                Gallery
+                            </button>
+                            <button
+                                className={isRotating ? "active" : ""}
+                                onClick={() => setIsRotating(true)}
+                            >
+                                3D View
+                            </button>
+                        </div>
+
+                        {!isRotating ? (
+                            <>
+                                <div className="slider">
+                                    <img src={version.images[index]} alt={version.title} />
+                                    <button className="nav left" onClick={prevImage}>‹</button>
+                                    <button className="nav right" onClick={nextImage}>›</button>
+                                </div>
+                                <div className="dots">
+                                    {version.images.map((_, i) => (
+                                        <span
+                                            key={i}
+                                            className={i === index ? "dot active" : "dot"}
+                                            onClick={() => setIndex(i)}
+                                        />
+                                    ))}
+                                </div>
+                            </>
+                        ) : (
+                            <div
+                                className="book-3d-wrapper"
+                                onMouseMove={handleMouseMove}
+                                onMouseLeave={() => setRotateY(-25)} // Reset on leave
+                            >
+                                <div
+                                    className="book-3d"
+                                    style={{ transform: `rotateY(${rotateY}deg)` }}
+                                >
+                                    <div className="book-face front">
+
+                                        <img src={version.images[index]} alt="Front Cover" />
+                                    </div>
+                                    <div className="book-face spine"></div>
+                                    <div className="book-face back"></div>
+                                </div>
+                                <p className="rotate-instruction">Move cursor to rotate</p>
+                            </div>
+                        )}
+                    </div>
+
+                    {/* CARD 3 — OVERVIEW */}
+                    <div className="card">
+                        <h3 className="overview">Overview</h3>
+                        <h3 className="handcover">Handcover  <p className="handcover-value">{version.handcover}</p></h3>
+
+                        <p className="description">{version.description}</p>
+                    </div>
+
+                    {/* CARD 4 — WHAT’S IN THE BOX */}
+                    <div className="card ">
+                        <div className="box-item">
+                            <h3>What’s in the box</h3>
+                            <ul>
+                                {version.box && version.box.map((item, i) => (
+                                    <li key={i}>{item}</li>
+                                ))}
+                            </ul>
+
+                        </div>
+                        {version.ships && <p className="shipping-details">{version.ships}</p>}
+                    </div>
                 </div>
+                <button className="place-order-btn" onClick={toggleBag}>
+                    Bag <span className="bag-count">{totalItems}</span>
+                </button>
             </div>
-        </div>
+
+
+        </>
     );
 };
 

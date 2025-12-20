@@ -335,9 +335,12 @@
 }
 
 .place-order-btn {
-    margin-top: 18px;
-    width: fit-content;
-    align-self: flex-end;
+
+
+    position: fixed;
+    bottom: 0px;
+    right: 20px;
+
     background: #5a4bff;
     color: #fff;
     border: none;
@@ -345,9 +348,12 @@
     border-radius: 18px;
     font-size: 16px;
     cursor: pointer;
+
     display: flex;
     align-items: center;
     gap: 10px;
+
+    z-index: 1000000;
 }
 
 .bag-count {
