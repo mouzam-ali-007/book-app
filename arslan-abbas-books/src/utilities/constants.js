@@ -1,4 +1,8 @@
-export const BASE_URL = "http://localhost:8001/"
+export const DEV_URL = "http://localhost:8001/"
+
+export const BASE_URL = "https://test-apid.vercel.app/"
+
+
 export const PRODUCTS = {
     "Complete Works": {
         title: "Complete Works",

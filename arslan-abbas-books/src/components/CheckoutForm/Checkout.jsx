@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import OrderSuccessModal from "../OrderSuccess/orderSuccess";
+import { BASE_URL } from "../../utilities/constants";
 
 
 const booksList = [
@@ -189,9 +190,10 @@ export default function CheckoutForm() {
         setOrderData(orderRequest)
         setIsSubmitting(true);
 
+        const url = `${BASE_URL}api/order`
 
         try {
-            const res = await fetch("http://localhost:8001/api/order", {
+            const res = await fetch(url, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

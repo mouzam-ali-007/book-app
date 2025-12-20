@@ -1,20 +1,20 @@
 import React from "react";
 import "./OrderSuccess.css";
+import { useNavigate } from "react-router-dom";
+
 
 const OrderSuccessModal = ({ order, close }) => {
+    const navigate = useNavigate();
 
-    const { customer, status, subtotal, shipping, totals } = order
+    if (!order) {
+        navigate("/");;
 
+        return
+    }
 
-    const {
-        fullName,
-        phone,
-        email,
-        address,
-        items,
+    const { customer = {}, status, subtotal, shipping, totals } = order;
+    // const { fullName, phone, email, address, items } = customer;
 
-
-    } = customer;
 
     return (
         <div className="modal-overlay" onClick={close}>

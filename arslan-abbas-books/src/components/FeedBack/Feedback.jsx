@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./Feedback.css";
 import ExcitementModal from "../ExcitementModal/excitement";
+import { BASE_URL } from "../../utilities/constants";
 
 const existingData = [
     {
@@ -54,8 +55,9 @@ const Testimonials = () => {
 
     useEffect(() => {
         const fetchReviews = async () => {
+            const url = `${BASE_URL}api/getAllReviews`
             try {
-                const res = await fetch("http://localhost:8001/api/getAllReviews");
+                const res = await fetch(url);
                 const data = await res.json();
 
                 if (res.ok) {
