@@ -59,7 +59,7 @@ const ComingSoon = () => {
             <p>Something amazing is coming soon!</p>
             <div className="countdown">
                 <div>
-                    <span>{timeLeft.days}</span> Days
+                    <span>{'8'}</span> Days
                 </div>
                 <div>
                     <span>{timeLeft.hours}</span> Hours
@@ -71,7 +71,7 @@ const ComingSoon = () => {
                     <span>{timeLeft.seconds}</span> Seconds
                 </div>
             </div>
-            <footer>&copy; 2025 Arslan Abass. All Rights Reserved.</footer>
+
         </div>
     );
 };
