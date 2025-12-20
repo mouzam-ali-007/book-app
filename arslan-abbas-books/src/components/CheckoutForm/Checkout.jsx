@@ -82,7 +82,7 @@ export default function CheckoutForm() {
 
 
     const handleChange = (e) => {
-        console.log(e.target.name)
+
         setFormData({
             ...formData,
             [e.target.name]: e.target.value,
@@ -150,7 +150,7 @@ export default function CheckoutForm() {
 
         };
 
-        console.log("orderRequest", orderRequest)
+
         setOrderData(orderRequest)
         setIsSubmitting(true);
 

@@ -2,11 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useCart } from "../../context/CartContext.jsx";
 import "./viewDetails.css";
 import { PRODUCTS } from "../../utilities/constants";
+import { ToastContainer, toast } from 'react-toastify';
 
 const ViewDetailsModal = ({ book, close, onNext, onPrev }) => {
-
-
-    console.log("book", book)
     const [index, setIndex] = useState(0);
     const [isRotating, setIsRotating] = useState(false);
     const [rotateY, setRotateY] = useState(-25); // Default perspective angle
@@ -15,7 +13,36 @@ const ViewDetailsModal = ({ book, close, onNext, onPrev }) => {
     const { addToCart, toggleBag, cartItems } = useCart();
     const totalItems = cartItems.reduce((acc, item) => acc + item.quantity, 0);
 
+    const showToaster = (version, count) => {
 
+
+        const addedData = localStorage.getItem("cartItems");
+        const parsedData = addedData ? JSON.parse(addedData) : [];
+
+        const existingItem = parsedData.find(
+            (item) => item.title === version.title
+        );
+
+
+        if (existingItem) {
+            // Check if adding orderCount exceeds max allowed
+            if (existingItem.quantity + orderCount > version.max) {
+                toast.error(`Maximum ${version.max} copies allowed`);
+                return;
+            } else {
+                // Optional: Update quantity if you allow incrementing
+                // existingItem.quantity += orderCount
+                // localStorage.setItem("cartItems", JSON.stringify(parsedData));
+                toast.error(`Item already in cart`); // Or skip adding
+                return;
+            }
+        }
+
+
+        addToCart(version, count)
+        toast.success("Added to the bag");
+
+    }
 
 
 
@@ -34,7 +61,7 @@ const ViewDetailsModal = ({ book, close, onNext, onPrev }) => {
     }, [book]);
 
 
-    console.log("version", version)
+
     // Keyboard navigation
     useEffect(() => {
         const handleKeyDown = (e) => {
@@ -70,7 +97,16 @@ const ViewDetailsModal = ({ book, close, onNext, onPrev }) => {
 
     return (
         <>
+
             <div className="details-overlay" onClick={close}>
+
+                <ToastContainer
+                    position="top-right"
+                    autoClose={3000}
+                    hideProgressBar={false}
+                    pauseOnHover
+                    closeOnClick
+                />
 
                 <div className="details-modal" onClick={(e) => e.stopPropagation()}>
 
@@ -88,7 +124,7 @@ const ViewDetailsModal = ({ book, close, onNext, onPrev }) => {
 
                         <div className="order-row">
                             <button className="qty" onClick={decrease}>−</button>
-                            <button className="order-btn" onClick={() => addToCart(version, orderCount)}>
+                            <button className="order-btn" onClick={() => showToaster(version, orderCount)}>
                                 Order {orderCount} Copies
                             </button>
                             <button className="qty" onClick={increase}>+</button>
