@@ -203,6 +203,10 @@ export default function CheckoutForm() {
             localStorage.setItem("checkoutOrder", JSON.stringify(orderRequest));
             setIsSubmitting(false);
             setIsModalOpen(true)
+            setTimeout(() => {
+                navigate('/')
+            }, 5000)
+
         } catch (err) {
             toast.error("Something went wrong");
             console.error(err);

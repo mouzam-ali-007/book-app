@@ -4,7 +4,7 @@ import HeroSection from "./components/Hero/HeroSection.jsx";
 import Navbar from './components/navbar/Nav.jsx';
 import Testimonials from './components/FeedBack/Feedback.jsx';
 import OtherBooks from './components/otherBooks/otherBooks.jsx';
-import CheckoutForm from './components/CheckoutForm/checkout.jsx';
+import CheckoutForm from './components/CheckoutForm/Checkout.jsx';
 
 import AboutAuthor from './components/AboutAuthor/About.jsx';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
