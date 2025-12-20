@@ -67,6 +67,7 @@ const Testimonials = () => {
                 }
             } catch (err) {
                 console.error("Error fetching reviews:", err);
+                setTestimonials(existingData)
             }
         };
 
