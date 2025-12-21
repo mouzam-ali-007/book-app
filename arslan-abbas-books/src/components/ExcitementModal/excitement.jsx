@@ -12,8 +12,20 @@ const ExcitementModal = ({ close }) => {
     const [error, setError] = useState("");
 
     const [status, setStatus] = useState("form");
+
+    const [isOpen, setIsOpen] = useState(false);
+    const [isClosing, setIsClosing] = useState(false);
+
     // "form" | "success" | "error"
 
+    const closeModal = () => {
+        close()
+        setIsClosing(true);
+        setTimeout(() => {
+            setIsOpen(false);
+            setIsClosing(false);
+        }, 250); // match animation time
+    };
 
     const handleSubmit = async () => {
         if (!name || !role || !message) {
@@ -41,7 +53,7 @@ const ExcitementModal = ({ close }) => {
 
             const data = await res.json();
 
-            toast.success("Review Added Successfully");
+            // toast.success("Review Added Successfully");
 
             // clear form
             setName("");
@@ -71,17 +83,19 @@ const ExcitementModal = ({ close }) => {
                 closeOnClick
             />
 
-            <div className="modal-overlay" onClick={close}>
-                <div className="modal-box" onClick={(e) => e.stopPropagation()}>
-                    <button className="close-btn" onClick={close}>×</button>
+
+
+            <div className={`modal-overlay ${isClosing ? "closing" : ""}`} onClick={closeModal}>
+                <div className={`modal-box ${isClosing ? "closing" : ""}`} onClick={(e) => e.stopPropagation()}>
+                    <button className="close-btn" onClick={closeModal}>×</button>
 
                     {
                         status === "success" ? (
                             <div className="status-box success">
                                 <h2>🎉 Thank You!</h2>
                                 <p>Your feeback has been submitted successfully.</p>
-                                <button className="login-btn" onClick={close}>
-                                    Close
+                                <button className="login-btn" onClick={closeModal}>
+                                    Continue Exploring
                                 </button>
                             </div>
                         ) : status === "error" ? (

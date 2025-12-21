@@ -64,29 +64,32 @@ const AuthorSection = () => {
                     </p>
 
                     {/* Digital Metrics / Stats Cards */}
+
+
                     <div>
                         <p className="author-stats-label">Global Reach</p>
+
                         <div className="author-stats-grid">
-                            {/* Instagram Stat */}
+                            {/* Followers + Views card */}
                             <div className="author-stat-card">
-                                <p className="author-stat-value">{followers}K+</p>
-                                <p className="author-stat-label">Followers</p>
+                                <div className="stat-item">
+                                    <p className="author-stat-value">{followers}K+</p>
+                                    <p className="author-stat-label">Followers</p>
+                                </div>
+
+                                <div className="stat-item">
+                                    <p className="author-stat-value">{views}M+</p>
+                                    <p className="author-stat-label">Views (Monthly)</p>
+                                </div>
                             </div>
 
-                            {/* Content Views Stat */}
-                            <div className="author-stat-card">
-                                <p className="author-stat-value">{views}M+</p>
-                                <p className="author-stat-label">Views (Monthly)</p>
-                            </div>
-
-                            {/* TEDx Card */}
+                            {/* TEDx */}
                             <div className="author-stat-card full-width">
                                 <p className="author-stat-value tedx">TEDx</p>
                                 <p className="author-stat-label tedx">Keynote Speaker</p>
                             </div>
                         </div>
                     </div>
-
                     {/* CTA Button */}
                     <a
 

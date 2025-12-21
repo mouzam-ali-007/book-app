@@ -33,7 +33,7 @@
     grid-auto-flow: column;
     grid-auto-columns: minmax(260px, 1fr);
     gap: 24px;
-    padding: 40px;
+
     background: #000;
 
 }
@@ -85,8 +85,23 @@
 
 .excitement-comments {
     text-align: center;
-    color: #fff;
+    color: #6b6bff;
     background-color: #000;
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
 }
 
 /* SLIDER AREA */

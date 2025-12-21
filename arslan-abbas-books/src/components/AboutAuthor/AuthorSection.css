@@ -86,6 +86,8 @@
 }
 
 .author-stats-grid {
+
+
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
@@ -102,7 +104,7 @@
 }
 
 .author-stat-card.full-width {
-    grid-column: 1 / -1;
+    grid-column: 2;
 }
 
 .author-stat-value {
@@ -129,6 +131,14 @@
     color: #ef4444;
 }
 
+.stat-item {
+    margin-bottom: 0.75rem;
+}
+
+.stat-item:last-child {
+    margin-bottom: 0;
+}
+
 /* CTA Button */
 .author-cta-button {
     display: inline-block;
@@ -143,6 +153,8 @@
     transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
     border: none;
     cursor: pointer;
+    max-width: 16rem;
+    white-space: nowrap;
 }
 
 .author-cta-button:hover {
@@ -183,12 +195,26 @@
     }
 
     .author-stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .author-stat-card.full-width {
+        grid-column: auto;
+    }
+
+
+    .author-stats-grid {
         gap: 0.75rem;
         margin-bottom: 2rem;
+
     }
 
     .author-stat-card {
         padding: 0.875rem;
+        display: flex;
+        gap: 50px;
+        text-align: left;
+        align-items: flex-start;
     }
 
     .author-stat-value {
@@ -200,6 +226,8 @@
         text-align: center;
         padding: 0.875rem 1.5rem;
         font-size: 1rem;
+        max-width: 12rem;
+        white-space: nowrap;
     }
 
     .author-image-container,
@@ -230,6 +258,9 @@
 
     .author-stat-card.full-width {
         width: 100%;
+        display: block;
+        text-align: left;
+        align-items: flex-start;
     }
 }
 

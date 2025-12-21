@@ -8,7 +8,7 @@
 .book-inner {
     width: 100%;
     max-width: 900px;
-    border-radius: 24px;
+    border-radius: 2px;
     border: 1px solid rgba(99, 102, 241, 0.6);
     padding: 40px;
     display: flex;
@@ -101,13 +101,14 @@
 }
 
 .btn-outline {
-    padding: 14px 26px;
-    border-radius: 14px;
+    padding: 14px 20px;
+    border-radius: 0.9rem;
     background: transparent;
     border: 1px solid #6b7280;
     color: #fff;
     cursor: pointer;
     transition: all 0.3s ease;
+    white-space: nowrap;
 }
 
 .btn-outline:hover {
@@ -116,13 +117,14 @@
 
 .btn-primary {
     padding: 14px 30px;
-    border-radius: 14px;
+    border-radius: 0.9rem;
     background: #6366f1;
     border: none;
     color: #fff;
     font-weight: 600;
     cursor: pointer;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    white-space: nowrap;
 }
 
 .btn-primary:hover {
@@ -147,15 +149,15 @@
         padding: 20px;
     }
 
-    .book-card-container {
+    /* .book-card-container {
         padding: 20px;
-    }
+    } */
 
     .book-inner {
         flex-direction: column;
         /* stack image + content */
         gap: 24px;
-        padding: 24px;
+
         text-align: center;
     }
 

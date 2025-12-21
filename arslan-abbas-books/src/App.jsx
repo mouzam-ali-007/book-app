@@ -19,6 +19,7 @@ import Store from './components/Store/store.jsx';
 import ComingSoon from './components/LifeStory/lifeStory.jsx';
 import { CartProvider } from './context/CartContext';
 import Bag from './components/Bag/Bag';
+import SubscribeSection from './components/Subscribe/Subsribe.jsx';
 
 const MainPage = () => {
   const animationFrameIdRef = useRef(null);
@@ -105,6 +106,7 @@ const MainPage = () => {
       <Testimonials />
       <OtherBooks />
       <AuthorSection />
+      <SubscribeSection />
       <Footer />
     </>
   )

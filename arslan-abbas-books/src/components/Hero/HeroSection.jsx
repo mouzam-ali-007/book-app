@@ -25,7 +25,7 @@ const HeroSection = () => {
     const animationFrameIdRef = useRef(null);
 
     const handlePreOrderClick = () => {
-        navigate("/checkout");
+        navigate("/store");
     };
 
     // Core logic for updating the hero state based on scroll position
@@ -144,14 +144,14 @@ const HeroSection = () => {
                     style={{ opacity: 0 }}
                 >
                     <div className="text-center max-w-5xl mx-auto w-full vw-padding-main">
-                        <span className="tag">
+                        {/* <span className="tag">
                             FIRST READER EDITION – LIMITED 3000 COPIES!
-                        </span>
-                        <p className="text-lg md-text-xl font-light max-w-lg mx-auto mb-10 text-gray-300">
+                        </span> */}
+                        <p className="text-lg md-text-xl font-light max-w-lg mx-auto mt-60 text-gray-300">
                             A profound exploration of ambition, faith, and the restless human heart.
                         </p>
 
-                        <div className="flex flex-col items-center justify-center space-y-4">
+                        <div className="flex flex-col items-center justify-center  space-y-4">
                             <button
                                 onClick={handlePreOrderClick}
                                 className="hero-cta-button"
@@ -160,7 +160,7 @@ const HeroSection = () => {
                             </button>
                         </div>
 
-                        <p className="mt-8 text-sm text-gray-400">
+                        <p className="launch mt-1 text-sm text-gray-400">
                             Launching Worldwide: December 27th
                         </p>
 

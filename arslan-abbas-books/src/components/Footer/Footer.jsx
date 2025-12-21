@@ -57,9 +57,9 @@ const Footer = () => {
                     </div>
                     <Social />
 
-                    <div className="review-comments" onClick={() => setIsModalOpen(true)}>
+                    {/* <div className="review-comments" onClick={() => setIsModalOpen(true)}>
                         <a>Comments Review Panel.</a>
-                    </div>
+                    </div> */}
 
                     <div className="footer-bottom">
                         <p>© 2025 Arslan Abbas. All rights reserved.</p>

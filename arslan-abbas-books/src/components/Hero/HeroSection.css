@@ -341,14 +341,17 @@
     color: white;
     font-size: 1rem;
     font-weight: 700;
-    border-radius: 1.5rem;
+    border-radius: 0.9rem;
     border: none;
     cursor: pointer;
     box-shadow: 0 25px 50px -12px rgba(99, 102, 241, 0.5);
     transition: background-color 300ms, transform 300ms;
     width: 100%;
-    max-width: 20rem;
+    max-width: 12rem;
+    height: 50px;
     pointer-events: auto;
+
+    ;
 }
 
 .hero-cta-button:hover {
@@ -356,6 +359,9 @@
     transform: scale(1.02);
 }
 
+.launch {
+    margin-bottom: -25px
+}
 
 /* Responsive utilities */
 @media (min-width: 768px) {
@@ -502,6 +508,7 @@
 .mx-auto {
     margin-left: auto;
     margin-right: auto;
+    margin-top: 20% !important
 }
 
 .mb-4 {
