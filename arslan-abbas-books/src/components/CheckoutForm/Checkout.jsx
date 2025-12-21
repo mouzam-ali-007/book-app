@@ -5,7 +5,14 @@ import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import OrderSuccessModal from "../OrderSuccess/orderSuccess";
-import { BASE_URL } from "../../utilities/constants";
+import { BASE_URL, DISCOUNT_PROMOS } from "../../utilities/constants";
+import CartAccordion from "./CartAccordian";
+import {
+    FiTruck,
+    FiCreditCard,
+    FiSmartphone,
+    FiHome
+} from "react-icons/fi";
 
 
 const booksList = [
@@ -47,6 +54,21 @@ export default function CheckoutForm() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [subTotal, setSubTotal] = useState(false);
 
+    const [edition, setEdition] = useState("simple");
+    const [name, setName] = useState("");
+    const [line, setLine] = useState("");
+
+    const [open, setOpen] = useState(false);
+
+    const [promoCode, setPromoCode] = useState(false);
+    const [code, setCode] = useState("");
+
+    const [error, setError] = useState("");
+    const [success, setSuccess] = useState("");
+
+
+    const [method, setMethod] = useState("prepaid");
+    const [gateway, setGateway] = useState("card");
 
     const [formData, setFormData] = useState({
         fullName: "",
@@ -65,6 +87,7 @@ export default function CheckoutForm() {
         2: 0,
         3: 0,
     });
+
 
     const getSubTotalfromCart = () => {
         const addedData = localStorage.getItem("cartItems");
@@ -92,11 +115,7 @@ export default function CheckoutForm() {
 
 
 
-    const shipping = shippingMethod === "express"
-        ? 800
-        : 300;
 
-    const grandTotal = subTotal + shipping;
 
     const updateQty = (id, value) => {
         setQuantities((prev) => ({
@@ -119,14 +138,35 @@ export default function CheckoutForm() {
         });
     };
 
+
+    const applyCode = () => {
+        const enteredCode = code.trim().toUpperCase();
+
+        if (DISCOUNT_PROMOS[enteredCode]) {
+            setError("");
+            setSuccess(`✅ Promo code applied successfully`);
+            setPromoCode(true)
+
+            // apply discount logic here
+        } else {
+            setSuccess("")
+            setError("❌  Invalid propm code");
+            setPromoCode(false)
+        }
+    };
+    const shipping = shippingMethod === "express"
+        ? 800
+        : 300;
+
+    const DISCOUNT_PERCENT = 10;
+    const isPromoCodeDiscount = promoCode
+        ? subTotal - (subTotal * DISCOUNT_PERCENT) / 100
+        : subTotal;
+    const grandTotal = isPromoCodeDiscount + shipping;
+
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-        const shipping = subTotal === 0
-            ? 0
-            : shippingMethod === "express"
-                ? 800
-                : 300;
 
 
 
@@ -177,7 +217,7 @@ export default function CheckoutForm() {
                 method: "Cash on Delivery",
             },
             totals: {
-                subTotal,
+                subTotal: isPromoCodeDiscount,
                 shipping,
                 grandTotal,
             },
@@ -233,6 +273,15 @@ export default function CheckoutForm() {
                 hideProgressBar={false}
                 pauseOnHover
                 closeOnClick
+
+                toastClassName="small-toast"
+                bodyClassName="small-toast-body"
+
+                style={{ marginTop: "10px" }}
+                toastStyle={{
+                    transition: "all 0.6s ease"
+                }}
+
             />
 
 
@@ -242,6 +291,7 @@ export default function CheckoutForm() {
                 <div className="back-store">
                     <a onClick={handleBack} className="back-link">← Back to Store</a>
 
+                    <CartAccordion />
                     <h1 className="main-title">Checkout</h1>
                     <p className="subtitle">
                         Final Step to secure your signed copies
@@ -391,26 +441,181 @@ export default function CheckoutForm() {
                     </label>
                 </div>
 
+                <div className="edition-card">
+                    <h3>Edition Preference</h3>
+                    <div className="divider" />
 
-
-
-                {/* PAYMENT */}
-                <div className="checkout-card">
-                    <h2 className="section-title">Payment</h2>
-
-                    <p className="payment-note">
-                        Currently, only Cash on Delivery (COD) is supported for this region.
-                    </p>
-
-                    <label className="payment-option">
-                        <input type="radio" checked readOnly />
-                        <span>Cash on Delivery (COD)</span>
+                    {/* Simple Copy */}
+                    <label className={`option ${edition === "simple" ? "active" : ""}`}>
+                        <input
+                            type="radio"
+                            name="edition"
+                            value="simple"
+                            checked={edition === "simple"}
+                            onChange={() => setEdition("simple")}
+                        />
+                        <span>Simple Copy</span>
                     </label>
+
+                    {/* Signed Copy */}
+                    <label className={`option ${edition === "signed" ? "active" : ""}`}>
+                        <input
+                            type="radio"
+                            name="edition"
+                            value="signed"
+                            checked={edition === "signed"}
+                            onChange={() => setEdition("signed")}
+                        />
+                        <div>
+                            <span>Signed Copy</span>
+                            <small>Note: Requires Pre-payment</small>
+                        </div>
+                    </label>
+
+                    {/* Extra fields */}
+                    {edition === "signed" && (
+                        <div className="signed-fields">
+                            <div className="field">
+                                <label>Name for signature</label>
+                                <input
+                                    type="text"
+                                    placeholder="Enter name"
+                                    value={name}
+                                    onChange={(e) => setName(e.target.value)}
+                                />
+                            </div>
+
+                            <div className="field">
+                                <label>Choose a line</label>
+                                <select value={line} onChange={(e) => setLine(e.target.value)}>
+                                    <option value="">Select a couplet...</option>
+                                    <option value="line1">Couplet 1</option>
+                                    <option value="line2">Couplet 2</option>
+                                    <option value="line3">Couplet 3</option>
+                                </select>
+                            </div>
+                        </div>
+                    )}
+                </div>
+
+                <div className="payment-card">
+                    <h3>Payment</h3>
+                    <div className="divider" />
+
+                    {/* Cash on Delivery */}
+                    <label className={`pay-option ${method === "cod" ? "active" : ""}`}>
+                        <input
+                            type="radio"
+                            name="method"
+                            checked={method === "cod"}
+                            onChange={() => setMethod("cod")}
+                        />
+                        <div className="pay-content disabled">
+                            <div className="icon">
+                                <FiTruck />
+                            </div>
+                            <div>
+                                <h4>Cash on Delivery</h4>
+                                <p>Ships on 1st January 2026</p>
+                            </div>
+                        </div>
+                    </label>
+
+                    {/* Pre-payment */}
+                    <label className={`pay-option ${method === "prepaid" ? "active" : ""}`}>
+                        <input
+                            type="radio"
+                            name="method"
+                            checked={method === "prepaid"}
+                            onChange={() => setMethod("prepaid")}
+                        />
+                        <div className="pay-content">
+                            <div className="icon">
+                                <FiCreditCard />
+                            </div>
+                            <div>
+                                <h4>Pre-payment</h4>
+                                <p className="green">Ships Tomorrow + Saves Rs.300</p>
+                            </div>
+                        </div>
+                    </label>
+
+                    {/* Gateways */}
+                    {method === "prepaid" && (
+                        <div className="gateway-section">
+                            <span className="gateway-title">Select Payment Gateway:</span>
+
+                            <label className="gateway">
+                                <input
+                                    type="radio"
+                                    name="gateway"
+                                    checked={gateway === "bank"}
+                                    onChange={() => setGateway("bank")}
+                                />
+                                <FiHome />
+                                <span>Bank Transfer</span>
+                            </label>
+
+                            <label className="gateway">
+                                <input
+                                    type="radio"
+                                    name="gateway"
+                                    checked={gateway === "wallet"}
+                                    onChange={() => setGateway("wallet")}
+                                />
+                                <FiSmartphone />
+                                <span>Jazzcash / Easypaisa</span>
+                            </label>
+
+                            <label className="gateway">
+                                <input
+                                    type="radio"
+                                    name="gateway"
+                                    checked={gateway === "card"}
+                                    onChange={() => setGateway("card")}
+                                />
+                                <FiCreditCard />
+                                <span>Debit / Credit Card</span>
+                            </label>
+
+                            {/* <label className="gateway">
+                                <input
+                                    type="radio"
+                                    name="gateway"
+                                    checked={gateway === "paypal"}
+                                    onChange={() => setGateway("paypal")}
+                                />
+                                <FiCreditCard />
+                                <span disabled> PayPal</span>
+                            </label> */}
+                        </div>
+                    )}
                 </div>
 
                 {/* ORDER SUMMARY */}
                 <div className="checkout-card">
-                    <h2 className="section-title">Order Summary</h2>
+                    <h2 className="section-title">Order Review</h2>
+
+                    <a
+                        className="back-link"
+                        onClick={() => setOpen(!open)}
+                    >
+                        Have a discount code? Save 10%
+                    </a>
+
+                    {open && (
+                        <div className="discount-box">
+                            <input
+                                type="text"
+                                placeholder="Enter code"
+                                value={code}
+                                onChange={(e) => setCode(e.target.value)}
+                            />
+                            <button onClick={applyCode}>Apply</button>
+                        </div>
+                    )}
+                    {error && <p className="error-text">{error}</p>}
+                    {success && <p className="success-text">{success}</p>}
 
                     <div className="summary-line">
                         <span>SubTotal</span>

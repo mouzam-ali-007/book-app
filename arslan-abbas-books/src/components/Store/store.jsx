@@ -62,7 +62,7 @@ const books = [
         title: "Dard-e-nayab",
         desc: "Pain becomes treasure",
         price: "Rs. 1,000",
-        highlight: true,
+        highlight: false,
         images: [
             "/assets/Dard-e-Nayaab.PNG",
 
@@ -90,11 +90,15 @@ const Store = () => {
             </div>
 
             <div className="books-grid">
+
                 {books.map((book) => (
+
                     <div
                         key={book.id}
                         className={`book-card ${book.highlight ? "highlight" : ""}`}
+                        onClick={() => setSelectedBook(book)}
                     >
+
                         <span className="tag">{book.tag}</span>
                         {book.subTag && <span className="sub-tag">{book.subTag}</span>}
 

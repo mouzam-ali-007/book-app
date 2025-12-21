@@ -81,6 +81,7 @@ const ExcitementModal = ({ close }) => {
                 hideProgressBar={false}
                 pauseOnHover
                 closeOnClick
+
             />
 
 
