@@ -384,7 +384,7 @@ export default function CheckoutForm() {
 
                         />
                         <input type="text"
-                            name="phone"
+                            name="secondary"
                             value={formData.secondary}
                             placeholder="Secondary Contact"
 
@@ -415,7 +415,7 @@ export default function CheckoutForm() {
 
                     <div className="input-row">
                         <input type="text"
-                            name="address"
+                            name="nearAddress"
                             placeholder="Nearest Famous Point"
                             value={formData.nearAddress}
                             onChange={handleChange}
