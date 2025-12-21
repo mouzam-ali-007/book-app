@@ -76,7 +76,9 @@ export default function CheckoutForm() {
         fullName: "",
         email: "",
         phone: "",
+        secondary: "",
         address: "",
+        nearAddress: '',
         city: "",
         postalCode: "",
         notes: "",
@@ -369,13 +371,9 @@ export default function CheckoutForm() {
                     </div>
 
                     <div className="input-row two-col">
-                        <input type="email"
 
-                            name="email"
-                            value={formData.email}
-                            onChange={handleChange}
-                            placeholder="Email Address"
-                        />
+
+
                         <input type="text"
                             name="phone"
                             value={formData.phone}
@@ -383,6 +381,25 @@ export default function CheckoutForm() {
 
                             onChange={handleChange}
 
+
+                        />
+                        <input type="text"
+                            name="phone"
+                            value={formData.secondary}
+                            placeholder="Secondary Contact"
+
+                            onChange={handleChange}
+
+                        />
+                    </div>
+
+                    <div className="input-row">
+                        <input type="email"
+
+                            name="email"
+                            value={formData.email}
+                            onChange={handleChange}
+                            placeholder="Email Address"
                         />
                     </div>
 
@@ -396,6 +413,15 @@ export default function CheckoutForm() {
                         />
                     </div>
 
+                    <div className="input-row">
+                        <input type="text"
+                            name="address"
+                            placeholder="Nearest Famous Point"
+                            value={formData.nearAddress}
+                            onChange={handleChange}
+
+                        />
+                    </div>
                     <div className="input-row two-col">
                         <input type="text" placeholder="City"
                             name="city"
