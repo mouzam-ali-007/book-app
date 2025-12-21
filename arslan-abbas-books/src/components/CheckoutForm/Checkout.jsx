@@ -46,6 +46,8 @@ const booksList = [
 
 export default function CheckoutForm() {
     const navigate = useNavigate();
+
+
     const [orderData, setOrderData] = useState(false);
 
     const [shippingMethod, setShippingMethod] = useState("standard");
@@ -162,7 +164,11 @@ export default function CheckoutForm() {
     const isPromoCodeDiscount = promoCode
         ? subTotal - (subTotal * DISCOUNT_PERCENT) / 100
         : subTotal;
-    const grandTotal = isPromoCodeDiscount + shipping;
+
+
+    const finalAmount = method === 'prepaid' ? isPromoCodeDiscount - 300 : isPromoCodeDiscount
+
+    const grandTotal = finalAmount + shipping;
 
 
     const handleSubmit = async (e) => {
@@ -213,9 +219,7 @@ export default function CheckoutForm() {
                 method: shippingMethod,
                 cost: shipping,
             },
-            payment: {
-                method: "Cash on Delivery",
-            },
+
             totals: {
                 subTotal: isPromoCodeDiscount,
                 shipping,
@@ -223,10 +227,18 @@ export default function CheckoutForm() {
             },
             status: "Pending",
 
+            ...(edition === "simple" && { edition: 'simple' }),
+            ...(edition === "signed" && { edition: "signed", signed: { name, line } }),
+
+            ...(method === "cod" && { method }),
+            ...(method !== "cod" && { method: { prepayment: gateway } }),
+
+            ...(promoCode && { code: promoCode }),
+
+
         };
 
 
-        console.log("orderRequest", orderRequest)
         setOrderData(orderRequest)
         setIsSubmitting(true);
 
@@ -248,14 +260,16 @@ export default function CheckoutForm() {
             setTimeout(() => {
                 navigate('/')
             }, 5000)
+            localStorage.removeItem('cartItems')
 
         } catch (err) {
             toast.error("Something went wrong");
             console.error(err);
             setIsSubmitting(false);
+            localStorage.removeItem('cartItems')
         }
 
-        localStorage.removeItem('cartItems')
+
 
     };
 

@@ -14,6 +14,7 @@ const ViewDetailsModal = ({ book, close, onNext, onPrev }) => {
     const { addToCart, toggleBag, cartItems } = useCart();
     const totalItems = cartItems.reduce((acc, item) => acc + item.quantity, 0);
 
+    const [totalDataCount, setTotalDataCount] = useState(cartItems.length || 0)
 
     const [isClosing, setIsClosing] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
@@ -25,6 +26,13 @@ const ViewDetailsModal = ({ book, close, onNext, onPrev }) => {
             setIsClosing(false);
         }, 250); // match animation time
     };
+
+    useEffect(() => {
+        const latestData = localStorage.getItem("cartItems");
+        const latestParsedData = latestData ? JSON.parse(latestData) : [];
+
+        setTotalDataCount(latestParsedData.length)
+    }, [localStorage.getItem("cartItems")])
 
     const showToaster = (version, count) => {
 
@@ -238,7 +246,7 @@ const ViewDetailsModal = ({ book, close, onNext, onPrev }) => {
                 </div>
                 <button className="place-order-btn" onClick={toggleBag}>
                     <FiShoppingCart className="cart-icon" />
-                    Bag <span className="bag-count">{totalItems}</span>
+                    Bag <span className="bag-count">{totalDataCount}</span>
                 </button>
             </div>
 
