@@ -71,6 +71,12 @@ h1 {
     margin-bottom: 20px;
 }
 
+.all-books {
+    text-align: center;
+    padding-top: 12px;
+}
+
+
 .cover-placeholder {
     height: 220px;
     background: linear-gradient(180deg, #222, #111);
@@ -137,5 +143,10 @@ h1 {
 
     .hand-signed {
         margin-left: 7%
+    }
+
+    .all-books {
+        text-align: center;
+        padding-top: 12px;
     }
 }

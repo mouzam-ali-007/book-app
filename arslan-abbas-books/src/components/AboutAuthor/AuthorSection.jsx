@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import "./AuthorSection.css";
+import { useNavigate } from "react-router-dom";
 
 const AuthorSection = () => {
+    const navigate = useNavigate()
     const [followers, setFollowers] = useState(0);
     const [views, setViews] = useState(0);
 
@@ -35,6 +37,10 @@ const AuthorSection = () => {
             clearInterval(viewsInterval);
         };
     }, []);
+
+    const handleAbout = () => {
+        navigate('/about')
+    }
 
     return (
         <section className="author-section">
@@ -94,6 +100,7 @@ const AuthorSection = () => {
                     <a
 
                         className="author-cta-button"
+                        onClick={handleAbout}
                     >
                         Read The Full Story
                     </a>

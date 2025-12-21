@@ -84,7 +84,7 @@ const Store = () => {
             <div className="hand-signed">
                 <a href="/" className="back-link">← Back to Home</a>
 
-                <h1>All books.</h1>
+                <h1 className="all-books">All books.</h1>
                 <p className="subtitle">Hand-signed. Limited. Yours forever.</p>
 
             </div>
