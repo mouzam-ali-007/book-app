@@ -259,9 +259,7 @@ export default function CheckoutForm() {
             localStorage.setItem("checkoutOrder", JSON.stringify(orderRequest));
             setIsSubmitting(false);
             setIsModalOpen(true)
-            setTimeout(() => {
-                //  navigate('/')
-            }, 5000)
+
             localStorage.removeItem('cartItems')
 
         } catch (err) {

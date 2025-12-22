@@ -10,6 +10,21 @@ const OrderSuccessModal = ({ order, close }) => {
 
     const { customer = {}, status, subtotal, shipping, totals } = order;
 
+    setTimeout(() => {
+        //  navigate('/')
+    }, 5000)
+
+
+    const onClose = () => {
+        close()
+        navigate('/store')
+    }
+
+
+    const handleReturnToShare = () => {
+        navigate('/store')
+    }
+
     const handleWhatsAppShare = () => {
         const message = `
       Hey I have place the Order. Below are my Order
@@ -44,7 +59,7 @@ const OrderSuccessModal = ({ order, close }) => {
         <div className="modal-overlay" onClick={close}>
             <div className="modal-box order-modal" onClick={(e) => e.stopPropagation()}>
 
-                <button className="close-btn" onClick={close}>×</button>
+                {/* <button className="close-btn" onClick={onClose}>×</button> */}
 
                 <div className="order-wrapper">
                     <div className="order-card">
@@ -54,33 +69,38 @@ const OrderSuccessModal = ({ order, close }) => {
 
 
                             <div>
+                                <div className="checkmark-circle">
+                                    <svg
+                                        className="checkmark-icon"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                        strokeWidth={2}
+                                    >
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            d="M5 13l4 4L19 7"
+                                        />
+                                    </svg>
+                                </div>
 
                                 <div className="title-row">
-                                    <div className="checkmark-circle">
-                                        <svg
-                                            className="checkmark-icon"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                            stroke="currentColor"
-                                            strokeWidth={2}
-                                        >
-                                            <path
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                                d="M5 13l4 4L19 7"
-                                            />
-                                        </svg>
-                                    </div>
 
-                                    <h1 className="order-title">Thank You for Your Order!</h1>
+                                    <h1 className="order-title">
+                                        Thank You{customer?.fullName ? `, ${customer.fullName}` : ''}!
+                                    </h1>
+
                                 </div>
 
                                 <p className="order-subtitle">
-                                    We've received your order and will process it shortly.
+                                    Your order has been placed successfully.
+
+
                                 </p>
                             </div>
 
-                            <span className="status-pill">{status}</span>
+
                         </div>
 
                         {/* Grid */}
@@ -128,13 +148,23 @@ const OrderSuccessModal = ({ order, close }) => {
 
 
                                 <div className="share-row total">
-                                    <span>Share Details</span>
+
                                     <div className="share-icons">
-                                        <FaWhatsapp
-                                            className="whatsapp-icon"
-                                            onClick={handleWhatsAppShare}
-                                            title="Share on WhatsApp"
-                                        />
+
+                                        <button className="whatsapp-btn" onClick={handleWhatsAppShare}>
+                                            <FaWhatsapp /> Share Details at WhatsApp
+                                        </button>
+
+
+                                    </div>
+
+                                    <div className="share-icons">
+
+                                        <button className="return-btn" onClick={handleReturnToShare}>
+                                            Return to Store
+                                        </button>
+
+
                                     </div>
                                 </div>
 
