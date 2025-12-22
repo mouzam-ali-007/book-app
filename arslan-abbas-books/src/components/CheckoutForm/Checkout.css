@@ -570,6 +570,7 @@ input[type="radio"]:checked::before {
     display: inline-block;
     transition: transform 0.3s ease;
     font-size: 12px;
+    margin-right: 5px;
 }
 
 .arrow.rotate {
@@ -580,6 +581,16 @@ input[type="radio"]:checked::before {
 .payment-card h3 {
     font-size: 28px;
     margin-bottom: 12px;
+}
+
+.total-amount.prepaid {
+    color: green;
+    /* prepaid */
+}
+
+.total-amount.postpaid {
+    color: #7c83ff;
+    /* other methods */
 }
 
 .divider {

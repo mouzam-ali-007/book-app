@@ -698,8 +698,12 @@ export default function CheckoutForm() {
                     </div>
 
                     <div className="summary-line total">
-                        <span>Order Total</span>
-                        <span>Rs. {grandTotal}</span>
+                        <span className={method === 'prepaid' ? 'total-amount prepaid' : 'total-amount postpaid'}>Order Total</span>
+
+
+                        <span className={method === 'prepaid' ? 'total-amount prepaid' : 'total-amount postpaid'}>
+                            Rs. {grandTotal}
+                        </span>
                     </div>
 
                     {grandTotal === 0 && (
