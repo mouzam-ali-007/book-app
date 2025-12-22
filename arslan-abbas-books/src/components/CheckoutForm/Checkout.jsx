@@ -152,13 +152,13 @@ export default function CheckoutForm() {
 
         if (DISCOUNT_PROMOS[enteredCode]) {
             setError("");
-            setSuccess(`✅ Promo code applied successfully`);
+            setSuccess(`Promo code applied successfully`);
             setPromoCode(true)
 
             // apply discount logic here
         } else {
             setSuccess("")
-            setError("❌  Invalid propm code");
+            setError("Invalid propm code");
             setPromoCode(false)
         }
     };
@@ -179,10 +179,6 @@ export default function CheckoutForm() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-
-
-
 
         if (!formData.fullName || !formData.phone || !formData.city) {
             toast.error("Please fill required fields");

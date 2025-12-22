@@ -37,14 +37,14 @@
 
 .title {
     color: #818cf8;
-    font-size: 18px;
+    font-size: 1.1rem;
 }
 
 .cart-total {
 
     font-weight: 600;
-    font-size: 1.25rem;
-    line-height: 1.75rem;
+    font-size: 1.1rem;
+    line-height: 1.15rem;
 }
 
 /* Body */
@@ -59,20 +59,21 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 4px;
 }
 
 .item-info h4 {
 
     margin-bottom: 4px;
-    font-size: 1.25rem;
+    font-size: 1.0rem;
     line-height: 1.75rem;
 }
 
 .item-info p {
     color: #9ca3af;
     font-size: 18px;
-    font-size: 1.25rem;
-    line-height: 1.75rem;
+    font-size: 0.9rem;
+    line-height: 0.15rem;
 }
 
 /* Actions */
@@ -98,7 +99,7 @@
 }
 
 .price {
-    font-size: 22px;
+    font-size: 1.1rem;
     font-weight: 500;
     margin-left: 10px;
 }
@@ -107,7 +108,7 @@
 .divider {
     height: 1px;
     background: #1f2937;
-    margin: 22px 0;
+    margin: 0px 0;
 }
 
 /* Summary */
