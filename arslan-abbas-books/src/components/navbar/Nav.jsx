@@ -33,11 +33,6 @@ const Navbar = () => {
                 <li><a href="/">Contact</a></li>
             </ul>
 
-            {/* Cart Icon */}
-            <button className="cart-btn" onClick={toggleBag}>
-                <FiShoppingCart />
-                {totalCount > 0 && <span className="cart-count">{totalCount}</span>}
-            </button>
 
             {/* <button className="preorder transition duration-200" onClick={handlePreOrderClick}>
 
