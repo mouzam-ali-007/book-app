@@ -118,6 +118,10 @@ export default function CheckoutForm() {
 
 
 
+    useEffect(() => {
+        // Always default to prepaid when edition changes
+        setMethod("prepaid");
+    }, [edition]);
 
 
 
@@ -543,7 +547,7 @@ export default function CheckoutForm() {
                     <div className="divider" />
 
                     {/* Cash on Delivery */}
-                    <label className={`pay-option ${method === "cod" ? "active" : ""}`}>
+                    {/* <label className={`pay-option ${method === "cod" ? "active" : ""}`}>
                         <input
                             type="radio"
                             name="method"
@@ -559,7 +563,36 @@ export default function CheckoutForm() {
                                 <p>Ships on 1st January 2026</p>
                             </div>
                         </div>
+                    </label> */}
+
+
+                    <label
+                        className={`pay-option ${method === "cod" ? "active" : ""
+                            } ${edition === "signed" ? "disabled" : ""}`}
+                    >
+                        <input
+                            type="radio"
+                            name="method"
+                            checked={method === "cod"}
+                            disabled={edition === "signed"}
+                            onChange={() => setMethod("cod")}
+                        />
+
+                        <div className="pay-content disabled">
+                            <div className="icon">
+                                <FiTruck />
+                            </div>
+                            <div>
+                                <h4>Cash on Delivery</h4>
+                                <p>
+                                    {edition === "signed"
+                                        ? "Not available for signed copies"
+                                        : "Ships on 1st January 2026"}
+                                </p>
+                            </div>
+                        </div>
                     </label>
+
 
                     {/* Pre-payment */}
                     <label className={`pay-option ${method === "prepaid" ? "active" : ""}`}>
