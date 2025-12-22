@@ -32,24 +32,24 @@ const Bag = () => {
                             const product = PRODUCTS[item.title];
                             const maxQty = product ? product.max : 10; // fallback
                             return (
-                            <div key={item.id} className="bag-item">
-                                <div className="item-info">
-                                    <h3>{item.title}</h3>
-                                    <p className="item-price">{item.price} <span className="item-multiply">× {item.quantity}</span></p>
-                                </div>
-                                <div className="item-actions">
-                                    <div className="qty-controls">
-                                        <button onClick={() => updateQuantity(item.title, item.quantity - 1)} disabled={item.quantity <= 1}>-</button>
-                                        <button onClick={() => updateQuantity(item.title, item.quantity + 1)} disabled={item.quantity >= maxQty}>+</button>
+                                <div key={item.id} className="bag-item">
+                                    <div className="item-info">
+                                        <h3>{item.title}</h3>
+                                        <p className="item-price">{item.price} <span className="item-multiply">× {item.quantity}</span></p>
                                     </div>
-                                    <button className="delete-btn" style={{ marginLeft: "5px" }} onClick={() => removeFromCart(item.title)}>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                            <polyline points="3 6 5 6 21 6"></polyline>
-                                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                                        </svg>
-                                    </button>
+                                    <div className="item-actions">
+                                        <div className="qty-controls">
+                                            <button onClick={() => updateQuantity(item.title, item.quantity - 1)} disabled={item.quantity <= 1}>-</button>
+                                            <button onClick={() => updateQuantity(item.title, item.quantity + 1)} disabled={item.quantity >= maxQty}>+</button>
+                                        </div>
+                                        <button className="delete-btn" style={{ marginLeft: "5px" }} onClick={() => removeFromCart(item.title)}>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                <polyline points="3 6 5 6 21 6"></polyline>
+                                                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                            </svg>
+                                        </button>
+                                    </div>
                                 </div>
-                            </div>
                             );
                         })
                     )}

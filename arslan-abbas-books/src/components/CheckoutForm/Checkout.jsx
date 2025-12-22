@@ -261,10 +261,9 @@ export default function CheckoutForm() {
             localStorage.setItem("checkoutOrder", JSON.stringify(orderRequest));
             setIsSubmitting(false);
             setIsModalOpen(true)
-            emptyCart();
-            setTimeout(() => {
-                //  navigate('/')
-            }, 5000)
+
+
+            localStorage.removeItem('cartItems')
 
         } catch (err) {
             toast.error("Something went wrong");

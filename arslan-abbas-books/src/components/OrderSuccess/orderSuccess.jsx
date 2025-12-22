@@ -8,21 +8,30 @@ import { FaWhatsapp } from "react-icons/fa";
 const OrderSuccessModal = ({ order, close }) => {
     const navigate = useNavigate();
 
-    const { customer = {}, status, subtotal, shipping, totals } = order;
+    const { customer = {}, status, subtotal, shipping, totals, books, method } = order;
+
+    console.log("books", order)
+
+
+    const onClose = () => {
+        close()
+        navigate('/store')
+    }
+
+
+    const handleReturnToShare = () => {
+        navigate('/store')
+    }
 
     const handleWhatsAppShare = () => {
         const message = `
-      Hey I have place the Order. Below are my Order
-      Details. I have paid the amount and i am sharing
-      the screenshot with you.
+     Salam! I have placed an order.
       
-      Name: ${customer?.fullName || ""}
-      Phone: ${customer?.phone || ""}
-      Address: ${customer?.address || ""}
-      Notes: ${customer?.notes || ""}
-      Status: ${status || ""}
-      Shipping: ${shipping?.method || ""}
-      Total: Rs ${totals?.grandTotal || ""}
+     Name: ${customer?.fullName || ""}
+     Total: Rs ${totals?.grandTotal || ""}
+     Payment Method: ${method?.prepayment || "COD"}
+
+      Attached is my payment proof.
       `;
 
         const url = `https://wa.me/jahanzaad?text=${encodeURIComponent(message)}`;
@@ -44,7 +53,7 @@ const OrderSuccessModal = ({ order, close }) => {
         <div className="modal-overlay" onClick={close}>
             <div className="modal-box order-modal" onClick={(e) => e.stopPropagation()}>
 
-                <button className="close-btn" onClick={close}>×</button>
+                {/* <button className="close-btn" onClick={onClose}>×</button> */}
 
                 <div className="order-wrapper">
                     <div className="order-card">
@@ -53,34 +62,35 @@ const OrderSuccessModal = ({ order, close }) => {
                         <div className="order-header">
 
 
-                            <div>
-
-                                <div className="title-row">
-                                    <div className="checkmark-circle">
-                                        <svg
-                                            className="checkmark-icon"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                            stroke="currentColor"
-                                            strokeWidth={2}
-                                        >
-                                            <path
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                                d="M5 13l4 4L19 7"
-                                            />
-                                        </svg>
-                                    </div>
-
-                                    <h1 className="order-title">Thank You for Your Order!</h1>
+                            <div className="success-header">
+                                <div className="checkmark-circle">
+                                    <svg
+                                        className="checkmark-icon"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                        strokeWidth={2}
+                                    >
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            d="M5 13l4 4L19 7"
+                                        />
+                                    </svg>
                                 </div>
 
+
+                                <h1 className="order-title">
+                                    Thank You{customer?.fullName ? `, ${customer.fullName}` : ''}!
+                                </h1>
+
                                 <p className="order-subtitle">
-                                    We've received your order and will process it shortly.
+                                    Your order has been placed successfully.
                                 </p>
                             </div>
 
-                            <span className="status-pill">{status}</span>
+
+
                         </div>
 
                         {/* Grid */}
@@ -90,51 +100,69 @@ const OrderSuccessModal = ({ order, close }) => {
 
                             {/* Right */}
                             <aside className="order-summary">
-                                <h4 className="summary-title">Order Summary</h4>
 
-                                <div className="summary-row">
-                                    <span>Name</span>
-                                    <b>{customer?.fullName}</b>
-                                </div>
-                                <div className="summary-row">
-                                    <span>Contact</span>
-                                    <b>{customer?.phone}</b>
-                                </div>
+                                <div className="section-card">
+                                    <h3 className="card-title">Order Summary</h3>
 
-                                <div className="summary-row">
-                                    <span>SubTotal</span>
-                                    <b>{formatCurrency(totals?.subTotal)}</b>
-                                </div>
+                                    {books.map((book, index) => (
+                                        <div key={index} className="card-row">
+                                            <span className="item-name">
+                                                {book.title} x{book.quantity}
+                                            </span>
+                                            <b className="item-price">
+                                                {book.price.toLocaleString()}
+                                            </b>
+                                        </div>
+                                    ))}
 
-                                <div className="summary-row">
-                                    <span>Shipping</span>
-                                    <b>{(shipping?.method)}</b>
-                                </div>
+                                    <div className="divider" />
 
-
-
-                                <div className="summary-row ">
-                                    <span>Bank Details</span>
-                                    <b>{'HBL 09312984971848'}</b>
-                                </div>
-
-                                <hr />
-                                <div className="summary-row total">
-                                    <span>Grand Total</span>
-                                    <b>{formatCurrency(totals?.grandTotal)}</b>
+                                    <div className="card-row total">
+                                        <span>Total</span>
+                                        <b className="item-price">
+                                            {totals?.grandTotal}
+                                        </b>
+                                    </div>
                                 </div>
 
 
+                                <div className="section-card payment-card">
+                                    <h3 className="card-title accent">
+                                        Please Transfer your amount to:
+                                    </h3>
+
+                                    <p className="payment-method">For Jazzcash/Easypaisa</p>
+
+                                    <div className="payment-row">
+                                        <span>Title:</span>
+                                        <b>Jahanzaad Books</b>
+                                    </div>
+
+                                    <div className="payment-row">
+                                        <span>A/c No:</span>
+                                        <b>03221080910</b>
+                                    </div>
+                                </div>
 
 
                                 <div className="share-row total">
-                                    <span>Share Details</span>
+
                                     <div className="share-icons">
-                                        <FaWhatsapp
-                                            className="whatsapp-icon"
-                                            onClick={handleWhatsAppShare}
-                                            title="Share on WhatsApp"
-                                        />
+
+                                        <button className="whatsapp-btn" onClick={handleWhatsAppShare}>
+                                            <FaWhatsapp /> Share Details at WhatsApp
+                                        </button>
+
+
+                                    </div>
+
+                                    <div className="share-icons">
+
+                                        <button className="return-btn" onClick={handleReturnToShare}>
+                                            Return to Store
+                                        </button>
+
+
                                     </div>
                                 </div>
 
