@@ -152,13 +152,13 @@ export default function CheckoutForm() {
 
         if (DISCOUNT_PROMOS[enteredCode]) {
             setError("");
-            setSuccess(`✅ Promo code applied successfully`);
+            setSuccess(`Promo code applied successfully`);
             setPromoCode(true)
 
             // apply discount logic here
         } else {
             setSuccess("")
-            setError("❌  Invalid propm code");
+            setError("Invalid propm code");
             setPromoCode(false)
         }
     };
@@ -179,10 +179,6 @@ export default function CheckoutForm() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-
-
-
 
         if (!formData.fullName || !formData.phone || !formData.city) {
             toast.error("Please fill required fields");
@@ -263,9 +259,7 @@ export default function CheckoutForm() {
             localStorage.setItem("checkoutOrder", JSON.stringify(orderRequest));
             setIsSubmitting(false);
             setIsModalOpen(true)
-            setTimeout(() => {
-                navigate('/')
-            }, 5000)
+
             localStorage.removeItem('cartItems')
 
         } catch (err) {
@@ -673,6 +667,7 @@ export default function CheckoutForm() {
                         className="back-link"
                         onClick={() => setOpen(!open)}
                     >
+                        <span className={`arrow ${open ? 'rotate' : ''}`}>⌃</span>
                         Have a discount code? Save 10%
                     </a>
 
@@ -701,8 +696,12 @@ export default function CheckoutForm() {
                     </div>
 
                     <div className="summary-line total">
-                        <span>Order Total</span>
-                        <span>Rs. {grandTotal}</span>
+                        <span className={method === 'prepaid' ? 'total-amount prepaid' : 'total-amount postpaid'}>Order Total</span>
+
+
+                        <span className={method === 'prepaid' ? 'total-amount prepaid' : 'total-amount postpaid'}>
+                            Rs. {grandTotal}
+                        </span>
                     </div>
 
                     {grandTotal === 0 && (
