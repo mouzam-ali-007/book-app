@@ -9,6 +9,7 @@ export const DISCOUNT_PROMOS = {
 }
 export const PRODUCTS = {
     "Complete Works": {
+        id: 2,
         title: "Complete Works",
         subtitle: "3-Book Bundle",
         price: "Rs. 3,100",
@@ -31,6 +32,7 @@ export const PRODUCTS = {
     },
 
     "Musafirat": {
+        id: 1,
         title: "Musafirat",
         subtitle: "Limited 1st Edition",
         price: "Rs. 1,500",
@@ -55,6 +57,7 @@ export const PRODUCTS = {
 
 
     "Dil-e-Khwabzad": {
+        id: 3,
         title: "Dil-e-Khwabzed",
         subtitle: "9th Edition",
         price: "Rs. 1000",
@@ -76,6 +79,7 @@ export const PRODUCTS = {
     },
 
     "Dard-e-nayab": {
+        id: 4,
         title: "Dard-e-nayab",
         subtitle: "3rd Edition",
         price: "Rs. 1,000",

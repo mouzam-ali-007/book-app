@@ -1,5 +1,6 @@
 
 import React, { createContext, useContext, useState, useEffect } from "react";
+import { PRODUCTS } from "../utilities/constants";
 
 const CartContext = createContext();
 
@@ -48,16 +49,20 @@ export const CartProvider = ({ children }) => {
         setCartItems([])
     }
 
-    const updateQuantity = (id, newQuantity) => {
+    const updateQuantity = (title, newQuantity) => {
         if (newQuantity < 1) return;
+        const product = PRODUCTS[title];
+        if (product && newQuantity > product.max) return;
         setCartItems((prevItems) =>
             prevItems.map((item) =>
-                item.id === id ? { ...item, quantity: newQuantity } : item
+                item.title === title ? { ...item, quantity: newQuantity } : item
             )
         );
     };
 
     const toggleBag = () => setIsBagOpen((prev) => !prev);
+
+    const totalCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
 
     const subtotal = cartItems.reduce((acc, item) => {
         // Assuming price is a string like "Rs. 1,000" or number
@@ -77,6 +82,7 @@ export const CartProvider = ({ children }) => {
                 updateQuantity,
                 isBagOpen,
                 toggleBag,
+                totalCount,
                 subtotal
             }}
         >

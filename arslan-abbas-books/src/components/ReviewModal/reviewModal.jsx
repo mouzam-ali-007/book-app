@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import "./ReviewModal.css";
+import "./reviewModal.css";
 import { BASE_URL } from "../../utilities/constants";
 
 const ReviewModal = ({ close }) => {

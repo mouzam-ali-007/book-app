@@ -1,5 +1,5 @@
 import React from "react";
-import "./OrderSuccess.css";
+import "./orderSuccess.css";
 import { useNavigate } from "react-router-dom";
 import { FaWhatsapp } from "react-icons/fa";
 
