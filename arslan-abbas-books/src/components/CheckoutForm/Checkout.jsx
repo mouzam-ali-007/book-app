@@ -669,6 +669,7 @@ export default function CheckoutForm() {
                         className="back-link"
                         onClick={() => setOpen(!open)}
                     >
+                        <span className={`arrow ${open ? 'rotate' : ''}`}>⌃</span>
                         Have a discount code? Save 10%
                     </a>
 
