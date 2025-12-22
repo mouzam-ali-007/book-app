@@ -11,10 +11,7 @@ const ViewDetailsModal = ({ book, close, onNext, onPrev }) => {
     const [rotateY, setRotateY] = useState(-25); // Default perspective angle
 
     const [orderCount, setOrderCount] = useState(1);
-    const { addToCart, toggleBag, cartItems } = useCart();
-    const totalItems = cartItems.reduce((acc, item) => acc + item.quantity, 0);
-
-    const [totalDataCount, setTotalDataCount] = useState(cartItems.length || 0)
+    const { addToCart, toggleBag, cartItems, totalCount } = useCart();
 
     const [isClosing, setIsClosing] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
@@ -27,46 +24,10 @@ const ViewDetailsModal = ({ book, close, onNext, onPrev }) => {
         }, 250); // match animation time
     };
 
-    useEffect(() => {
-        const latestData = localStorage.getItem("cartItems");
-        const latestParsedData = latestData ? JSON.parse(latestData) : [];
-
-        setTotalDataCount(latestParsedData.length)
-    }, [localStorage.getItem("cartItems")])
-
     const showToaster = (version, count) => {
-
-
-        const addedData = localStorage.getItem("cartItems");
-        const parsedData = addedData ? JSON.parse(addedData) : [];
-
-        const existingItem = parsedData.find(
-            (item) => item.title === version.title
-        );
-
-
-        if (existingItem) {
-            // Check if adding orderCount exceeds max allowed
-            if (existingItem.quantity + orderCount > version.max) {
-                toast.error(`Maximum ${version.max} copies allowed`);
-                return;
-            } else {
-                // Optional: Update quantity if you allow incrementing
-                // existingItem.quantity += orderCount
-                // localStorage.setItem("cartItems", JSON.stringify(parsedData));
-                toast.error(`Item already in cart`); // Or skip adding
-                return;
-            }
-        }
-
-
-        addToCart(version, count)
+        addToCart(version, count);
         toast.success("Added to the bag");
-
-    }
-
-
-
+    };
 
     const [version, setVersion] = useState(null);
     // Reset image index and rotation when book changes
@@ -79,7 +40,14 @@ const ViewDetailsModal = ({ book, close, onNext, onPrev }) => {
         const matchedProduct = PRODUCTS[book.title];
         setVersion(matchedProduct || null);
 
-    }, [book]);
+        // Set orderCount based on available slots
+        if (matchedProduct) {
+            const existingItem = cartItems.find((item) => item.title === matchedProduct.title);
+            const currentQty = existingItem ? existingItem.quantity : 0;
+            const maxAllowed = matchedProduct.max - currentQty;
+            setOrderCount(maxAllowed > 0 ? 1 : 0);
+        }
+    }, [book, cartItems]);
 
 
 
@@ -96,9 +64,16 @@ const ViewDetailsModal = ({ book, close, onNext, onPrev }) => {
 
     if (!version) return null;
 
+    const existingItem = cartItems.find((item) => item.title === version.title);
+    const currentQty = existingItem ? existingItem.quantity : 0;
+    const maxAllowed = version.max - currentQty;
+
 
     const increase = () => {
-        setOrderCount((prev) => Math.min(prev + 1, version.max));
+        const existingItem = cartItems.find((item) => item.title === version.title);
+        const currentQty = existingItem ? existingItem.quantity : 0;
+        const maxAllowed = version.max - currentQty;
+        setOrderCount((prev) => Math.min(prev + 1, maxAllowed));
     };
 
     const decrease = () => {
@@ -156,11 +131,11 @@ const ViewDetailsModal = ({ book, close, onNext, onPrev }) => {
                         <p className="price">{version.price}</p>
 
                         <div className="order-row">
-                            <button className="qty" onClick={decrease}>−</button>
-                            <button className="order-btn" onClick={() => showToaster(version, orderCount)}>
+                            <button className="qty" onClick={decrease} disabled={orderCount <= 1}>−</button>
+                            <button className="order-btn" onClick={() => showToaster(version, orderCount)} disabled={orderCount === 0}>
                                 Order {orderCount} Copies
                             </button>
-                            <button className="qty" onClick={increase}>+</button>
+                            <button className="qty" onClick={increase} disabled={orderCount >= maxAllowed}>+</button>
                         </div>
 
                         <p className="limit">Max {version.max} per person</p>
@@ -246,7 +221,7 @@ const ViewDetailsModal = ({ book, close, onNext, onPrev }) => {
                 </div>
                 <button className="place-order-btn" onClick={toggleBag}>
                     <FiShoppingCart className="cart-icon" />
-                    Bag <span className="bag-count">{totalDataCount}</span>
+                    Bag <span className="bag-count">{totalCount}</span>
                 </button>
             </div>
 

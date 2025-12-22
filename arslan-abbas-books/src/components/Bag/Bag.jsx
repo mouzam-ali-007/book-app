@@ -35,8 +35,8 @@ const Bag = () => {
                                 </div>
                                 <div className="item-actions">
                                     <div className="qty-controls">
-                                        <button onClick={() => updateQuantity(item.id, item.quantity - 1)}>-</button>
-                                        <button onClick={() => updateQuantity(item.id, item.quantity + 1)}>+</button>
+                                        <button onClick={() => updateQuantity(item.title, item.quantity - 1)}>-</button>
+                                        <button onClick={() => updateQuantity(item.title, item.quantity + 1)}>+</button>
                                     </div>
                                     <button className="delete-btn" style={{ marginLeft: "5px" }} onClick={() => removeFromCart(item.title)}>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

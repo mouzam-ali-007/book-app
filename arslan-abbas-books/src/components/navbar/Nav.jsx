@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useCart } from "../../context/CartContext";
+import { FiShoppingCart } from "react-icons/fi";
 import "./Nav.css";
 
 const Navbar = () => {
     const navigate = useNavigate();
+    const { toggleBag, totalCount } = useCart();
     const [open, setOpen] = useState(false);
 
 
@@ -29,6 +32,12 @@ const Navbar = () => {
                 <li onClick={handleAboutClick}><a>About</a></li>
                 <li><a href="/">Contact</a></li>
             </ul>
+
+            {/* Cart Icon */}
+            <button className="cart-btn" onClick={toggleBag}>
+                <FiShoppingCart />
+                {totalCount > 0 && <span className="cart-count">{totalCount}</span>}
+            </button>
 
             {/* <button className="preorder transition duration-200" onClick={handlePreOrderClick}>
 
