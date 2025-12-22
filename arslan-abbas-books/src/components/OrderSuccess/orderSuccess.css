@@ -89,6 +89,24 @@
     color: #1ebe5d;
 }
 
+.title-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.share-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    color: #eee;
+    margin-top: 20px;
+}
+
+.order-title h1 {
+    font-size: 1.9rem;
+}
+
 
 .whatsapp-share-btn {
     margin-top: 16px;

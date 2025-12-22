@@ -12,18 +12,24 @@ const OrderSuccessModal = ({ order, close }) => {
 
     const handleWhatsAppShare = () => {
         const message = `
-      ✅ New Order Placed!
+      Hey I have place the Order. Below are my Order
+      Details. I have paid the amount and i am sharing
+      the screenshot with you.
       
       Name: ${customer?.fullName || ""}
+      Phone: ${customer?.phone || ""}
+      Address: ${customer?.address || ""}
+      Notes: ${customer?.notes || ""}
       Status: ${status || ""}
       Shipping: ${shipping?.method || ""}
       Total: Rs ${totals?.grandTotal || ""}
       `;
 
-        const phoneNumber = "923001234567"; // YOUR WhatsApp number (no +)
-        const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+        const url = `https://wa.me/jahanzaad?text=${encodeURIComponent(message)}`;
         window.open(url, "_blank");
     };
+
+
 
     if (!order) {
         navigate("/");;
@@ -49,23 +55,25 @@ const OrderSuccessModal = ({ order, close }) => {
 
                             <div>
 
-                                <div className="checkmark-circle">
-                                    <svg
-                                        className="checkmark-icon"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke="currentColor"
-                                        strokeWidth={2}
-                                    >
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            d="M5 13l4 4L19 7"
-                                        />
-                                    </svg>
-                                </div>
+                                <div className="title-row">
+                                    <div className="checkmark-circle">
+                                        <svg
+                                            className="checkmark-icon"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            stroke="currentColor"
+                                            strokeWidth={2}
+                                        >
+                                            <path
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                d="M5 13l4 4L19 7"
+                                            />
+                                        </svg>
+                                    </div>
 
-                                <h1 className="order-title"> Thank You for Your Order!</h1>
+                                    <h1 className="order-title">Thank You for Your Order!</h1>
+                                </div>
 
                                 <p className="order-subtitle">
                                     We've received your order and will process it shortly.
@@ -119,14 +127,18 @@ const OrderSuccessModal = ({ order, close }) => {
 
 
 
-
-                                <div className="share-icons">
-                                    <FaWhatsapp
-                                        className="whatsapp-icon"
-                                        onClick={handleWhatsAppShare}
-                                        title="Share on WhatsApp"
-                                    />
+                                <div className="share-row total">
+                                    <span>Share Details</span>
+                                    <div className="share-icons">
+                                        <FaWhatsapp
+                                            className="whatsapp-icon"
+                                            onClick={handleWhatsAppShare}
+                                            title="Share on WhatsApp"
+                                        />
+                                    </div>
                                 </div>
+
+
 
 
                             </aside>
