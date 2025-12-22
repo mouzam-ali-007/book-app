@@ -28,7 +28,7 @@ export const CartProvider = ({ children }) => {
             const existingItem = prevItems.find((item) => item.title === product.title);
             if (existingItem) {
                 return prevItems.map((item) =>
-                    item.id === product.id
+                    item.title === product.title
                         ? { ...item, quantity: item.quantity + quantity }
                         : item
                 );
@@ -39,9 +39,14 @@ export const CartProvider = ({ children }) => {
         setIsBagOpen(true);
     };
 
+
     const removeFromCart = (title) => {
         setCartItems((prevItems) => prevItems.filter((item) => item.title !== title));
     };
+
+    const emptyCart = () => {
+        setCartItems([])
+    }
 
     const updateQuantity = (id, newQuantity) => {
         if (newQuantity < 1) return;
@@ -68,6 +73,7 @@ export const CartProvider = ({ children }) => {
                 cartItems,
                 addToCart,
                 removeFromCart,
+                emptyCart,
                 updateQuantity,
                 isBagOpen,
                 toggleBag,

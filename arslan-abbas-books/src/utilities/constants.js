@@ -3,6 +3,10 @@ export const DEV_URL = "http://localhost:8001/"
 export const BASE_URL = "https://test-apid.vercel.app/"
 
 
+export const DISCOUNT_PROMOS = {
+    DKZ10: 10,
+    DEN10: 10,
+}
 export const PRODUCTS = {
     "Complete Works": {
         title: "Complete Works",

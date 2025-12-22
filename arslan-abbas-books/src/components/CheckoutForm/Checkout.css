@@ -28,6 +28,19 @@
     margin-bottom: 25px;
 }
 
+.small-toast {
+    height: 10%;
+    width: 100%;
+    padding: 8px 8px;
+    border-radius: 0.9rem;
+}
+
+.small-toast-body {
+    font-size: 13px;
+    line-height: 1.4;
+    padding: 0;
+}
+
 .book-card {
 
 
@@ -315,12 +328,13 @@
     border-bottom: 1px dashed #222;
     color: #ddd;
     font-size: 15px;
+    margin-top: 5px;
 }
 
 .summary-line.total {
     font-size: 16px;
     font-weight: 600;
-    color: #fff;
+    color: #7c83ff
 }
 
 /* BUTTONS */
@@ -338,6 +352,18 @@
     margin-top: 5%;
 }
 
+.success-text {
+    color: #22c55e;
+    font-size: 13px;
+    margin-top: 6px;
+}
+
+.error-text {
+    color: red;
+    font-size: 13px;
+    margin-top: 6px;
+}
+
 .hand-store {
     margin-top: 8%;
     text-align: left;
@@ -353,7 +379,7 @@
 
 
     position: fixed;
-    bottom: 0px;
+    bottom: 20px;
     right: 20px;
 
     background: #5a4bff;
@@ -416,6 +442,274 @@
 }
 
 
+.edition-card {
+    background: linear-gradient(180deg, #0f0f0f, #070707);
+    border-radius: 18px;
+    border: 1px solid #1f2937;
+    padding: 24px;
+    color: white;
+}
+
+.edition-card h3 {
+    font-size: 26px;
+    margin-bottom: 12px;
+}
+
+.divider {
+    height: 1px;
+    background: #1f2937;
+    margin-bottom: 20px;
+}
+
+/* hide the default radio */
+input[type="radio"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 2px solid #fff;
+    /* blue border */
+    border-radius: 50%;
+    position: relative;
+    cursor: pointer;
+}
+
+/* inner circle when checked */
+input[type="radio"]:checked::before {
+    content: '';
+    width: 10px;
+    height: 10px;
+    background-color: #0070f3;
+    /* blue fill */
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Options */
+.option {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 18px;
+    border-radius: 14px;
+    border: 1px solid #2a2a2a;
+    margin-bottom: 14px;
+    cursor: pointer;
+    transition: border 0.3s ease;
+}
+
+.option.active {
+    border-color: #6366f1;
+}
+
+.option input {
+    accent-color: white;
+    transform: scale(1.2);
+}
+
+.option span {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.option small {
+    display: block;
+    margin-top: 6px;
+    color: #818cf8;
+    font-size: 15px;
+}
+
+/* Signed fields */
+.signed-fields {
+    margin-top: 20px;
+    padding-top: 18px;
+    border-top: 1px solid #1f2937;
+}
+
+.field {
+    margin-bottom: 18px;
+}
+
+.field label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 18px;
+    color: #d1d5db;
+}
+
+.field input,
+.field select {
+    width: 100%;
+    padding: 14px 16px;
+    border-radius: 14px;
+    background: #1a1a1a;
+    border: 1px solid #2a2a2a;
+    color: white;
+    font-size: 18px;
+    outline: none;
+}
+
+.field input:focus,
+.field select:focus {
+    border-color: #6366f1;
+}
+
+.payment-card {
+    background: linear-gradient(180deg, #0f0f0f, #070707);
+    border-radius: 18px;
+    border: 1px solid #1f2937;
+    padding: 26px;
+    color: white;
+    margin-top: 30px;
+}
+
+.payment-card h3 {
+    font-size: 28px;
+    margin-bottom: 12px;
+}
+
+.divider {
+    height: 1px;
+    background: #1f2937;
+    margin-bottom: 22px;
+}
+
+/* Payment option */
+.pay-option {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 18px;
+    border-radius: 16px;
+    border: 1px solid #2a2a2a;
+    margin-bottom: 16px;
+    cursor: pointer;
+}
+
+.pay-option.active {
+    border-color: #6366f1;
+}
+
+.pay-option input {
+    transform: scale(1.2);
+    accent-color: white;
+}
+
+.pay-content {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.pay-content.disabled {
+    opacity: 0.5;
+}
+
+.icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: #111827;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #818cf8;
+    font-size: 20px;
+}
+
+.pay-content h4 {
+    font-size: 20px;
+    margin-bottom: 4px;
+}
+
+.pay-content p {
+    font-size: 15px;
+    color: #9ca3af;
+}
+
+.pay-content .green {
+    color: #22c55e;
+}
+
+/* Gateway section */
+.gateway-section {
+    margin-top: 26px;
+    padding-left: 16px;
+    border-left: 2px solid #1f2937;
+}
+
+.gateway-title {
+    display: block;
+    font-size: 18px;
+    margin-bottom: 16px;
+    color: #d1d5db;
+}
+
+.gateway {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+    cursor: pointer;
+}
+
+.gateway input {
+    transform: scale(1.1);
+    accent-color: white;
+}
+
+.gateway svg {
+    color: #818cf8;
+    font-size: 20px;
+}
+
+.gateway span {
+    font-size: 18px;
+}
+
+.discount-wrapper {
+    margin-top: 16px;
+}
+
+.back-link {
+    color: #0070f3;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.discount-box {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.discount-box input {
+
+
+    width: 100%;
+    background: #111;
+    border: 1px solid #222;
+    border-radius: 12px;
+    padding: 14px 16px;
+    color: #fff;
+    font-size: 14px;
+    outline: none;
+}
+
+.discount-box button {
+    padding: 8px 14px;
+    background: linear-gradient(135deg, #6a5cff, #4b3cff);
+    color: #fff;
+    border: none;
+    border-radius: 0.9rem;
+    cursor: pointer;
+}
+
+
+
 /* 📱 MOBILE VIEW — stack books vertically */
 @media (max-width: 700px) {
     .books-row {
@@ -427,5 +721,18 @@
     .book-card {
         width: 90%;
         max-width: 320px;
+    }
+
+    .small-toast {
+        height: 10%;
+        width: 70%;
+        padding: 8px 8px;
+        border-radius: 0.9rem;
+    }
+
+    .small-toast-body {
+        font-size: 13px;
+        line-height: 1.4;
+        padding: 0;
     }
 }

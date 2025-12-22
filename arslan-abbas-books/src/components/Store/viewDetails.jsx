@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useCart } from "../../context/CartContext.jsx";
 import "./viewDetails.css";
 import { PRODUCTS } from "../../utilities/constants";
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer, toast, Slide, Zoom, Flip } from 'react-toastify';
+import { FiShoppingCart } from "react-icons/fi";
 
 const ViewDetailsModal = ({ book, close, onNext, onPrev }) => {
     const [index, setIndex] = useState(0);
@@ -12,6 +13,26 @@ const ViewDetailsModal = ({ book, close, onNext, onPrev }) => {
     const [orderCount, setOrderCount] = useState(1);
     const { addToCart, toggleBag, cartItems } = useCart();
     const totalItems = cartItems.reduce((acc, item) => acc + item.quantity, 0);
+
+    const [totalDataCount, setTotalDataCount] = useState(cartItems.length || 0)
+
+    const [isClosing, setIsClosing] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
+    const closeModal = () => {
+        close()
+        setIsClosing(true);
+        setTimeout(() => {
+            setIsOpen(false);
+            setIsClosing(false);
+        }, 250); // match animation time
+    };
+
+    useEffect(() => {
+        const latestData = localStorage.getItem("cartItems");
+        const latestParsedData = latestData ? JSON.parse(latestData) : [];
+
+        setTotalDataCount(latestParsedData.length)
+    }, [localStorage.getItem("cartItems")])
 
     const showToaster = (version, count) => {
 
@@ -98,7 +119,9 @@ const ViewDetailsModal = ({ book, close, onNext, onPrev }) => {
     return (
         <>
 
-            <div className="details-overlay" onClick={close}>
+
+
+            <div className={`details-overlay ${isClosing ? "closing" : ""}`} onClick={closeModal}>
 
                 <ToastContainer
                     position="top-right"
@@ -106,12 +129,22 @@ const ViewDetailsModal = ({ book, close, onNext, onPrev }) => {
                     hideProgressBar={false}
                     pauseOnHover
                     closeOnClick
+                    transition={Slide}
+                    toastClassName="small-toast"
+                    bodyClassName="small-toast-body"
+
+                    style={{ marginTop: "10px" }}
+                    toastStyle={{
+                        transition: "all 0.6s ease"
+                    }}
                 />
 
-                <div className="details-modal" onClick={(e) => e.stopPropagation()}>
+
+
+                <div className={`details-modal ${isClosing ? "closing" : ""}`} onClick={(e) => e.stopPropagation()}>
 
                     <div className="modal-header-actions">
-                        <button className="close-btn" onClick={close}>✕</button>
+                        <button className="close-btn" onClick={closeModal}>✕</button>
                     </div>
 
 
@@ -153,7 +186,7 @@ const ViewDetailsModal = ({ book, close, onNext, onPrev }) => {
                         {!isRotating ? (
                             <>
                                 <div className="slider">
-                                    <img src={version.images[index]} alt={version.title} />
+                                    <img src={version.images[index]} alt={version.title} loading="lazy" />
                                     <button className="nav left" onClick={prevImage}>‹</button>
                                     <button className="nav right" onClick={nextImage}>›</button>
                                 </div>
@@ -179,7 +212,7 @@ const ViewDetailsModal = ({ book, close, onNext, onPrev }) => {
                                 >
                                     <div className="book-face front">
 
-                                        <img src={version.images[index]} alt="Front Cover" />
+                                        <img src={version.images[index]} alt="Front Cover" loading="lazy" />
                                     </div>
                                     <div className="book-face spine"></div>
                                     <div className="book-face back"></div>
@@ -192,7 +225,7 @@ const ViewDetailsModal = ({ book, close, onNext, onPrev }) => {
                     {/* CARD 3 — OVERVIEW */}
                     <div className="card">
                         <h3 className="overview">Overview</h3>
-                        <h3 className="handcover">Handcover  <p className="handcover-value">{version.handcover}</p></h3>
+                        <h3 className="handcover">  <p className="handcover-value">{version.handcover}</p></h3>
 
                         <p className="description">{version.description}</p>
                     </div>
@@ -212,7 +245,8 @@ const ViewDetailsModal = ({ book, close, onNext, onPrev }) => {
                     </div>
                 </div>
                 <button className="place-order-btn" onClick={toggleBag}>
-                    Bag <span className="bag-count">{totalItems}</span>
+                    <FiShoppingCart className="cart-icon" />
+                    Bag <span className="bag-count">{totalDataCount}</span>
                 </button>
             </div>
 

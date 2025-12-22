@@ -15,11 +15,25 @@
     color: #fff;
 }
 
+
+.details-overlay.closing {
+    animation: overlayFadeOut 0.25s ease-in forwards;
+}
+
+.details-modal.closing {
+    animation: modalFadeOut 0.25s ease-in forwards;
+}
+
 .modal-header-actions {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
+}
+
+.cart-icon {
+    font-size: 18px;
+    margin-right: 6px;
 }
 
 .close-btn {
@@ -35,6 +49,7 @@
     /* Center the X */
     align-items: center;
     justify-content: center;
+    margin-top: 10px;
 }
 
 .nav-book {
@@ -297,12 +312,13 @@
 }
 
 .qty {
-    width: 36px;
+    width: 40px;
     background: #1f1f1f;
     border: none;
     color: #fff;
     border-radius: 10px;
     cursor: pointer;
+    font-size: 24px;
 }
 
 .order-btn {
@@ -320,6 +336,19 @@
     color: #777;
     text-align: center;
     margin-top: 8px;
+}
+
+.small-toast {
+    height: 10%;
+    width: 70%;
+    padding: 8px 12px;
+    border-radius: 0.9rem;
+}
+
+.small-toast-body {
+    font-size: 13px;
+    line-height: 1.4;
+    padding: 0;
 }
 
 /* OVERVIEW */
