@@ -63,6 +63,141 @@
     background: #d1d5db;
 }
 
+.success-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* horizontal center */
+    text-align: center;
+    /* text center */
+    gap: 10px;
+
+    margin-left: 9%;
+}
+
+.order-title {
+    font-size: 22px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.section-card {
+    background: linear-gradient(180deg, #1e293b, #0f172a);
+    border-radius: 14px;
+    padding: 18px 16px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    margin-bottom: 18px;
+}
+
+.card-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #c7d2fe;
+    margin-bottom: 12px;
+}
+
+.card-title.accent {
+
+
+    color: #818cf8;
+    display: flex;
+    white-space: nowrap;
+    font-size: 16px;
+}
+
+.card-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* left & right */
+    gap: 40px;
+    padding: 8px 0;
+}
+
+.item-name {
+    flex: 1;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.item-price {
+    min-width: 90px;
+    text-align: right;
+    font-weight: 600;
+}
+
+.card-row span {
+    color: #cbd5f5;
+}
+
+.card-row.total {
+    font-size: 18px;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.divider {
+    height: 1px;
+    background: rgba(128, 125, 125, 0.12);
+    margin: 10px 0;
+}
+
+/* Payment Card */
+.payment-card {
+    margin-top: 8px;
+}
+
+.payment-method {
+    font-size: 18px;
+
+    color: #ffffff;
+    margin-bottom: 10px;
+
+    font-weight: 600;
+    color: #ffffff !important;
+    text-align: left;
+}
+
+.payment-row {
+    display: flex;
+    gap: 6px;
+    font-size: 15px;
+    color: #9ca3af;
+}
+
+.payment-row b {
+    color: #ffffff;
+    font-weight: 600;
+}
+
+
+.order-subtitle {
+    font-size: 14px;
+    color: #9ca3af;
+    margin: 0;
+    max-width: 300px;
+    /* keeps it clean */
+}
+
+.success-header {
+    animation: fadeUp 0.3s ease;
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
 /* ===============================
    Header
 ================================ */
@@ -180,7 +315,7 @@
     height: 45px;
     padding: 14px;
     background: rgb(22 163 74 / var(--tw-bg-opacity, 1));
-    color: #fff;
+    color: #fff !important;
     border: none;
     border-radius: 0.5rem !important;
     font-size: 0.9rem !important;
