@@ -7,6 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import OrderSuccessModal from "../OrderSuccess/orderSuccess";
 import { BASE_URL, DISCOUNT_PROMOS } from "../../utilities/constants";
 import CartAccordion from "./CartAccordian";
+import { useCart } from "../../context/CartContext";
 import {
     FiTruck,
     FiCreditCard,
@@ -46,6 +47,7 @@ const booksList = [
 
 export default function CheckoutForm() {
     const navigate = useNavigate();
+    const { emptyCart } = useCart();
 
 
     const [orderData, setOrderData] = useState(false);
@@ -259,16 +261,15 @@ export default function CheckoutForm() {
             localStorage.setItem("checkoutOrder", JSON.stringify(orderRequest));
             setIsSubmitting(false);
             setIsModalOpen(true)
+            emptyCart();
             setTimeout(() => {
                 //  navigate('/')
             }, 5000)
-            localStorage.removeItem('cartItems')
 
         } catch (err) {
             toast.error("Something went wrong");
             console.error(err);
-            setIsSubmitting(false);
-            localStorage.removeItem('cartItems')
+            setIsSubmitting(false)
         }
 
 

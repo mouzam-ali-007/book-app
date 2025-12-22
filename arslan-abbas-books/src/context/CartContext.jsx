@@ -1,5 +1,6 @@
 
 import React, { createContext, useContext, useState, useEffect } from "react";
+import { PRODUCTS } from "../utilities/constants";
 
 const CartContext = createContext();
 
@@ -50,6 +51,8 @@ export const CartProvider = ({ children }) => {
 
     const updateQuantity = (title, newQuantity) => {
         if (newQuantity < 1) return;
+        const product = PRODUCTS[title];
+        if (product && newQuantity > product.max) return;
         setCartItems((prevItems) =>
             prevItems.map((item) =>
                 item.title === title ? { ...item, quantity: newQuantity } : item

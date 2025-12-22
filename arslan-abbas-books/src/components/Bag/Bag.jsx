@@ -3,6 +3,7 @@ import React from "react";
 import "./Bag.css";
 import { useCart } from "../../context/CartContext";
 import { useNavigate } from "react-router-dom";
+import { PRODUCTS } from "../../utilities/constants";
 
 const Bag = () => {
     const { isBagOpen, toggleBag, cartItems, removeFromCart, updateQuantity, subtotal } = useCart();
@@ -27,7 +28,10 @@ const Bag = () => {
                     {cartItems.length === 0 ? (
                         <p className="empty-msg">Your bag is empty.</p>
                     ) : (
-                        cartItems.map((item) => (
+                        cartItems.map((item) => {
+                            const product = PRODUCTS[item.title];
+                            const maxQty = product ? product.max : 10; // fallback
+                            return (
                             <div key={item.id} className="bag-item">
                                 <div className="item-info">
                                     <h3>{item.title}</h3>
@@ -35,8 +39,8 @@ const Bag = () => {
                                 </div>
                                 <div className="item-actions">
                                     <div className="qty-controls">
-                                        <button onClick={() => updateQuantity(item.title, item.quantity - 1)}>-</button>
-                                        <button onClick={() => updateQuantity(item.title, item.quantity + 1)}>+</button>
+                                        <button onClick={() => updateQuantity(item.title, item.quantity - 1)} disabled={item.quantity <= 1}>-</button>
+                                        <button onClick={() => updateQuantity(item.title, item.quantity + 1)} disabled={item.quantity >= maxQty}>+</button>
                                     </div>
                                     <button className="delete-btn" style={{ marginLeft: "5px" }} onClick={() => removeFromCart(item.title)}>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -46,7 +50,8 @@ const Bag = () => {
                                     </button>
                                 </div>
                             </div>
-                        ))
+                            );
+                        })
                     )}
                 </div>
 
