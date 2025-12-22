@@ -260,7 +260,7 @@ export default function CheckoutForm() {
             setIsSubmitting(false);
             setIsModalOpen(true)
             setTimeout(() => {
-                navigate('/')
+                //  navigate('/')
             }, 5000)
             localStorage.removeItem('cartItems')
 

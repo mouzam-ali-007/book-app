@@ -75,3 +75,35 @@
 .modal-body p {
     margin: 4px 0;
 }
+
+
+.whatsapp-icon {
+    font-size: 28px;
+    color: #25D366;
+    cursor: pointer;
+    transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.whatsapp-icon:hover {
+    transform: scale(1.1);
+    color: #1ebe5d;
+}
+
+
+.whatsapp-share-btn {
+    margin-top: 16px;
+    width: 100%;
+    padding: 12px;
+    background: #25D366;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.whatsapp-share-btn:hover {
+    background: #1ebe5d;
+}
