@@ -25,6 +25,10 @@ const ViewDetailsModal = ({ book, close, onNext, onPrev }) => {
     };
 
     const showToaster = (version, count) => {
+        if (count === 0) {
+            toast.warning("Limit completed for this book");
+            return;
+        }
         addToCart(version, count);
         toast.success("Added to the bag");
     };
@@ -131,11 +135,23 @@ const ViewDetailsModal = ({ book, close, onNext, onPrev }) => {
                         <p className="price">{version.price}</p>
 
                         <div className="order-row">
-                            <button className="qty" onClick={decrease} disabled={orderCount <= 1}>−</button>
-                            <button className="order-btn" onClick={() => showToaster(version, orderCount)} disabled={orderCount === 0}>
-                                Order {orderCount} Copies
+                            <button className="qty" onClick={() => {
+                                if (orderCount <= 1) {
+                                    toast.warning("Minimum quantity is 1");
+                                    return;
+                                }
+                                decrease();
+                            }}>-</button>
+                            <button className="order-btn" onClick={() => showToaster(version, orderCount)}>
+                                {orderCount === 0 ? "Limit Reached" : `Order ${orderCount} Copies`}
                             </button>
-                            <button className="qty" onClick={increase} disabled={orderCount >= maxAllowed}>+</button>
+                            <button className="qty" onClick={() => {
+                                if (orderCount >= maxAllowed) {
+                                    toast.warning("Maximum limit reached");
+                                    return;
+                                }
+                                increase();
+                            }}>+</button>
                         </div>
 
                         <p className="limit">Max {version.max} per person</p>
