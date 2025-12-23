@@ -34,7 +34,8 @@ const OrderSuccessModal = ({ order, close }) => {
       Attached is my payment proof.
       `;
 
-        const url = `https://wa.me/jahanzaad?text=${encodeURIComponent(message)}`;
+        const phoneNumber = "923221080910";
+        const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
         window.open(url, "_blank");
     };
 
