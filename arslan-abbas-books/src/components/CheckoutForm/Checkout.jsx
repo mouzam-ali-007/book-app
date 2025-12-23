@@ -50,7 +50,7 @@ export default function CheckoutForm() {
     const { emptyCart } = useCart();
 
 
-    const [orderData, setOrderData] = useState(false);
+    const [orderData, setOrderData] = useState({});
 
     const [shippingMethod, setShippingMethod] = useState("standard");
 
@@ -73,6 +73,8 @@ export default function CheckoutForm() {
 
     const [method, setMethod] = useState("prepaid");
     const [gateway, setGateway] = useState("card");
+
+    const [discountedAmount, setDiscountedAmount] = useState(0);
 
     const [formData, setFormData] = useState({
         fullName: "",
@@ -157,6 +159,9 @@ export default function CheckoutForm() {
             setSuccess(`Promo code applied successfully`);
             setPromoCode(true)
 
+            const tenPercent = subTotal * 10 / 100;
+
+            setDiscountedAmount(tenPercent)
             // apply discount logic here
         } else {
             setSuccess("")
@@ -307,7 +312,7 @@ export default function CheckoutForm() {
                 <div className="back-store">
                     <a onClick={handleBack} className="back-link">← Back to Store</a>
 
-                    <CartAccordion />
+                    <CartAccordion shippingMethod={shippingMethod} />
                     <h1 className="main-title">Checkout</h1>
                     <p className="subtitle">
                         Final Step to secure your signed copies
@@ -540,7 +545,7 @@ export default function CheckoutForm() {
 
                 <div className="payment-card">
                     <h3>Payment</h3>
-                    <div className="divider" />
+
 
                     {/* Cash on Delivery */}
                     {/* <label className={`pay-option ${method === "cod" ? "active" : ""}`}>
@@ -692,16 +697,21 @@ export default function CheckoutForm() {
                         <span>Rs. {subTotal}</span>
                     </div>
 
+                    {promoCode && <div className="summary-line">
+                        <span className="total-amount prepaid">Discount</span>
+                        <span className="total-amount prepaid">-Rs. {discountedAmount}</span>
+                    </div>}
+
                     <div className="summary-line">
-                        <span>Shipping</span>
+                        <span className="'total-amount prepaid">Shipping</span>
                         <span>Rs. {shipping}</span>
                     </div>
 
-                    <div className="summary-line total">
-                        <span className={method === 'prepaid' ? 'total-amount prepaid' : 'total-amount postpaid'}>Order Total</span>
+                    <div className="summary-line ">
+                        <span>Order Total</span>
 
 
-                        <span className={method === 'prepaid' ? 'total-amount prepaid' : 'total-amount postpaid'}>
+                        <span >
                             Rs. {grandTotal}
                         </span>
                     </div>

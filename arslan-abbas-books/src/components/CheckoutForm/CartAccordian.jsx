@@ -2,7 +2,7 @@ import { useState, useMemo } from "react";
 import "./CartAccordian.css";
 import { useCart } from "../../context/CartContext";
 
-export default function CartAccordion() {
+export default function CartAccordion({ shippingMethod }) {
     const { isBagOpen, toggleBag, removeFromCart, updateQuantity } = useCart();
 
     const [open, setOpen] = useState(false);
@@ -11,6 +11,11 @@ export default function CartAccordion() {
         const data = localStorage.getItem("cartItems");
         return data ? JSON.parse(data) : [];
     }, []);
+
+    console.log("props", shippingMethod)
+    const shipping = shippingMethod === "express"
+        ? 800
+        : 300;
 
     // helpers
     const parsePrice = (price) =>
@@ -21,7 +26,7 @@ export default function CartAccordion() {
         0
     );
 
-    const shipping = cartItems.length ? 300 : 0;
+
     const total = subtotal + shipping;
 
     return (
@@ -80,6 +85,10 @@ export default function CartAccordion() {
                             <div>
                                 <span>Subtotal</span>
                                 <span>Rs. {subtotal.toLocaleString()}</span>
+                            </div>
+                            <div>
+                                <span>Shipping</span>
+                                <span>Rs. {shipping}</span>
                             </div>
                             {/* <div>
                                 <span>Shipping</span>
