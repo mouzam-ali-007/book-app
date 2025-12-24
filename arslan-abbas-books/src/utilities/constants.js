@@ -7,6 +7,11 @@ export const DISCOUNT_PROMOS = {
     DKZ10: 10,
     DEN10: 10,
 }
+
+// 'WELCOME10': 0.10,
+//     'FIRST20': 0.20,
+//     'STUD20': 0.20,
+//     'FREESHIP': 'free_shipping'
 export const PRODUCTS = {
     "Complete Works": {
         id: 2,

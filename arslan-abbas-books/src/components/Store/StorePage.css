@@ -495,6 +495,7 @@
     .store-drawer-item {
         width: 384px;
     }
+
 }
 
 .store-drawer-card {
@@ -738,6 +739,8 @@
     flex-direction: column;
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
     animation: slideInFromRight 0.3s ease-out;
+    height: 50%;
+    margin-top: 80%;
 }
 
 @keyframes slideInFromRight {
@@ -790,6 +793,8 @@
     display: flex;
     flex-direction: column;
     gap: 12px;
+
+    min-height: 0;
 }
 
 .store-minicart-empty {
@@ -1296,7 +1301,7 @@
     padding: 16px;
     border-radius: 12px;
     border: 1px solid #222;
-    text-align: center;
+
     cursor: pointer;
     transition: all 0.3s;
     background: #111;
@@ -1870,7 +1875,7 @@
 .store-success-summary {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+
     border-top: 1px solid #222;
     padding-top: 32px;
 }
@@ -1956,8 +1961,8 @@
 .store-success-summary-total-line {
     display: flex;
     justify-content: space-between;
-    align-items: flex-end;
-    padding-top: 16px;
+
+    padding-top: 12px;
 }
 
 .store-success-summary-total-label {
@@ -1971,12 +1976,24 @@
     color: white;
 }
 
+.store-success-close-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #555;
+}
+
+.store-success-close-btn:hover {
+    color: #000;
+}
+
 .store-success-footer {
     position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;
-    padding: 24px;
+
     background: #0a0a0a;
     border-top: 1px solid #222;
 }
@@ -2063,5 +2080,28 @@
         position: relative;
         overflow: hidden;
         box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    }
+
+    .store-product-name {
+        font-size: 24px;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        color: white;
+        margin-top: 40px;
+    }
+
+    .store-minicart {
+        position: relative;
+        width: 100%;
+        max-width: 384px;
+        background: #0a0a0a;
+        height: 100%;
+        border-left: 1px solid #222;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        animation: slideInFromRight 0.3s ease-out;
+        height: 50%;
+        margin-top: 80%;
     }
 }

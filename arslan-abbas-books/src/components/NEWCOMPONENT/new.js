@@ -3,6 +3,10 @@ import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
+import html2pdf from "html2pdf.js";
+
+
+
 // --- DATA ---
 const PRODUCTS = [
     {
@@ -218,6 +222,21 @@ export default function StorePage() {
             }
         }
     };
+
+    const savePDF = () => {
+        const element = document.getElementById("receipt");
+
+        const options = {
+            margin: 0.5,
+            filename: "order-receipt.pdf",
+            image: { type: "jpeg", quality: 0.98 },
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: "in", format: "a4", orientation: "portrait" }
+        };
+
+        html2pdf().set(options).from(element).save();
+    };
+
 
     const applyCoupon = () => {
         const code = couponCode.toUpperCase();
@@ -849,7 +868,7 @@ export default function StorePage() {
                         {/* TITLE BAR (For Mobile Receipt Context) */}
                         <div className="p-4 border-b border-[#222] flex justify-between items-center bg-[#0a0a0a] sticky top-0 z-10">
                             <span className="font-bold text-white">Order Receipt</span>
-                            <button onClick={() => window.print()} className="text-xs bg-[#222] px-3 py-1.5 rounded-full text-white hover:bg-[#333] flex items-center gap-2 transition">
+                            <button onClick={savePDF} className="text-xs bg-[#222] px-3 py-1.5 rounded-full text-white hover:bg-[#333] flex items-center gap-2 transition">
                                 <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
                                 Save Receipt
                             </button>

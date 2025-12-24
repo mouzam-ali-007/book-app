@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./StorePage.css";
+import { BASE_URL } from "../../utilities/constants";
 
 // --- DATA ---
 const PRODUCTS = [
@@ -93,6 +94,7 @@ export default function StorePage() {
     // --- CHECKOUT STATE ---
     const [isProcessing, setIsProcessing] = useState(false);
     const [orderId, setOrderId] = useState(null);
+    const navigate = useNavigate()
     const [formData, setFormData] = useState({
         name: '',
         phone: '',
@@ -232,6 +234,11 @@ export default function StorePage() {
         }
     };
 
+    const closeSuccessModal = () => {
+        setView(null); // or 'store' / 'cart' / whatever your default view is
+        navigate('/')
+    };
+
     const calculateTotals = () => {
         const itemsTotal = cart.reduce((s, i) => s + (i.price * i.qty), 0);
         let shipping = shippingService === 'express' ? SHIPPING_COSTS.express : SHIPPING_COSTS.standard;
@@ -263,7 +270,7 @@ export default function StorePage() {
     const { itemsTotal, shipping, grossTotal, codeDiscountAmount, prepayDiscountAmount, total } = calculateTotals();
     const hasDiscounts = codeDiscountAmount > 0 || prepayDiscountAmount > 0;
 
-    const validateAndOrder = () => {
+    const validateAndOrder = async () => {
         const newErrors = {};
         const { name, phone, altPhone, email, address, city, landmark } = formData;
 
@@ -309,7 +316,70 @@ export default function StorePage() {
                 setIsProcessing(false);
                 setView('success');
                 window.scrollTo(0, 0);
+
+
             }, 2000);
+
+            const orderRequest = {
+                customer: {
+                    fullName: formData.fullName,
+                    email: formData.email,
+                    phone: formData.phone,
+                    address: formData.address,
+                    city: formData.city,
+                    postalCode: formData.postalCode,
+                    notes: formData.notes,
+                },
+                books: '', // books
+                shipping: {
+                    method: shippingMethod,
+                    cost: shipping,
+                },
+
+                totals: {
+                    subTotal: isPromoCodeDiscount,
+                    shipping,
+                    grandTotal,
+                },
+                orderId: '',
+                status: "Pending",
+
+                ...(edition === "simple" && { edition: 'simple' }),
+                ...(edition === "signed" && { edition: "signed", signed: { name, line } }),
+
+                ...(method === "cod" && { method }),
+                ...(method !== "cod" && { method: { prepayment: gateway } }),
+
+                ...(promoCode && { code: promoCode }),
+
+
+            };
+
+
+            const url = `${BASE_URL}api/order`
+
+            try {
+                const res = await fetch(url, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(orderRequest),
+                });
+
+
+                localStorage.setItem("checkoutOrder", JSON.stringify(orderRequest));
+                // setIsSubmitting(false);
+                // setIsModalOpen(true)
+
+
+                localStorage.removeItem('cartItems')
+
+            } catch (err) {
+                toast.error("Something went wrong");
+                console.error(err);
+                //  setIsSubmitting(false)
+            }
         }
     };
 
@@ -837,10 +907,17 @@ export default function StorePage() {
                         {/* TITLE BAR */}
                         <div className="store-success-header">
                             <span className="store-success-header-title">Order Receipt</span>
-                            <button onClick={() => window.print()} className="store-success-print-btn">
+                            <button
+                                className="store-success-close-btn"
+                                onClick={closeSuccessModal}
+                                aria-label="Close"
+                            >
+                                ✕
+                            </button>
+                            {/* <button onClick={() => window.print()} className="store-success-print-btn">
                                 <svg className="store-success-print-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
                                 Save Receipt
-                            </button>
+                            </button> */}
                         </div>
 
                         {/* SCROLLABLE CONTENT */}
@@ -878,8 +955,9 @@ export default function StorePage() {
                                     <p className="store-success-payment-label">Transfer Details ({gateway})</p>
                                     <div className="store-success-payment-info">
                                         <p className="store-success-payment-title">{selectedAccount.title}</p>
-                                        <p className="store-success-payment-number">{selectedAccount.number}</p>
                                         <p className="store-success-payment-account-label">{selectedAccount.label}</p>
+                                        <p className="store-success-payment-number">{selectedAccount.number}</p>
+
                                     </div>
                                 </div>
                             )}
