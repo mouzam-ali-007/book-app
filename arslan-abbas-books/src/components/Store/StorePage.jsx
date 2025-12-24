@@ -312,51 +312,56 @@ export default function StorePage() {
             setOrderId(newId);
 
             setIsProcessing(true);
-            setTimeout(() => {
-                setIsProcessing(false);
-                setView('success');
-                window.scrollTo(0, 0);
 
+            // Format cart items for API
+            const formattedBooks = cart.map(item => ({
+                bookId: item.id,
+                title: item.name,
+                price: item.price,
+                quantity: item.qty,
+                total: item.price * item.qty,
+            }));
 
-            }, 2000);
+            // Calculate totals
+            const subTotalAfterDiscount = itemsTotal - codeDiscountAmount;
 
             const orderRequest = {
                 customer: {
-                    fullName: formData.fullName,
+                    fullName: formData.name,
                     email: formData.email,
                     phone: formData.phone,
                     address: formData.address,
                     city: formData.city,
                     postalCode: formData.postalCode,
                     notes: formData.notes,
+                    landmark: formData.landmark
                 },
-                books: '', // books
+                books: formattedBooks,
                 shipping: {
-                    method: shippingMethod,
+                    method: shippingService,
                     cost: shipping,
                 },
-
                 totals: {
-                    subTotal: isPromoCodeDiscount,
+                    subTotal: subTotalAfterDiscount,
                     shipping,
-                    grandTotal,
+                    grandTotal: total,
                 },
-                orderId: '',
+                orderId: newId,
                 status: "Pending",
-
-                ...(edition === "simple" && { edition: 'simple' }),
-                ...(edition === "signed" && { edition: "signed", signed: { name, line } }),
-
-                ...(method === "cod" && { method }),
-                ...(method !== "cod" && { method: { prepayment: gateway } }),
-
-                ...(promoCode && { code: promoCode }),
-
-
+                ...(editionType === "simple" && { edition: 'simple' }),
+                ...(editionType === "signed" && { 
+                    edition: "signed", 
+                    signed: { 
+                        name: signatureData.name, 
+                        line: signatureData.line === 'other' ? signatureData.custom : signatureData.line 
+                    } 
+                }),
+                ...(paymentMethod === "cod" && { method: "cod" }),
+                ...(paymentMethod !== "cod" && { method: { prepayment: gateway } }),
+                ...(appliedDiscount && appliedDiscount.code && { code: appliedDiscount.code }),
             };
 
-
-            const url = `${BASE_URL}api/order`
+            const url = `${BASE_URL}api/order`;
 
             try {
                 const res = await fetch(url, {
@@ -367,18 +372,27 @@ export default function StorePage() {
                     body: JSON.stringify(orderRequest),
                 });
 
+                if (!res.ok) {
+                    throw new Error(`HTTP error! status: ${res.status}`);
+                }
 
+                const responseData = await res.json();
+
+                // Store order in localStorage
                 localStorage.setItem("checkoutOrder", JSON.stringify(orderRequest));
-                // setIsSubmitting(false);
-                // setIsModalOpen(true)
+                
+                // Clear cart
+                setCart([]);
+                localStorage.removeItem('cartItems');
 
-
-                localStorage.removeItem('cartItems')
+                setIsProcessing(false);
+                setView('success');
+                window.scrollTo(0, 0);
 
             } catch (err) {
-                toast.error("Something went wrong");
-                console.error(err);
-                //  setIsSubmitting(false)
+                console.error("Order submission error:", err);
+                showToast("Something went wrong. Please try again.", 'error');
+                setIsProcessing(false);
             }
         }
     };
