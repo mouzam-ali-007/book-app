@@ -15,7 +15,7 @@ import OrderSuccess from './components/OrderSuccess/orderSuccess.jsx';
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import AuthorSection from './components/AboutAuthor/AuthorSection.jsx';
-import Store from './components/Store/store.jsx';
+import StorePage from './components/Store/StorePage.jsx';
 import ComingSoon from './components/LifeStory/lifeStory.jsx';
 import { CartProvider } from './context/CartContext';
 import Bag from './components/Bag/Bag';
@@ -122,7 +122,7 @@ function App() {
             <Route path="/" element={<MainPage />} />
             <Route path="/checkout" element={<CheckoutForm />} />
             <Route path="/order" element={<OrderSuccess />} />
-            <Route path="/store" element={<Store />} />
+            <Route path="/store" element={<StorePage />} />
             <Route path="/about" element={<ComingSoon />} />
           </Routes>
           <Bag />
