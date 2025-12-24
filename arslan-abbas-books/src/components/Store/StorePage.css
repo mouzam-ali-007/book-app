@@ -126,6 +126,7 @@
     transition: color 0.3s;
     font-weight: 500;
     text-decoration: none;
+    background-color: transparent;
 }
 
 .store-back-link:hover {
